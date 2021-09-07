@@ -23,7 +23,9 @@
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7",
-    "vue-js-modal": "^2.0.1"
+    "vue-carousel": "^0.18.0",
+    "vue-js-modal": "^2.0.1",
+    "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

@@ -13,15 +13,43 @@ module.exports = {
         'blue-border': '#023779',
         'yellow-primary': '#FFD700',
         'red-primary': '#FF0000',
+        'red-secondary': '#EB5757',
       },
       fontSize: {
+        xxs: '9px',
         'button': ['16px', { fontWeight: 600 }],
         'button-small': ['14px', { fontWeight: 600 }],
-      }
+      },
+      width: {
+        'fit-content': 'fit-content'
+      },
+      cursor: {
+        grab: 'grab'
+      },
+      screens: {
+        mobile: { max: '767px' },
+        desktop: { min: '768px' },
+        xs: { max: '374px' },
+        sm: { min: '375px', max: '767px' },
+        md: { min: '768px', max: '1024px' },
+        lg: { min: '1025px', max: '1439px' },
+        xl: { min: '1440px' }
+      },
     },
+    // container: {
+    //   screens: {
+    //      sm: "100%",
+    //      md: "100%",
+    //      lg: "95px",
+    //      xl: "90px"
+    //   }
+    // }
   },
   variants: {
     extend: {},
+  },
+  corePlugins: {
+    container: false
   },
   plugins: [
     plugin(function({ addBase, theme }) {
@@ -31,6 +59,29 @@ module.exports = {
         'h3': { fontSize: theme('fontSize.base') },
         'p': { fontSize: theme('fontSize.sm') },
       })
-    })
+    }),
+    function ({ addComponents }) {
+      addComponents({
+        '.container': {
+          width: '100%',
+          // marginLeft: 'auto',
+          // marginRight: 'auto',
+          // paddingLeft: '2rem',
+          // paddingRight: '2rem',
+          '@screen sm': {
+            maxWidth: '640px',
+          },
+          '@screen md': {
+            maxWidth: '768px',
+          },
+          '@screen lg': {
+            maxWidth: '95%',
+          },
+          '@screen xl': {
+            maxWidth: '90%',
+          },
+        }
+      })
+    }
   ],
 }

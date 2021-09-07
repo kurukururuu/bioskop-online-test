@@ -3,9 +3,9 @@ export default {
 }
 
 export const Default = () => `
-<div class="flex">
-  <BaseTag type="duration" class="mr-4" />
-  <BaseTag type="rent" class="mr-4" />
+<div class="flex flex-wrap">
+  <BaseTag type="duration" class="mr-4 mb-2" />
+  <BaseTag type="rent" class="mr-4 mb-2" />
   <BaseTag>PRE-ORDERS</BaseTag>
 </div>
 `

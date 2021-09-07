@@ -39,15 +39,15 @@ export const PreIcon = (args, { argTypes }) => ({
 export const PreIconDark = (args, { argTypes }) => ({
   components: { PathIcon, GoogleIcon, FacebookIcon },
   template: `
-    <div class="flex">
-      <BaseButton dark v-bind="$props">
+    <div class="flex flex-wrap">
+      <BaseButton dark v-bind="$props" class="mobile:w-fit-content mobile:px-2">
         <PathIcon slot="pre-icon" fill="#9BC7FD" width="16" height="16" class="mr-4" />Button
       </BaseButton>
-      <BaseButton dark v-bind="$props" class="ml-2">
+      <BaseButton dark v-bind="$props" class="ml-2 mobile:w-fit-content mobile:px-2">
         <GoogleIcon slot="pre-icon" width="24" height="24" class="mr-4" />
         <span class="text-white">Google</span>
       </BaseButton>
-      <BaseButton dark v-bind="$props" class="ml-2">
+      <BaseButton dark v-bind="$props" class="ml-2 mobile:w-fit-content mobile:px-2">
         <FacebookIcon slot="pre-icon" width="24" height="24" class="mr-4" />
         <span class="text-white">Facebook</span>
       </BaseButton>

@@ -1,17 +1,27 @@
 <template>
   <button
     :class="classes"
-    class="flex items-center justify-center py-3"
+    class="flex items-center justify-center py-3 w-36 mobile:w-24 mobile:py-1"
     >
-      <slot name="pre-icon"></slot>
+      <!-- <div class="mr-auto"> -->
+        <slot name="pre-icon"></slot>
+      <!-- </div> -->
       <span class="font-bold"><slot /></span>
-      <slot name="post-icon"></slot>
+      <!-- <div class="ml-auto"> -->
+        <slot name="post-icon"></slot>
+      <!-- </div> -->
     </button>
 </template>
 
 <script>
 export default {
   props: {
+    disabled: {
+      type: Boolean,
+      default () {
+        return false
+      }
+    },
     dark: {
       type: Boolean,
       default () {
@@ -63,7 +73,7 @@ export default {
 <style lang="scss" scoped>
   button {
     border-radius: 50px;
-    width: 150px;
+    // width: 150px;
     height: 46px;
     &.small {
       width: 92px;

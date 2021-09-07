@@ -4,14 +4,14 @@
       class="bg-blue-2 h-12 text-white border border-blue-3 hover:border-blue-4 flex items-center justify-between w-full px-5 py-3"
       :class="data ? 'rounded-full' : 'rounded-lg'">
       <span class="text-sm font-bold">{{voucherData.code}}</span>
-      <ArrowCircleRight :width="20" :height="20" />
+      <ArrowCircleRight fill="white" :width="20" :height="20" />
     </div>
     <div v-else
       class="bg-blue-2 h-12 text-white border border-blue-3 hover:border-blue-4 flex items-center justify-between w-full px-5 py-3 bg-cover bg-no-repeat"
       :class="data ? 'rounded-full' : 'rounded-lg'"
       style="background-image:url('/bg-voucher-ticket.png')">
       <span>Gunakan kode voucher</span>
-      <ArrowRight :width="20" :height="20" />
+      <ArrowRight fill="white" :width="20" :height="20" />
     </div>
   </button>
 </template>
@@ -19,13 +19,11 @@
 <script>
 import ArrowRight from '~/assets/icons/ArrowRight.svg?inline'
 import ArrowCircleRight from '~/assets/icons/ArrowCircleRight.svg?inline'
-// import TicketIcon from '~/assets/icons/Ticket.svg?inline'
 
 export default {
   components: {
     ArrowRight,
     ArrowCircleRight,
-    // TicketIcon
   },
   props: {
     data: {
