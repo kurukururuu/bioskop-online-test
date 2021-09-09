@@ -77,3 +77,11 @@ export const LayoutPackage = (args, { argTypes }) => ({
   </div>
 `
 })
+
+export const BaseFooter = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <BaseFooter />
+  </div>
+`
+})

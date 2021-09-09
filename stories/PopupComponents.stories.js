@@ -28,6 +28,14 @@ export const AccountLayoutLocation = (args, { argTypes }) => ({
 `
 })
 
+export const AccountEditPhone = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <AccountEditPhone />
+  </div>
+`
+})
+
 export const AccountEditGender = (args, { argTypes }) => ({
   template: `
   <div>
@@ -40,6 +48,14 @@ export const AccountEditLocation = (args, { argTypes }) => ({
   template: `
   <div>
     <AccountEditLocation />
+  </div>
+`
+})
+
+export const PaymentStepOne = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentStepOne />
   </div>
 `
 })

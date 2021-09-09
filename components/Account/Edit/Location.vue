@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col rounded-2xl desktop:w-96 bg-blue-1 p-8 mobile:p-4">
+  <div class="flex flex-col desktop:rounded-2xl desktop:w-96 bg-blue-1 p-8 mobile:p-4">
     <div class="text-xl font-bold text-white mb-8">Masukkan Lokasi</div>
 
     <form @submit.prevent="actionEdit">

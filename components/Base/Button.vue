@@ -1,6 +1,7 @@
 <template>
   <button
     :class="classes"
+    :disabled="disabled"
     class="flex items-center justify-center py-3 w-36 mobile:w-24 mobile:py-1"
     >
       <!-- <div class="mr-auto"> -->
