@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="flex mb-8">
-      <img src="https://via.placeholder.com/200x260" class="mobile:hidden">
+      <img :src="data.cover" class="mobile:hidden film-cover object-cover rounded-lg">
       <div class="flex flex-col w-full desktop:justify-end desktop:ml-8">
         <div class="flex justify-between items-center">
           <div>
-            <div class="text-2xl text-white font-bold">Judul Film</div>
+            <div class="text-2xl text-white font-bold">{{data.title}}</div>
             <div class="flex text-white items-center mb-4">
-              <div class="opacity-50 text-sm mr-2">Drama,Family</div>
-              <div class="opacity-50 text-sm mr-2 border rounded-sm px-1">17+</div>
-              <div class="opacity-50 text-sm">1 h 40 Menit</div>
+              <div class="opacity-50 text-sm mr-2">{{data.genre.join(', ')}}</div>
+              <div class="opacity-50 text-sm mr-2 border rounded-sm px-1">{{data.rating}}</div>
+              <div class="opacity-50 text-sm">{{data.duration}}</div>
             </div>
             <div class="text-yellow-primary text-lg font-bold mb-4">
-              Rp10.000
+              {{formatter.format(data.price)}}
             </div>
           </div>
           <div class="flex flex-col items-center desktop:hidden">
@@ -51,7 +51,7 @@
 
     <div class="text-white">
       <div class="text-sm mb-8 mobile:text-xs">
-        Cerita tentang sebuah keluarga yang ingin mempunyai hidup yang bermakna walau harus bertahan hidup dalam kemiskinan setelah Abah menjual semua harta keluarga mereka demi membayar hutang dan kesempatan kedua hidup yang lebih tenang.
+        {{ data.description }}
       </div>
 
       <div class="text-xl font-bold mb-2 mobile:text-xs">
@@ -59,19 +59,19 @@
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Tanggal Rilis</div>
-        <div>3 Januari 2019</div>
+        <div>{{dateConverter(data.releaseDate)}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Sutradara</div>
-        <div>Yandy Laurens</div>
+        <div>{{data.director.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Penulis</div>
-        <div>Gina S. Noer, Yandy Laurens</div>
+        <div>{{data.writer.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Perusahaan Produksi</div>
-        <div>Visinema Pictures</div>
+        <div>{{data.studio}}</div>
       </div>
     </div>
   </div>
@@ -82,6 +82,8 @@ import GiftIcon from '~/assets/icons/Gift.svg?inline'
 import PathCircleIcon from '~/assets/icons/PathCircle.svg?inline'
 import PlusIcon from '~/assets/icons/PlusCircle.svg?inline'
 import UploadIcon from '~/assets/icons/Upload.svg?inline'
+import formatter from '~/assets/js/helper/currencyFormatter'
+import dateConverter from '~/assets/js/helper/convertDate'
 
 export default {
   components: {
@@ -97,6 +99,18 @@ export default {
         return {}
       }
     }
+  },
+  data() {
+    return {
+      formatter, dateConverter
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.film-cover {
+  width: 200px;
+  height: 260px;
+}
+</style>

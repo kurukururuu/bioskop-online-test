@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import Film from '~/assets/js/models/Film'
+
 export default {
   title: 'Component',
   argTypes: {
@@ -14,27 +17,63 @@ export const BaseNavbar = (args, { argTypes }) => ({
 })
 
 export const FilmInfo = (args, { argTypes }) => ({
+  computed: {
+    film() {
+      const film = new Film()
+      return film.createDummy()
+    }
+  },
   template: `
   <div>
-    <FilmInfo />
+    <FilmInfo :data="film" />
   </div>
 `
 })
 
 export const DefaultCarousel = (args, { argTypes }) => ({
+  computed: {
+    films() {
+      const films = []
+      const film = new Film()
+      for (let i = 0; i < 15; i++) {
+        films.push(film.createDummy())
+      }
+      return films
+    }
+  },
   template: `
     <div class="p-4">
-      <VueCarousel />
+      <VueCarousel :data="films" @item-clicked="handleClick" />
     </div>
-  `
+  `,
+  methods: {
+    handleClick(payload) {
+      console.log('clicked', payload)
+    }
+  }
 })
 
 export const BannerCarousel = (args, { argTypes }) => ({
+  computed: {
+    films() {
+      const films = []
+      const film = new Film()
+      for (let i = 0; i < 7; i++) {
+        films.push(film.createDummy())
+      }
+      return films
+    }
+  },
   template: `
     <div class="p-4">
-      <BannerCarousel />
+      <BannerCarousel :data="films" @active-click="handleActiveClick" />
     </div>
-  `
+  `,
+  methods: {
+    handleActiveClick(payload) {
+      console.log('clicked active slide', payload)
+    }
+  }
 })
 
 export const MenuBar = (args, { argTypes }) => ({

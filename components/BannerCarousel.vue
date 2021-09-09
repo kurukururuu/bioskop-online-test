@@ -1,9 +1,9 @@
 <template>
   <VueSlickCarousel autoplay :arrows="false" focus-on-select center-mode center-padding="10%" dots class="banner-carousel">
-    <div v-for="(item, i) in 12" :key="i">
-      <img src="https://via.placeholder.com/1175x450" alt="film"
-      class="rounded-lg mobile:px-1 mx-auto w-full"
-      @click="clickActiveOnly">
+    <div v-for="(item, i) in data" :key="i">
+      <img :src="item.cover" alt="film"
+      class="rounded-lg mobile:px-1 mx-auto w-full film-cover object-cover cursor-pointer"
+      @click="e => clickActiveOnly(e, item)">
     </div>
   </VueSlickCarousel>
 </template>
@@ -18,16 +18,30 @@ export default {
   components: {
     VueSlickCarousel
   },
+  props: {
+    data: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   methods: {
-    clickActiveOnly(e) {
+    clickActiveOnly(e, payload) {
       // console.log('test', e.target.parentElement.parentElement.classList)
       if (e.target.parentElement.parentElement.parentElement.classList.contains('slick-active')) {
-        console.log('clicked active slide')
+        this.$emit('active-click', payload)
       }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.film-cover {
+  height: 450px;
+}
+</style>
 
 <style lang="scss">
 .banner-carousel {

@@ -30,8 +30,8 @@
 
     <div class="text-lg font-bold mb-7">Daftar Film</div>
 
-    <div v-for="(item,i) in 2" :key="i">
-      <FilmItem />
+    <div v-for="(item,i) in packageData.films" :key="i">
+      <FilmItem :data="item" />
       <div class="border border-opacity-20 w-full my-6"></div>
     </div>
   </div>
@@ -41,12 +41,26 @@
 import GiftIcon from '~/assets/icons/Gift.svg?inline'
 import UploadIcon from '~/assets/icons/Upload.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
+import Film from '~/assets/js/models/Film'
 
 export default {
   components: {
     GiftIcon,
     UploadIcon,
     XIcon
+  },
+  computed: {
+    packageData() {
+      // dummies
+      const films = []
+      const film = new Film()
+      for (let i = 0; i < 2; i++) {
+        films.push(film.createDummy())
+      }
+      return {
+        films
+      }
+    }
   }
 }
 </script>

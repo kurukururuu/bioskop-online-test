@@ -7,10 +7,11 @@
       </div>
     </VueSlickCarousel> -->
 
-    <Carousel loop :per-page-custom="[[320, 3.5], [769, 7]]" navigation-enabled :pagination-enabled="false" class="default-carousel">
-      <Slide v-for="(item, i) in 11" :key="i">
-        <img src="https://via.placeholder.com/200x260" alt="film"
-        class="rounded-lg mobile:px-1 mx-auto">
+    <Carousel ref="carousel" loop :per-page-custom="[[320, 3.5], [769, 7]]" navigation-enabled :pagination-enabled="false" class="default-carousel">
+      <Slide v-for="(item, i) in data" :key="i">
+        <img :src="item.cover" alt="film"
+        class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
+        @click="$emit('item-clicked', item)">
       </Slide>
     </Carousel>
   </div>
@@ -18,9 +19,9 @@
 
 <script>
 // import VueSlickCarousel from 'vue-slick-carousel'
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+// import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import { Carousel, Slide } from 'vue-carousel';
 export default {
   components: {
@@ -28,8 +29,33 @@ export default {
     Carousel,
     Slide
   },
+  props: {
+    data: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+  // disable dragging function
+  mounted(){
+  const { carousel } = this.$refs;
+
+  if("ontouchstart" in window){
+    carousel.$el.removeEventListener("touchstart", carousel.handleMousedown);
+  } else {
+    carousel.$el.removeEventListener("mousedown", carousel.handleMousedown);
+  }
+},
 }
 </script>
+
+<style lang="scss" scoped>
+.film-cover {
+  width: 200px;
+  height: 260px;
+}
+</style>
 
 <style lang="scss">
 .default-carousel {
