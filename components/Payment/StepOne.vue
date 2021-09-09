@@ -27,7 +27,7 @@
 
     <div class="flex justify-between items-center px-4 py-3 mb-7">
       <div class="flex items-center">
-        <ClockIcon width="24" height="24" class="mr-3" />
+        <ClockIcon width="24" height="24" class="mr-3" stroke="white" />
         <div class="text-xs font-semibold">Durasi Sewa 48 Jam</div>
       </div>
       <div class="text-xs font-bold text-blue-4 cursor-pointer">Detail</div>

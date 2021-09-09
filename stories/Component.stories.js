@@ -120,7 +120,8 @@ export const LayoutPackage = (args, { argTypes }) => ({
 export const BaseFooter = (args, { argTypes }) => ({
   template: `
   <div>
-    <BaseFooter />
+    <div class="text-yellow-primary desktop:hidden">--Desktop only--</div>
+    <BaseFooter class="mobile:hidden" />
   </div>
 `
 })

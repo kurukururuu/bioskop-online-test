@@ -1,8 +1,8 @@
 <template>
   <div class="fixed bottom-0 left-0 w-full bg-blue-1 text-white">
-    <div class="container mx-auto p-16 pt-4">
-      <div class="grid grid-cols-4">
-        <div class="col-span-2">
+    <div class="container mx-auto py-16 pt-4">
+      <div class="flex justify-between">
+        <div>
           <div class="flex mb-2">
             <nuxt-link to="/about" class="font-semibold mr-5">Tentang Bioskop Online</nuxt-link>
             <nuxt-link to="/terms-condition" class="font-semibold mr-5">Syarat Pengguna</nuxt-link>
@@ -13,7 +13,7 @@
           <div class="text-sm">© 2020 Bioskop Online dan semua perusahaan terkait.<br>Hak cipta dilindungi undang-undang. </div>
         </div>
 
-        <div class="col-span-1">
+        <div>
           <div class="font-semibold mb-4">Terhubung dengan kami</div>
           <div class="flex">
             <InstagramBlack width="36" height="36" class="mr-4" />
@@ -23,7 +23,7 @@
           </div>
         </div>
 
-        <div class="col-span-1">
+        <div>
           <div class="font-semibold mb-4">Terhubung dengan kami</div>
           <div class="flex">
             <GPlayButton class="mr-4" />

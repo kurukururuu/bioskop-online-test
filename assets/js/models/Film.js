@@ -1,5 +1,13 @@
-import faker from 'faker'
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
+import faker from 'faker'
+
+// status
+// 0: Currently available
+// 1: Avilable with voucher(?) in duration period
+// 2: Rented in duration
+// 3: Coming soon
+
 export class Film {
   constructor ({
     id = null,
@@ -13,6 +21,8 @@ export class Film {
     director = '',
     writer = '',
     studio = '',
+    status = 0,
+    statusText = '',
     release_date = new Date(),
     created_at = new Date(),
     updated_at = new Date()
@@ -28,6 +38,8 @@ export class Film {
     this.director = director
     this.writer = writer
     this.studio = studio
+    this.status = status
+    this.statusText = statusText
     this.releaseDate = release_date
     this.timestamp = {
       created: created_at,
@@ -46,12 +58,14 @@ export class Film {
       genre: [faker.music.genre(), faker.music.genre()],
       rating: '17+',
       duration: '1 H 40 Menit',
-      description: faker.lorem.sentence(),
+      description: faker.lorem.paragraph(),
       price: faker.finance.amount(),
       cover: faker.random.image(),
       director: [faker.name.findName(),faker.name.findName()],
       writer: [faker.name.findName(),faker.name.findName()],
       studio: faker.company.companyName(),
+      status: Math.floor(Math.random() * 4),
+      statusText: 'Berlaku Sampai 18 Agustus 2021 18:00',
       release_date: new Date(),
       created_at: new Date(),
       updated_at: new Date()
@@ -68,7 +82,15 @@ export class Film {
         genre: [faker.music.genre(), faker.music.genre()],
         rating: '17+',
         duration: '1 H 40 Menit',
-        description: faker.lorem.sentence(),
+        description: faker.lorem.paragraph(),
+        price: faker.finance.amount(),
+        cover: faker.random.image(),
+        director: [faker.name.findName(),faker.name.findName()],
+        writer: [faker.name.findName(),faker.name.findName()],
+        studio: faker.company.companyName(),
+        status: Math.floor(Math.random() * 3),
+        statusText: 'Berlaku Sampai 18 Agustus 2021 18:00',
+        release_date: new Date(),
         created_at: new Date(),
         updated_at: new Date()
       }
