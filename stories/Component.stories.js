@@ -117,6 +117,37 @@ export const LayoutPackage = (args, { argTypes }) => ({
 `
 })
 
+export const CreditCard = (args, { argTypes }) => ({
+  data() {
+    return {
+      formData: {
+        cardName: '',
+        cardNumber: '',
+        cardMonth: '',
+        cardYear: '',
+        cardCvv: ''
+      }
+    }
+  },
+  template: `
+  <div>
+    <CreditCard />
+  </div>
+  `,
+  methods: {
+    updateCardNumber (val) {
+    },
+    updateCardName (val) {
+    },
+    updateCardMonth (val) {
+    },
+    updateCardYear (val) {
+    },
+    updateCardCvv (val) {
+    }
+  },
+})
+
 export const BaseFooter = (args, { argTypes }) => ({
   template: `
   <div>
