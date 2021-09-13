@@ -59,3 +59,27 @@ export const PaymentStepOne = (args, { argTypes }) => ({
   </div>
 `
 })
+
+export const PaymentStepTwo = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentStepTwo />
+  </div>
+`
+})
+
+export const PaymentStepThree = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentStepThree />
+  </div>
+`
+})
+
+export const PaymentStepFour = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentStepFour />
+  </div>
+`
+})

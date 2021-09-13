@@ -1,9 +1,9 @@
 <template>
   <div class="text-white layout-payment-wrapper">
-    <div class="flex justify-between items-center mb-8 mobile:justify-start">
-      <ChevronRight :width="28" :height="28" class="mr-4 transform rotate-180 bg-white bg-opacity-40 rounded-full p-2 cursor-pointer desktop:hidden" />
-      <div class="text-xl font-bold mobile:text-sm">Pembayaran</div>
+    <div class="flex justify-between items-center mb-8">
+      <div class="text-xl font-bold mobile:text-sm">Metode Pembayaran</div>
       <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
+      <div class="text-lg cursor-pointer desktop:hidden">&#x2715;</div>
     </div>
 
     <div class="grid grid-cols-4 gap-3 mb-12">
@@ -41,13 +41,11 @@
 </template>
 
 <script>
-import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
 import ClockIcon from '~/assets/icons/ClockWhite.svg?inline'
 
 export default {
   components: {
-    ChevronRight,
     XIcon,
     ClockIcon
   },

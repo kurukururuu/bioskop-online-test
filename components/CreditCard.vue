@@ -122,8 +122,8 @@
             </div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="card-input col-span-1">
+        <div class="grid grid-cols-2 gap-4 mobile:grid-cols-3">
+          <div class="card-input col-span-1 mobile:col-span-2">
             <label for="cardNumber" class="card-input__label">Card Number</label>
             <input id="cardNumber" v-model="cardNumber" v-mask="generateCardNumberMask" required type="text" class="card-input__input" data-ref="cardNumber" autocomplete="off" @focus="focusInput" @blur="blurInput">
           </div>
@@ -131,21 +131,21 @@
             <label for="cardName" class="card-input__label">Card Holders</label>
             <input id="cardName" v-model="cardName" type="text" class="card-input__input" data-ref="cardName" autocomplete="off" @focus="focusInput" @blur="blurInput">
           </div> -->
-          <div class="card-input w-11">
-            <label for="cardName" class="card-input__label">Expired(MM/YY)</label>
-            <input v-model="cardDate" v-mask="'##/##'" required type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="card-input__input" data-ref="cardDate" @focus="focusInput" @blur="blurInput">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="card-input col-span-1">
-            <label for="cardName" class="card-input__label">Card Holders</label>
-            <input id="cardName" v-model="cardName" required type="text" class="card-input__input" data-ref="cardName" autocomplete="off" @focus="focusInput" @blur="blurInput">
-          </div>
           <div class="card-form__col -cvv col-span-1">
-            <div class="card-input w-7">
-              <label for="cardCvv" class="card-input__label">CVV</label>
+            <div class="card-input w-7 mobile:w-full">
+              <label for="cardCvv" class="card-input__label">CVV2</label>
               <input id="cardCvv" v-model="cardCvv" v-mask="'###'" required minlength="3" type="text" class="card-input__input" maxlength="4" autocomplete="off" @focus="flipCard(true)" @blur="flipCard(false)">
             </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mobile:grid-cols-3">
+          <div class="card-input col-span-1 mobile:col-span-2">
+            <label for="cardName" class="card-input__label">Name on card</label>
+            <input id="cardName" v-model="cardName" required type="text" class="card-input__input" data-ref="cardName" autocomplete="off" @focus="focusInput" @blur="blurInput">
+          </div>
+          <div class="card-input w-11 mobile:col-span-1 mobile:w-full">
+            <label for="cardName" class="card-input__label">Valid(MM/YY)</label>
+            <input v-model="cardDate" v-mask="'##/##'" required type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="card-input__input" data-ref="cardDate" @focus="focusInput" @blur="blurInput">
           </div>
         </div>
         <!-- <div class="card-form__row">
@@ -178,8 +178,8 @@
           Lanjutkan
         </button> -->
 
-        <BaseButton class="w-full">
-          Lanjutkan
+        <BaseButton class="w-full mobile:w-full mt-10 mobile:mt-auto">
+          Proses Pembayaran
         </BaseButton>
       </form>
     </div>
@@ -311,7 +311,8 @@ export default {
 
 <style scoped lang="scss">
 .card-form__inner {
-  @apply bg-blue-2;
+  // @apply bg-blue-2;
+  @apply bg-transparent;
 
   .card-input {
     input {

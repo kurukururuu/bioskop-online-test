@@ -17,6 +17,17 @@
           </div>
         </div>
       </template>
+      <template v-if="radio">
+        <div class="relative radio-container">
+          <input
+            type="radio"
+            v-bind="$attrs"
+            class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500"
+            @focus="$emit('focus')"
+            @change="e => $emit('change', e)" />
+          <span class="radio" />
+        </div>
+      </template>
       <template v-else>
         <div class="relative">
           <input
@@ -63,6 +74,12 @@ export default {
         return false
       }
     },
+    radio: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
   },
   data() {
     return {
@@ -73,15 +90,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 input::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: white !important;
+
+.radio-container {
+  .radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    // background-color: #eee;
+    border-radius: 50%;
+    @apply cursor-pointer;
+    @apply bg-blue-4 bg-opacity-50;
+
+    &::after {
+      top: 9px;
+      left: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+
+  input {
+    &:checked ~ .radio {
+      @apply bg-blue-4;
+      &::after {
+        @apply block;
+      }
+    }
+    @apply absolute opacity-0 cursor-pointer;
+  }
+
+  &:hover {
+    input {
+      &~ .radio {
+        @apply bg-opacity-100;
+      }
+    }
+  }
+}
+
+:not(.radio-container) {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: white !important;
+  }
 }
 </style>
