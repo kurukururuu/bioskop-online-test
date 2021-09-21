@@ -12,6 +12,22 @@ export const AccountLayoutSignIn = (args, { argTypes }) => ({
 `
 })
 
+export const AccountLayoutVerifyOTP = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <AccountLayoutVerifyOTP />
+  </div>
+`
+})
+
+export const AccountLayoutSignUp = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <AccountLayoutSignUp />
+  </div>
+`
+})
+
 export const AccountLayoutRegister = (args, { argTypes }) => ({
   template: `
   <div>
@@ -52,6 +68,14 @@ export const AccountEditLocation = (args, { argTypes }) => ({
 `
 })
 
+export const AccountEmailVerification = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <AccountEmailVerification />
+  </div>
+`
+})
+
 export const PaymentStepOne = (args, { argTypes }) => ({
   template: `
   <div>
@@ -80,6 +104,30 @@ export const PaymentStepFour = (args, { argTypes }) => ({
   template: `
   <div>
     <PaymentStepFour />
+  </div>
+`
+})
+
+export const PaymentCancelLayout = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentCancelLayout />
+  </div>
+`
+})
+
+export const PaymentCanceledLayout = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <PaymentCanceledLayout />
+  </div>
+`
+})
+
+export const LayoutVoucher = (args, { argTypes }) => ({
+  template: `
+  <div>
+    <LayoutVoucher />
   </div>
 `
 })

@@ -3,6 +3,7 @@
     :class="classes"
     :disabled="disabled"
     class="flex items-center justify-center py-3 w-36 mobile:w-24 mobile:py-1"
+    @click="$emit('click')"
     >
       <!-- <div class="mr-auto"> -->
         <slot name="pre-icon"></slot>

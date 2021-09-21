@@ -18,7 +18,7 @@
       <div class="text-xs opacity-50">12 Sept 11.00</div>
       <div class="flex">
         <BaseButton dark size="small" class="ml-auto rounded-full border border-blue-4">Detail</BaseButton>
-        <BaseButton v-if="status.red" size="small" class="rounded-full border ml-2">Coba Lagi</BaseButton>
+        <BaseButton v-if="status.red" size="small" class="rounded-full ml-2">Coba Lagi</BaseButton>
       </div>
     </div>
   </div>

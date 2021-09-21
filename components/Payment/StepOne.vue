@@ -33,25 +33,52 @@
       <div class="text-xs font-bold text-blue-4 cursor-pointer">Detail</div>
     </div>
 
-    <VoucherButton class="w-full mb-16" />
+    <VoucherButton v-if="!voucherSelected" class="w-full mb-16" @click="actionSelectVoucher" />
+    <VoucherItem v-else :selected="voucherSelected" @unselect-voucher="voucherSelected = null" />
     <!-- <VoucherButton :data="{code:'A1B2C3D4E5'}" class="w-full" /> -->
+    <!-- <div v-else class="p-4 relative">
+      <TicketTransformedIcon :width="90" :height="90" class="absolute top-0 right-0" />
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center">
+          <CheckmarkIcon width="20" height="20" class="mr-2" />
+          <div class="text-green-400 text-xs">Tiket Terpasang</div>
+        </div>
+        <div class="text-lg cursor-pointer">&#x2715;</div>
+      </div>
 
-    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4">Lanjutkan</BaseButton>
+      <div class="flex items-center justify-between">
+        <div class="text-xxs">Kode Tiket</div>
+        <div class="text-sm">Sokvoucherbo</div>
+        <div class="text-xxs">Potongan Harga {{ formatter.format(10000) }}</div>
+      </div>
+    </div> -->
+
+    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4 mt-auto">Lanjutkan</BaseButton>
   </div>
 </template>
 
 <script>
 import XIcon from '~/assets/icons/XIcon.svg?inline'
 import ClockIcon from '~/assets/icons/ClockWhite.svg?inline'
+import formatter from '~/assets/js/helper/currencyFormatter'
 
 export default {
   components: {
     XIcon,
-    ClockIcon
+    ClockIcon,
+    // TicketTransformedIcon,
+    // CheckmarkIcon
   },
   data() {
     return {
-      disabled: false
+      formatter,
+      disabled: false,
+      voucherSelected: null,
+    }
+  },
+  methods: {
+    actionSelectVoucher() {
+      this.voucherSelected = 'voucher'
     }
   }
 }
@@ -61,12 +88,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>

@@ -41,7 +41,7 @@
 import GiftIcon from '~/assets/icons/Gift.svg?inline'
 import UploadIcon from '~/assets/icons/Upload.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
-import Film from '~/assets/js/models/Film'
+import Package from '~/assets/js/models/Package'
 
 export default {
   components: {
@@ -52,14 +52,9 @@ export default {
   computed: {
     packageData() {
       // dummies
-      const films = []
-      const film = new Film()
-      for (let i = 0; i < 2; i++) {
-        films.push(film.createDummy())
-      }
-      return {
-        films
-      }
+      const pack = new Package()
+      console.log(pack.createDummy())
+      return pack.createDummy()
     }
   }
 }

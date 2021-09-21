@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     actionEdit() {
-
+      console.log('edit phone number')
     }
   }
 }

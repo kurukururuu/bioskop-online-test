@@ -136,7 +136,7 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {

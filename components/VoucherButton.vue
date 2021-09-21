@@ -1,5 +1,5 @@
 <template>
-  <button class="text-button">
+  <button class="text-button" @click="$emit('click')">
     <div v-if="!!data"
       class="bg-blue-2 bg-opacity-20 h-12 text-white border border-blue-3 hover:border-blue-4 flex items-center justify-between w-full px-5 py-3"
       :class="data ? 'rounded-full' : 'rounded-lg'">

@@ -1,24 +1,29 @@
 <template>
-  <div class="flex flex-col items-center">
-    <div class="text-sm">Sisa waktu pembayaran kamu</div>
-    <div class="flex">
-      <div>
-        <div class="text-2xl text-blue-4 font-bold">{{ hours | two_digits }}</div>
-        <div class="text-xxs text-blue-4 text-center font-semibold">Jam</div>
-      </div>
-      <div class="text-2xl text-blue-4 font-bold mx-4">
-        :
-      </div>
-      <div>
-        <div class="text-2xl text-blue-4 font-bold">{{ minutes | two_digits }}</div>
-        <div class="text-xxs text-blue-4 text-center font-semibold">Menit</div>
-      </div>
-      <div class="text-2xl text-blue-4 font-bold mx-4">
-        :
-      </div>
-      <div>
-        <div class="text-2xl text-blue-4 font-bold">{{ seconds | two_digits }}</div>
-        <div class="text-xxs text-blue-4 text-center font-semibold">Detik</div>
+  <div class="flex items-center">
+    <div v-if="inlineMode" class="flex">
+      <div class="text-sm mobile:text-xs">Sisa waktu pembayaran kamu : <span class="text-base mobile:text-xs font-bold">{{ hours | two_digits }} : {{ minutes | two_digits }} : {{ seconds | two_digits }}</span></div>
+    </div>
+    <div v-else class="flex flex-col items-center w-full">
+      <div class="text-sm">Sisa waktu pembayaran kamu</div>
+      <div class="flex">
+        <div>
+          <div class="text-2xl text-blue-4 font-bold">{{ hours | two_digits }}</div>
+          <div class="text-xxs text-blue-4 text-center font-semibold">Jam</div>
+        </div>
+        <div class="text-2xl text-blue-4 font-bold mx-4">
+          :
+        </div>
+        <div>
+          <div class="text-2xl text-blue-4 font-bold">{{ minutes | two_digits }}</div>
+          <div class="text-xxs text-blue-4 text-center font-semibold">Menit</div>
+        </div>
+        <div class="text-2xl text-blue-4 font-bold mx-4">
+          :
+        </div>
+        <div>
+          <div class="text-2xl text-blue-4 font-bold">{{ seconds | two_digits }}</div>
+          <div class="text-xxs text-blue-4 text-center font-semibold">Detik</div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,6 +43,12 @@ export default {
     }
   },
   props: {
+    inlineMode: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     endTime: {
       type: String,
       default() {
@@ -68,7 +79,6 @@ export default {
     if (setInterval) {
       this.interval = setInterval(() => {
         this.now = Math.trunc((new Date()).getTime() / 1000);
-        console.log(this.now)
     },1000);
     }
   },
