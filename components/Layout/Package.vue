@@ -7,8 +7,8 @@
 
     <img src="/dummy/film-package-1.jpg" alt="cover" class="rounded-2xl my-8">
 
-    <div class="text-2xl font-bold">PAKET PROMO 10.000 2 FILM</div>
-    <div class="text-yellow-primary font-bold mb-6">Rp10.000</div>
+    <div class="text-2xl font-bold">{{packageData.summary}}</div>
+    <div class="text-yellow-primary font-bold mb-6">{{ formatter.format(packageData.price) }}</div>
 
     <div class="flex mb-7">
       <BaseButton v-bind="$props" class="desktop:mr-4 mobile:col-span-3 mobile:w-full">
@@ -26,7 +26,7 @@
       </BaseButton>
     </div>
 
-    <div class="mb-5">Bayar Rp10,000 bisa akses film You & I dan Quarantine Tales sekaligus</div>
+    <div class="mb-5">{{ packageData.description }}</div>
 
     <div class="text-lg font-bold mb-7">Daftar Film</div>
 
@@ -42,12 +42,18 @@ import GiftIcon from '~/assets/icons/Gift.svg?inline'
 import UploadIcon from '~/assets/icons/Upload.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
 import Package from '~/assets/js/models/Package'
+import formatter from '~/assets/js/helper/currencyFormatter'
 
 export default {
   components: {
     GiftIcon,
     UploadIcon,
     XIcon
+  },
+  data() {
+    return {
+      formatter
+    }
   },
   computed: {
     packageData() {

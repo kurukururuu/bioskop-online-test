@@ -17,7 +17,7 @@ export class Film {
     duration = '',
     description = '',
     price = 0,
-    cover = 'https://via.placeholder.com/200x260',
+    cover = '/dummy/film-1.jpg',
     director = '',
     writer = '',
     studio = '',
