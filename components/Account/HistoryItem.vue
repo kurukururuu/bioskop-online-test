@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-5 gap-4">
     <div class="col-span-1">
-      <img src="https://via.placeholder.com/80x100" alt="film" class="rounded">
+      <img :src="details.cover" alt="package" class="rounded">
     </div>
     <div class="col-span-4">
       <div class="font-bold">{{ details.title || details.name }}</div>

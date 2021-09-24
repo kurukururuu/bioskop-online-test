@@ -144,8 +144,8 @@
             <input id="cardName" v-model="cardName" required type="text" class="card-input__input" data-ref="cardName" autocomplete="off" @focus="focusInput" @blur="blurInput">
           </div>
           <div class="card-input w-11 mobile:col-span-1 mobile:w-full">
-            <label for="cardName" class="card-input__label">Valid(MM/YY)</label>
-            <input v-model="cardDate" v-mask="'##/##'" required type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="card-input__input" data-ref="cardDate" @focus="focusInput" @blur="blurInput">
+            <label for="cardMonth" class="card-input__label">Valid(MM/YY)</label>
+            <input id="cardMonth" v-model="cardDate" v-mask="'##/##'" required type="text" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" class="card-input__input" data-ref="cardDate" @focus="focusInput" @blur="blurInput">
           </div>
         </div>
         <!-- <div class="card-form__row">
