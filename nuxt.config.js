@@ -1,3 +1,6 @@
+require('dotenv').config()
+
+console.log('google', process.env.GOOGLE_CLIENT_ID)
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -33,6 +36,7 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,8 +45,55 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
+    '@nuxtjs/auth-next'
   ],
+  
+  auth: {
+    // Options
+    strategies: {
+      facebook: {
+        endpoints: {
+          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
+        },
+        clientId: process.env.FACEBOOK_CLIENT_ID,
+        scope: ['public_profile', 'email'],
+        responseType: 'code',
+      },
+      google: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        scope: ['profile', 'email'],
+        codeChallengeMethod: '',
+        responseType: 'code',
+      },
+      local: {
+        token: {
+          property: 'data.token',
+          maxAge: 3600
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'data'
+        },
+        endpoints: {
+          login: { url: '/api/v1/login', method: 'post' },
+          user: { url: '/api/v1/auth/me', method: 'get' },
+          refresh: { url: '/api/v1/refresh', method: 'post' },
+          logout: false
+        }
+      },
+    },
+    redirect: {
+      login: '',
+      logout: '/',
+      callback: '/auth/loginWithGoogle',
+      home: '/auth/loginWithGoogle'
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
