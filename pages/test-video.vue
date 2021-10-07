@@ -1,0 +1,3 @@
+<template>
+  <BrightcovePlayer />
+</template>

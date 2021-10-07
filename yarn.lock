@@ -1127,6 +1127,19 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@brightcove/player-loader@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@brightcove/player-loader/-/player-loader-1.8.0.tgz#e835d7c23e0bf584a03dfefbc4640484d4b187a1"
+  integrity sha512-1JbLYEGDYfAn1N17HeXN2Rjr7Thxhi+E/sK3cU88UJtJaPTt/Oy0xFl9eKifRkmrnEy5boPsvJKywC0DRbKXAw==
+  dependencies:
+    "@brightcove/player-url" "^1.2.0"
+    global "^4.3.2"
+
+"@brightcove/player-url@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@brightcove/player-url/-/player-url-1.2.0.tgz#0ee48670b6299bf7a6ae30063d53f31c38468904"
+  integrity sha512-MhmB5JZAAPG3l3FbLiDrkNo5TKQI4Mp1xZmKk1y0DrIibh1loE14raabI30X3rizKT5ThTdvRmLlVMENUn7Gvw==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
