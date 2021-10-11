@@ -12,7 +12,8 @@
     "prepare": "husky install",
     "lint": "yarn lint:js && yarn lint:style",
     "test": "jest",
-    "storybook": "nuxt storybook"
+    "storybook": "nuxt storybook",
+    "dev:host": "nuxt --hostname 0.0.0.0 --port 8000"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -26,11 +27,14 @@
     "core-js": "^3.15.1",
     "faker": "^5.5.3",
     "nuxt": "^2.15.7",
+    "swiper": "5.x",
     "v-mask": "^2.2.4",
     "v-tooltip": "^2.1.3",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-carousel": "^0.18.0",
     "vue-js-modal": "^2.0.1",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-slick-carousel": "^1.0.6",
+    "vue2-touch-events": "^3.2.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

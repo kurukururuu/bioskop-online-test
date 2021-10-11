@@ -5,20 +5,20 @@
         <CheckmarkIcon width="20" height="20" class="mr-2" />
         <div class="text-green-400 text-xs">Tiket Terpasang</div>
       </div>
-      <div class="text-lg cursor-pointer z-10" @click="$emit('unselect-voucher')">&#x2715;</div>
+      <button class="text-lg cursor-pointer z-10" @click="$emit('unselect-voucher')">&#x2715;</button>
     </div>
 
     <div class="text-xxs">Kode Tiket</div>
     <div class="flex items-center justify-between mb-2">
       <div class="text-xl font-bold">Sokvoucherbo</div>
-      <div v-if="selected" class="text-xs text-blue-4 cursor-pointer z-10" @click="detailsExtended = !detailsExtended">{{ detailsExtended ? 'Tutup' : 'Detail' }}</div>
+      <button v-if="selected" class="text-xs text-blue-4 cursor-pointer z-10" @click="detailsExtended = !detailsExtended">{{ detailsExtended ? 'Tutup' : 'Detail' }}</button>
     </div>
     <div v-if="!selected" class="text-xxs font-semibold mb-7">Potongan Harga {{ formatter.format(10000) }}</div>
 
     <TicketTransformedIcon :width="90" :height="90" class="absolute top-0 right-0" />
 
     <div v-if="!selected" class="flex items-center justify-between mb-4">
-      <div class="text-xs text-blue-4 cursor-pointer z-10" @click="detailsExtended = !detailsExtended">{{ detailsExtended ? 'Tutup' : 'Detail' }}</div>
+      <button class="text-xs text-blue-4 cursor-pointer z-10" @click="detailsExtended = !detailsExtended">{{ detailsExtended ? 'Tutup' : 'Detail' }}</button>
       <BaseButton size="small">Gunakan</BaseButton>
     </div>
     <div class="transition-all duration-300 ease-in-out overflow-hidden"

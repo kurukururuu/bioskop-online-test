@@ -13,6 +13,12 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  // for local server mobile testing purpose, enable this
+  // server: {
+  //   host: '0.0.0.0',
+  //   port: 8000
+  // },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/scss/global.scss'
@@ -21,7 +27,10 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/modal',
-    '~/plugins/tooltip'
+    '~/plugins/tooltip',
+    '~/plugins/touch',
+    { src: '~/plugins/swiper', ssr: false },
+    { src: '~/plugins/vue-carousel', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

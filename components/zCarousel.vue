@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div class="text-white">{{scrollPosition}}</div>
+    <!-- <div class="text-white">{{scrollPosition}}</div> -->
     <div class="carousel-container">
       <div ref="drag" class="flex flex-nowrap overflow-auto cursor-grab" @scroll="e => scrollPosition = e.target.scrollLeft">
         <img v-for="(item,i) in 12" :key="i" src="https://via.placeholder.com/200x260" alt="film"

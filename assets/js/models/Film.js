@@ -53,7 +53,7 @@ export class Film {
 
   createDummy(id = 1) {
     const data = {
-      id,
+      id: faker.datatype.uuid(),
       title: faker.name.title(),
       genre: [faker.music.genre(), faker.music.genre()],
       rating: '17+',
@@ -77,7 +77,7 @@ export class Film {
     const arr = []
     for (let i = 0; i < v; i++) {
       const data = {
-        id: i+1,
+        id: faker.datatype.uuid(),
         title: faker.name.title(),
         genre: [faker.music.genre(), faker.music.genre()],
         rating: '17+',

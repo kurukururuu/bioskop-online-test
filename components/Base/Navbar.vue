@@ -1,18 +1,20 @@
 <template>
-  <div class="fixed top-0 left-0 w-full bg-blue-1 bg-opacity-20">
-    <div class="container mx-auto py-4">
+  <div class="w-full bg-blue-1 bg-opacity-20 transition-all duration-300 ease-in-out hover:bg-blue-2 hover:bg-opacity-80"
+    :class="stickyHeader ? 'fixed top-0 left-0' : ''">
+
+    <div class="header container mx-auto py-4">
       <div class="flex justify-between">
-        <Logo @click="$router.push('/')" />
+        <Logo class="cursor-pointer" @click="$router.push('/')" />
         <div class="flex items-center text-white">
-          <nuxt-link to="/" class="mr-8">Beranda</nuxt-link>
-          <nuxt-link to="/my-collection" class="mr-8">Film Saya</nuxt-link>
-          <button class="px-4 py-2 bg-blue-2 bg-opacity-20 border border-opacity-20 rounded-full cursor-pointer flex items-center mr-8">
+          <nuxt-link to="/" class="mr-8 mobile:hidden">Beranda</nuxt-link>
+          <nuxt-link to="/my-collection" class="mr-8 mobile:hidden">Film Saya</nuxt-link>
+          <button class="px-4 py-2 bg-blue-2 bg-opacity-20 border border-opacity-20 rounded-full cursor-pointer flex items-center mr-8 mobile:hidden">
             <span>Cari</span>
             <SearchIcon :width="16" :height="16" stroke="white" class="cursor-pointer ml-4" />
           </button>
           <TicketIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
           <NotificationIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
-          <div class="bg-blue-4 p-2 rounded-full"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></div>
+          <div class="bg-blue-4 p-2 rounded-full mobile:hidden"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></div>
         </div>
       </div>
     </div>
@@ -33,6 +35,17 @@ export default {
     TicketIcon,
     SearchIcon,
     UserIcon
+  },
+  props: {
+    stickyHeader: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
+  },
+  mounted() {
+    window.navbar = this
   }
 }
 </script>

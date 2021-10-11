@@ -7,7 +7,7 @@
           <div>
             <div class="text-2xl text-white font-bold">{{data.title}}</div>
             <div class="flex text-white items-center mb-4">
-              <div class="opacity-50 text-sm mr-2">{{data.genre.join(', ')}}</div>
+              <div class="opacity-50 text-sm mr-2">{{genre.join(', ')}}</div>
               <div class="opacity-50 text-sm mr-2 border rounded-sm px-1">{{data.rating}}</div>
               <div class="opacity-50 text-sm">{{data.duration}}</div>
             </div>
@@ -72,11 +72,11 @@
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Sutradara</div>
-        <div>{{data.director.join(', ')}}</div>
+        <div>{{director.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Penulis</div>
-        <div>{{data.writer.join(', ')}}</div>
+        <div>{{writer.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Perusahaan Produksi</div>
@@ -114,6 +114,17 @@ export default {
   data() {
     return {
       formatter, dateConverter
+    }
+  },
+  computed: {
+    genre() {
+      return this.data.genre || []
+    },
+    director() {
+      return this.data.director || []
+    },
+    writer() {
+      return this.data.writer || []
     }
   }
 }

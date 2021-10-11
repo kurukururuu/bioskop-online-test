@@ -11,10 +11,10 @@
             class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500"
             @focus="$emit('focus')"
             @change="e => $emit('change', e)" />
-          <div class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
+          <button class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
             <EyeHideIcon v-if="hidePassword" :width="20" :height="20" />
             <EyeIcon v-else :width="20" :height="20" fill="white" />
-          </div>
+          </button>
         </div>
       </template>
       <template v-if="radio">

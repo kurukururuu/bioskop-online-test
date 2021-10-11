@@ -24,14 +24,14 @@
           <BCAIcon :width="24" :height="24" class="mr-3" />
           <div ref="vaNumber" class="font-bold">{{ paymentDetails.vaNumber }}</div>
         </div>
-        <div v-tooltip="{
+        <button v-tooltip="{
             content: 'copied',
             show: copySuccess,
             trigger: 'manual',
             placement: 'bottom',
           }" class="text-blue-4 text-xs font-bold cursor-pointer"
           @click="actionCopyVANumber"
-          >SALIN</div>
+          >SALIN</button>
       </div>
       <div class="px-4 py-3 mb-10">
         <div class="text-xs font-bold mb-5">STORY OF KALE</div>
@@ -42,10 +42,10 @@
       </div>
 
       <div class="px-4 py-3 mb-8 mobile:p-0">
-        <div class="flex justify-between items-center cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
+        <button class="flex justify-between items-center cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
           <div class="text-sm font-bold">Cara Pembayaran</div>
           <ChevronRight :width="32" :height="32" class="transform rounded-full p-2 transition-all duration-300 ease-in-out mobile:hidden" :class="howToPayOpened ? '-rotate-90' : 'rotate-90'" />
-        </div>
+        </button>
         <div class="transition-all duration-1000 ease-in-out overflow-hidden" :class="howToPayOpened ? 'max-h-screen' : 'max-h-0 mobile:max-h-screen'">
           <div class="text-xs mb-2">Pembayaran via BCA Virtual Account</div>
           <ol class="list-decimal list-inside text-xs">
@@ -144,7 +144,7 @@
               <QrisIcon :width="24" :height="24" class="mr-3" />
               <div class="text-xs">QRIS</div>
             </div>
-            <div class="text-xs border border-blue-4 rounded-full px-3 py-1 text-blue-4 cursor-pointer" @click="qrisStep = 2">Kode QR</div>
+            <button class="text-xs border border-blue-4 rounded-full px-3 py-1 text-blue-4 cursor-pointer" @click="qrisStep = 2">Kode QR</button>
           </div>
           <div class="px-4 py-3 mb-4">
             <div class="text-xs font-bold mb-5">STORY OF KALE</div>

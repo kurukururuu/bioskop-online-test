@@ -1,5 +1,7 @@
 <template>
-  <div class="fixed bottom-0 left-0 w-full bg-blue-1 text-white">
+  <div class="w-full bg-blue-1 text-white">
+    <div class="border border-opacity-20 w-full my-4" />
+
     <div class="container mx-auto py-16 pt-4">
       <div class="flex justify-between">
         <div>
@@ -16,18 +18,18 @@
         <div>
           <div class="font-semibold mb-4">Terhubung dengan kami</div>
           <div class="flex">
-            <InstagramBlack width="36" height="36" class="mr-4" />
-            <FacebookBlack width="36" height="36" class="mr-4" />
-            <TwitterBlack width="36" height="36" class="mr-4" />
-            <YoutubeBlack width="36" height="36" class="mr-4" />
+            <InstagramBlack width="36" height="36" class="mr-4 cursor-pointer" />
+            <FacebookBlack width="36" height="36" class="mr-4 cursor-pointer" />
+            <TwitterBlack width="36" height="36" class="mr-4 cursor-pointer" />
+            <YoutubeBlack width="36" height="36" class="mr-4 cursor-pointer" />
           </div>
         </div>
 
         <div>
           <div class="font-semibold mb-4">Terhubung dengan kami</div>
           <div class="flex">
-            <GPlayButton class="mr-4" />
-            <AppStoreButton class="mr-4" />
+            <a href="https://play.google.com/store/apps/details?id=com.bioskop.online" target="_blank"><GPlayButton class="mr-4 cursor-pointer" /></a>
+            <a href="https://apps.apple.com/id/app/bioskop-online/id1551749915?l=id" target="_blank"><AppStoreButton class="mr-4 cursor-pointer" /></a>
           </div>
         </div>
       </div>
