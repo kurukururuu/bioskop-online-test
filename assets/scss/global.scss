@@ -102,8 +102,10 @@
 		@apply flex items-end;
 	}
 }
-.vm--overlay {
-	background-color: #011C3CCC !important;
+.vm--container {
+	.vm--overlay {
+		background: #011C3CCC !important;
+	}
 }
 .modal-classes {
 	background: transparent !important;
@@ -113,5 +115,10 @@
 		left: 0 !important;
 		top: 0 !important;
 		width: 100% !important;
+
+		&.full-height {
+			height: 100vh !important;
+			@apply overflow-auto;
+		}
 	}
 }

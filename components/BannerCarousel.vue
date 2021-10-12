@@ -1,5 +1,5 @@
 <template>
-  <VueSlickCarousel ref="carousel" :arrows="false" focus-on-select center-mode center-padding="10%" dots
+  <VueSlickCarousel ref="carousel" autoplay :arrows="false" focus-on-select center-mode center-padding="10%" dots
     class="banner-carousel">
     <div v-for="(item, i) in data" :key="i">
       <div v-touch:tap="e => clickActiveOnly(e, item)" class="relative">

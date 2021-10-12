@@ -17,8 +17,12 @@
 
       <div class="text-xs opacity-50 mb-2">{{ dateConverter(timestamp.created) }} {{new Date(timestamp.created).toLocaleTimeString()}}</div>
       <div class="flex">
-        <BaseButton dark size="small" class="ml-auto rounded-full border border-blue-4">Detail</BaseButton>
-        <BaseButton v-if="status.red" size="small" class="rounded-full ml-2">Coba Lagi</BaseButton>
+        <BaseButton dark size="small" class="ml-auto rounded-full border border-blue-4" @click="$emit('details-opened', data)">Detail</BaseButton>
+        <client-only>
+          <template v-if="status.red">
+            <BaseButton size="small" class="rounded-full ml-2">Coba Lagi</BaseButton>
+          </template>
+        </client-only>
       </div>
     </div>
   </div>
@@ -27,6 +31,7 @@
 <script>
 import formatter from '~/assets/js/helper/currencyFormatter'
 import dateConverter from '~/assets/js/helper/convertDate'
+import getHistoryStatus from '~/assets/js/helper/getHistoryStatus'
 
 export default {
   props: {
@@ -49,43 +54,11 @@ export default {
     timestamp () {
       return this.data.timestamp
     },
+    isRed() {
+      return this.status.red
+    },
     status() {
-      switch (this.data.status) {
-        case 1:
-        case 'success':
-          return {
-            class: 'text-green-500',
-            text: 'Berhasil'
-          }
-        case 2:
-        case 'expired':
-          return {
-            class: 'text-red-secondary',
-            text: 'Kadaluarsa',
-            red: true
-          }
-        case 3:
-        case 'failed':
-          return {
-            class: 'text-red-secondary',
-            text: 'Gagal',
-            red: true
-          }
-        case 4:
-        case 'canceled':
-          return {
-            class: 'text-red-secondary',
-            text: 'Canceled',
-            red: true
-          }
-        case 0:
-        case 'pending':
-        default:
-          return {
-            class: 'text-yellow-primary',
-            text: 'Menunggu Pembayaran'
-          }
-      }
+      return getHistoryStatus(this.data.status)
     }
   }
 }

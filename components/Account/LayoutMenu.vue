@@ -2,7 +2,7 @@
   <div class="text-white layout-menu-wrapper">
     <div class="flex justify-between items-center mb-4">
       <div class="text-xl font-bold mobile:text-lg">Akun Saya</div>
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$router.push('/')" />
     </div>
     
     <div class="border border-opacity-20 w-full my-5 desktop:hidden"></div>
@@ -22,18 +22,18 @@
 
     <div class="border border-opacity-20 w-full my-5"></div>
 
-    <div class="p-4 bg-blue-2 bg-opacity-20 border border-blue-2 border-opacity-50 rounded-lg flex items-center mb-7">
+    <button class="p-4 bg-blue-2 bg-opacity-20 border border-blue-2 border-opacity-50 rounded-lg flex items-center mb-7 w-full" @click="$modal.show('my-voucher')">
       <TicketIcon :width="20" :height="20" class="mr-3" />
-      <nuxt-link to="my-voucher" class="text-blue-4">
+      <div class="text-blue-4 text-left">
         <div class="text-xs font-bold">Voucher Saya</div>
         <div class="text-xxs">Tukar voucher , beli voucher atau promo</div>
-      </nuxt-link>
+      </div>
       <ArrowWhiteRight fill="transparent" :width="24" :height="24" class="ml-auto" />
-    </div>
+    </button>
 
     <div class="mobile:hidden flex flex-col">
       <nuxt-link to="/my-account/info" class="text-sm font-bold mb-2">Info Akun</nuxt-link>
-      <nuxt-link to="/my-account/history" class="text-sm font-bold mb-2">Riwayat Pembelian</nuxt-link>
+      <nuxt-link to="/my-account/payment-history" class="text-sm font-bold mb-2">Riwayat Pembelian</nuxt-link>
       <nuxt-link to="/my-account/help" class="text-sm font-bold mb-5">Pusat Bantuan</nuxt-link>
     </div>
 
@@ -48,7 +48,7 @@
 
       <div class="border border-opacity-20 w-full my-4"></div>
       
-      <nuxt-link to="/my-account/history" class="flex items-center cursor-pointer">
+      <nuxt-link to="/my-account/payment-history" class="flex items-center cursor-pointer">
         <DocumentTimeIcon fill="transparent" :width="24" :height="24" class="mr-3" />
         <div class="text-xs font-bold">Riwayat Transaksi</div>
         <ChevronRight :width="16" :height="16" class="ml-auto" />
@@ -110,6 +110,15 @@
       classes="modal-classes"
       height="auto">
       <AccountEmailVerification @cancel="$modal.hide('email-verification')" />
+    </Modal>
+
+    <Modal name="my-voucher"
+      :click-to-close="false"
+      classes="modal-classes full-height"
+      width="400px"
+      height="auto"
+      scrollable>
+      <LayoutVoucher @cancel="$modal.hide('my-voucher')" />
     </Modal>
   </div>
 </template>

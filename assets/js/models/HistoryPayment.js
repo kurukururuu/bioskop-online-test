@@ -17,6 +17,7 @@ export class HistoryPayment {
     title = '',
     status = null,
     total_price = 0,
+    payment_method = '',
     item_type = '',
     details = {},
     created_at = new Date(),
@@ -25,6 +26,7 @@ export class HistoryPayment {
     this.id = id
     this.title = title
     this.status = status
+    this.payment_method = payment_method
     this.item_type = item_type
     this.totalPrice = total_price
     this.details = details
@@ -40,11 +42,13 @@ export class HistoryPayment {
 
   createDummy(id = 1) {
     const item_type = faker.helpers.randomize(['film', 'package'])
+    const payment_method = faker.helpers.randomize(['OVO', 'BCA Virtual Account', 'PULSA', 'KARTU KREDIT'])
     const data = {
       id,
       name: faker.name.title(),
       status: Math.floor(Math.random() * 5),
       total_price: faker.finance.amount(),
+      payment_method,
       item_type,
       details: this.getDetails(item_type),
       created_at: new Date(),

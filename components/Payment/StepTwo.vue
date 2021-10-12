@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-8">
       <div class="text-xl font-bold mobile:text-sm">Metode Pembayaran</div>
       <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
-      <div class="text-lg cursor-pointer desktop:hidden">&#x2715;</div>
+      <button class="text-lg cursor-pointer desktop:hidden">&#x2715;</button>
     </div>
     
     <div class="mb-6">

@@ -1,17 +1,17 @@
 <template>
-  <div class="text-white layout-voucher-wrapper">
+  <div class="text-white layout-voucher-wrapper bg-blue-1">
     <div class="p-8">
       <div class="flex justify-between items-center mb-4">
         <div class="text-xl font-bold mobile:text-sm">Voucher Saya</div>
-        <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
-        <div class="text-lg cursor-pointer desktop:hidden">&#x2715;</div>
+        <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$emit('cancel')" />
+        <button class="text-lg cursor-pointer desktop:hidden" @click="$emit('cancel')">&#x2715;</button>
       </div>
 
       <div class="font-bold">Punya kode voucher?</div>
       <div class="text-xs mb-3">Masukkan kode kamu dibawah ini</div>
 
       <div class="relative flex bg-blue-2 bg-opacity-50 p-4 rounded-lg mb-6">
-        <input type="text" class="bg-transparent text-white text-sm w-full" placeholder="Masukkan kode voucher disini">
+        <input type="text" class="bg-transparent text-white text-sm w-full focus:outline-none" placeholder="Masukkan kode voucher disini">
         <ArrowWhiteRight fill="transparent" :width="24" :height="24" class="ml-auto" />
       </div>
 

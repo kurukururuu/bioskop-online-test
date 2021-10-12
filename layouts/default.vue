@@ -45,7 +45,7 @@ export default {
     onScroll (e) {
       const navbar = this.$refs.navbar
       const threshold = this.isStickyHeader ? this.navbarOffset : navbar.$el.offsetTop
-      console.log(window.pageYOffset, {navbar:threshold})
+      // console.log(window.pageYOffset, {navbar:threshold})
       if (window.pageYOffset > threshold) {
         this.isStickyHeader = true
       } else {
