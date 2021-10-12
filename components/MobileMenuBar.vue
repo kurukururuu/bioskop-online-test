@@ -5,7 +5,7 @@
         <HomeIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
         <SearchIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
         <PathCircle :width="26" :height="26" fill="transparent" stroke="white" class="cursor-pointer mr-8" />
-        <UserIcon :width="20" :height="20" stroke="white" class="cursor-pointer" />
+        <nuxt-link to="/my-account"><UserIcon :width="20" :height="20" stroke="white" class="cursor-pointer" /></nuxt-link>
       <!-- </div> -->
     </div>
   </div>

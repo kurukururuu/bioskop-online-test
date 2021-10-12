@@ -14,7 +14,7 @@
           </button>
           <TicketIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
           <NotificationIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
-          <div class="bg-blue-4 p-2 rounded-full mobile:hidden"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></div>
+          <nuxt-link to="/my-account" class="bg-blue-4 p-2 rounded-full mobile:hidden"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></nuxt-link>
         </div>
       </div>
     </div>

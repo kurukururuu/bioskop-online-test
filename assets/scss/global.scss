@@ -95,3 +95,23 @@
 		max-width: 95%;
 	}
 }
+
+// modal classes
+@media (max-width: 768px) {
+	.vm--container {
+		@apply flex items-end;
+	}
+}
+.vm--overlay {
+	background-color: #011C3CCC !important;
+}
+.modal-classes {
+	background: transparent !important;
+	width: fit-content !important;
+
+	@media (max-width: 768px) {
+		left: 0 !important;
+		top: 0 !important;
+		width: 100% !important;
+	}
+}

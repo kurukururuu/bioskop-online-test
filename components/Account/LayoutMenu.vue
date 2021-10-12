@@ -17,50 +17,50 @@
         <div class="text-xs font-bold text-red-secondary">Email belum terverifikasi</div>
         <div class="text-xxs text-red-secondary">Verifikasi email kamu sekarang</div>
       </div>
-      <button class="bg-red-secondary text-xxs text-white font-bold rounded-full px-4 py-1">Verifikasi</button>
+      <button class="bg-red-secondary text-xxs text-white font-bold rounded-full px-4 py-1" @click="$modal.show('email-verification')">Verifikasi</button>
     </div>
 
     <div class="border border-opacity-20 w-full my-5"></div>
 
     <div class="p-4 bg-blue-2 bg-opacity-20 border border-blue-2 border-opacity-50 rounded-lg flex items-center mb-7">
       <TicketIcon :width="20" :height="20" class="mr-3" />
-      <div class="text-blue-4">
+      <nuxt-link to="my-voucher" class="text-blue-4">
         <div class="text-xs font-bold">Voucher Saya</div>
         <div class="text-xxs">Tukar voucher , beli voucher atau promo</div>
-      </div>
+      </nuxt-link>
       <ArrowWhiteRight fill="transparent" :width="24" :height="24" class="ml-auto" />
     </div>
 
-    <div class="mobile:hidden">
-      <div class="text-sm font-bold mb-2">Info Akun</div>
-      <div class="text-sm font-bold mb-2">Riwayat Pembelian</div>
-      <div class="text-sm font-bold mb-5">Pusat Bantuan</div>
+    <div class="mobile:hidden flex flex-col">
+      <nuxt-link to="/my-account/info" class="text-sm font-bold mb-2">Info Akun</nuxt-link>
+      <nuxt-link to="/my-account/history" class="text-sm font-bold mb-2">Riwayat Pembelian</nuxt-link>
+      <nuxt-link to="/my-account/help" class="text-sm font-bold mb-5">Pusat Bantuan</nuxt-link>
     </div>
 
     <div class="desktop:hidden">
       <div class="text-sm opacity-50 mb-6">Akun</div>
 
-      <div class="flex items-center cursor-pointer">
+      <nuxt-link to="/my-account/info" class="flex items-center cursor-pointer">
         <UserBorderIcon fill="transparent" :width="24" :height="24" class="mr-3" />
         <div class="text-xs font-bold">Info Akun</div>
         <ChevronRight :width="16" :height="16" class="ml-auto" />
-      </div>
+      </nuxt-link>
 
       <div class="border border-opacity-20 w-full my-4"></div>
       
-      <div class="flex items-center cursor-pointer">
+      <nuxt-link to="/my-account/history" class="flex items-center cursor-pointer">
         <DocumentTimeIcon fill="transparent" :width="24" :height="24" class="mr-3" />
         <div class="text-xs font-bold">Riwayat Transaksi</div>
         <ChevronRight :width="16" :height="16" class="ml-auto" />
-      </div>
+      </nuxt-link>
       
       <div class="border border-opacity-20 w-full my-4"></div>
 
-      <div class="flex items-center cursor-pointer">
+      <nuxt-link to="/my-account/help" class="flex items-center cursor-pointer">
         <QuestionIcon fill="transparent" :width="24" :height="24" class="mr-3" />
         <div class="text-xs font-bold">Pusat Bantuan</div>
         <ChevronRight :width="16" :height="16" class="ml-auto" />
-      </div>
+      </nuxt-link>
       
       <div class="border border-opacity-20 w-full my-4"></div>
 
@@ -104,6 +104,13 @@
     <button class="text-sm font-bold text-red-secondary mt-4">
       KELUAR
     </button>
+
+    <Modal name="email-verification"
+      :click-to-close="false"
+      classes="modal-classes"
+      height="auto">
+      <AccountEmailVerification @cancel="$modal.hide('email-verification')" />
+    </Modal>
   </div>
 </template>
 

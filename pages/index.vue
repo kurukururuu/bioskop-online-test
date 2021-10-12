@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <BannerCarousel :data="featuredFilms" @active-click="v => $router.push(`/film/${v.id}`)" />
     
     <div class="container mx-auto py-8 mobile:py-16">
@@ -9,6 +9,7 @@
           @item-clicked="v => $router.push(`/film/${v.id}`)" />
       </div>
     </div>
+    <MobileMenuBar class="desktop:hidden z-40" />
   </div>
 </template>
 

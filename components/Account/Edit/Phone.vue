@@ -6,8 +6,8 @@
       <BaseInput v-model="form.phone" required label="Nomor Ponsel" name="phone" type="number" class="desktop:mb-12 mobile:mb-12 w-full" />
       
       <BaseButton :disabled="loading" class="desktop:w-full mobile:w-full mb-4">Simpan Perubahan</BaseButton>
-      <BaseButton dark class="desktop:w-full mobile:w-full border border-blue-4">Batalkan Perubahan</BaseButton>
     </form>
+    <BaseButton dark class="desktop:w-full mobile:w-full border border-blue-4" @click="$emit('cancel')">Batalkan Perubahan</BaseButton>
   </div>
 </template>
 
