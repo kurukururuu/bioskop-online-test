@@ -9,7 +9,7 @@
     <div class="mb-6">
       <div class="text-xs font-bold opacity-50 mb-3">E-WALLET</div>
       <div class="flex flex-col items-center">
-        <label class="flex justify-between w-full mb-2 hover:payment-item cursor-pointer">
+        <label class="flex justify-between w-full mb-2 hover:payment-item cursor-pointer" @click="actionChooseMethod('qris')">
           <div class="flex items-center">
             <QrisIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">QRIS</div>
@@ -25,7 +25,7 @@
     <div class="mb-6">
       <div class="text-xs font-bold opacity-50 mb-3">KARTU</div>
       <div class="flex flex-col items-center">
-        <label class="flex justify-between w-full mb-2 hover:payment-item cursor-pointer">
+        <label class="flex justify-between w-full mb-2 hover:payment-item cursor-pointer" @click="actionChooseMethod('cc')">
           <div class="flex items-center">
             <CCIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">Kartu Pembayaran</div>
@@ -41,7 +41,7 @@
     <div class="mb-6">
       <div class="text-xs font-bold opacity-50 mb-3">TRANSFER VIRTUAL ACCOUNT</div>
       <div class="grid grid-cols-2 gap-5">
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('bca')">
           <div class="flex items-center">
             <BCAIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">BCA VA</div>
@@ -54,31 +54,31 @@
     <div class="mb-6">
       <div class="text-xs font-bold opacity-50 mb-3">PULSA</div>
       <div class="grid grid-cols-2 gap-5">
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('telkomsel')">
           <div class="flex items-center">
             <TelkomselIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">TELKOMSEL</div>
           </div>
-          <BaseInput v-model="form.method" radio required label="" name="method" class="w-5 flex items-center" />
+          <BaseInput v-model="form.method" radio required label="" name="method" class="ml-2 w-5 flex items-center" />
         </label>
         
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('tri')">
           <div class="flex items-center">
             <TriIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">TRI</div>
           </div>
-          <BaseInput v-model="form.method" radio required label="" name="method" class="w-5 flex items-center" />
+          <BaseInput v-model="form.method" radio required label="" name="method" class="ml-2 w-5 flex items-center" />
         </label>
         
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('smartfren')">
           <div class="flex items-center">
             <SmartfrenIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">SMARTFREN</div>
           </div>
-          <BaseInput v-model="form.method" radio required label="" name="method" class="w-5 flex items-center" />
+          <BaseInput v-model="form.method" radio required label="" name="method" class="ml-2 w-5 flex items-center" />
         </label>
         
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('xl')">
           <div class="flex items-center">
             <XLIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">XL</div>
@@ -86,7 +86,7 @@
           <BaseInput v-model="form.method" radio required label="" name="method" class="w-5 flex items-center" />
         </label>
         
-        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer">
+        <label class="col-span-1 flex justify-between hover:payment-item cursor-pointer" @click="actionChooseMethod('indosat')">
           <div class="flex items-center">
             <IndosatIcon :width="24" :height="24" class="mr-3" />
             <div class="text-sm font-bold hover:text-blue-4">INDOSAT</div>
@@ -128,6 +128,12 @@ export default {
       disabled: false,
       form: {}
     }
+  },
+  methods: {
+    actionChooseMethod(method) {
+      this.$store.commit('application/SET_PAYMENT', {method})
+      this.$emit('next', method)
+    }
   }
 }
 </script>
@@ -136,12 +142,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-1 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full bg-blue-1 p-4;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>

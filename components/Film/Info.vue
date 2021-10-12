@@ -30,7 +30,8 @@
         </div>
 
         <div class="flex mobile:grid mobile:grid-cols-3 mobile:gap-3">
-          <BaseButton v-if="data.status !== 3" v-bind="$props" class="w-40 mobile:col-span-3 mobile:w-full">
+          <BaseButton v-if="data.status !== 3" v-bind="$props" class="w-40 mobile:col-span-3 mobile:w-full"
+            @click="$emit('action', 'buy-ticket')">
             Beli Tiket
           </BaseButton>
           <BaseButton dark v-bind="$props"

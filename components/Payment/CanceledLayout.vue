@@ -37,8 +37,8 @@
       <div class="text-xs">{{new Date().toLocaleString()}}</div>
     </div>
 
-    <BaseButton class="w-full mb-4">Coba Lagi?</BaseButton>
-    <BaseButton dark class="w-full border border-blue-4">Tidak</BaseButton>
+    <BaseButton class="w-full mobile:w-full mb-4" @click="$emit('retry')">Coba Lagi?</BaseButton>
+    <BaseButton dark class="w-full mobile:w-full border border-blue-4" @click="$emit('close')">Tidak</BaseButton>
   </div>
 </template>
 
@@ -63,12 +63,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-1 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full bg-blue-1 p-4;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>

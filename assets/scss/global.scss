@@ -110,6 +110,13 @@
 .modal-classes {
 	background: transparent !important;
 	width: fit-content !important;
+	max-height: 100vh;
+	overflow: auto !important;
+
+	&.m-auto {
+		margin: auto;
+		left: 0 !important;
+	}
 
 	@media (max-width: 768px) {
 		left: 0 !important;
@@ -119,6 +126,10 @@
 		&.full-height {
 			height: 100vh !important;
 			@apply overflow-auto;
+		}
+
+		&.unset-height {
+			height: unset !important;
 		}
 	}
 }

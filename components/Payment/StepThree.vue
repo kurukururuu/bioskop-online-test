@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <PaymentMethodButton method="telkomsel" />
+    <PaymentMethodButton :method="paymentMethod" @change-payment="$emit('prev')" />
     
     <div class="px-5 py-2 mb-9">
       <div class="text-sm font-bold">Rincian</div>
@@ -37,7 +37,7 @@
       </div>
       <div class="flex justify-between items-center text-xs mb-4">
         <div>Metode Pembayaran</div>
-        <div class="font-semibold">Telkomsel</div>
+        <div class="font-semibold uppercase">{{ paymentMethod }}</div>
       </div>
       <div class="flex justify-between items-center text-sm">
         <div>Total</div>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4 desktop:text-lg">Lanjut Pembayaran</BaseButton>
+    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4 desktop:text-lg" @click="$emit('next')">Lanjut Pembayaran</BaseButton>
   </div>
 </template>
 
@@ -62,6 +62,11 @@ export default {
       formatter,
       disabled: false,
     }
+  },
+  computed: {
+    paymentMethod() {
+      return this.$store.state.application.payment.method
+    }
   }
 }
 </script>
@@ -70,12 +75,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-1 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full bg-blue-1 p-4;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>

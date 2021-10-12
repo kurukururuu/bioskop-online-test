@@ -6,12 +6,47 @@
     </div>
 
     <div class="container mx-auto">
-      <FilmInfo :data="data" class="relative -top-52 mb-7 z-10 mobile:top-0" />
+      <FilmInfo :data="data" class="relative -top-52 mb-7 z-10 mobile:top-0" @action="handleAction" />
 
       <div class="text-lg font-bold mb-7 mobile:mb-4">Akan Datang</div>
       <SwiperComponent :data="films"
         class="mb-32" @item-clicked="v => $router.push(`/film/${v.id}`)" />
     </div>
+
+    <Modal name="payment-modal"
+      classes="modal-classes m-auto"
+      height="auto"
+      scrollable>
+      <PaymentStepOne v-if="paymentStep === 1" @cancel="cancelPayment" @next="paymentStep = 2" />
+      <PaymentStepTwo v-if="paymentStep === 2" @cancel="cancelPayment" @next="paymentStep = 3" />
+      <PaymentStepThree v-if="paymentStep === 3" @cancel="cancelPayment" @next="paymentStep = 4" @prev="paymentStep = 2" />
+      <PaymentStepFour v-if="paymentStep === 4" @cancel="$modal.hide('payment-modal')" @abort="abortPayment" @error="errorPayment" />
+    </Modal>
+
+    <Modal name="abort-payment"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <PaymentCancelLayout @close="$modal.hide('abort-payment')" @confirm="confirmAbortPayment" />
+    </Modal>
+
+    <Modal name="payment-aborted"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <PaymentCanceledLayout @close="handlePaymentAborted" @retry="retryPayment" />
+    </Modal>
+
+    <Modal name="payment-error"
+      :click-to-close="false"
+      classes="modal-classes full-height"
+      width="400px"
+      height="auto"
+      scrollable>
+      <PaymentErrorPayment @close="$modal.hide('payment-error')" />
+    </Modal>
   </div>
 </template>
 
@@ -19,6 +54,11 @@
 import Film from '~/assets/js/models/Film'
 
 export default {
+  data() {
+    return {
+      paymentStep: 1,
+    }
+  },
   computed: {
     data() {
       const film = new Film()
@@ -35,6 +75,40 @@ export default {
   },
   mounted() {
     window.slugFilm = this
+  },
+  methods: {
+    handleAction(v) {
+      switch (v) {
+        case 'buy-ticket':
+          this.$modal.show('payment-modal')
+      }
+    },
+    cancelPayment() {
+      this.$modal.hide('payment-modal')
+      this.paymentStep = 1
+    },
+    abortPayment() {
+      this.$modal.show('abort-payment')
+    },
+    errorPayment() {
+      this.cancelPayment()
+      this.$modal.show('payment-error')
+    },
+    confirmAbortPayment() {
+      this.$modal.hide('abort-payment')
+      this.$modal.show('payment-aborted')
+      // this.cancelPayment()
+      // and do another thing to abort payment
+    },
+    retryPayment() {
+      this.paymentStep = 1
+      this.$modal.hide('payment-aborted')
+      this.$modal.show('payment-modal')
+    },
+    handlePaymentAborted() {
+      this.$modal.hide('payment-aborted')
+      this.cancelPayment()
+    }
   }
 }
 </script>
