@@ -2,11 +2,15 @@
   <div class="text-white layout-payment-wrapper">
     <div class="flex justify-between items-center mb-8">
       <div class="text-xl font-bold mobile:text-sm">Metode Pembayaran</div>
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
-      <button class="text-lg cursor-pointer desktop:hidden">&#x2715;</button>
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$emit('cancel')" />
+      <button class="text-lg cursor-pointer desktop:hidden" @click="$emit('cancel')">&#x2715;</button>
+    </div>
+
+    <div v-for="(item,i) in list" :key="i" class="mb-6">
+      <PaymentMethodItem :data="item" :big="item.big" @choose="actionChooseMethod" />
     </div>
     
-    <div class="mb-6">
+    <!-- <div class="mb-6">
       <div class="text-xs font-bold opacity-50 mb-3">E-WALLET</div>
       <div class="flex flex-col items-center">
         <label class="flex justify-between w-full mb-2 hover:payment-item cursor-pointer" @click="actionChooseMethod('qris')">
@@ -94,34 +98,42 @@
           <BaseInput v-model="form.method" radio required label="" name="method" class="w-5 flex items-center" />
         </label>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
-import QrisIcon from '~/assets/icons/Qris.svg?inline'
-import CCIcon from '~/assets/icons/CreditCard.svg?inline'
-import BCAIcon from '~/assets/icons/BCA.svg?inline'
-import TelkomselIcon from '~/assets/icons/Telkomsel.svg?inline'
-import TriIcon from '~/assets/icons/Tri.svg?inline'
-import SmartfrenIcon from '~/assets/icons/Smartfren.svg?inline'
-import XLIcon from '~/assets/icons/XL.svg?inline'
-import IndosatIcon from '~/assets/icons/Indosat.svg?inline'
+// import QrisIcon from '~/assets/icons/Qris.svg?inline'
+// import CCIcon from '~/assets/icons/CreditCard.svg?inline'
+// import BCAIcon from '~/assets/icons/BCA.svg?inline'
+// import TelkomselIcon from '~/assets/icons/Telkomsel.svg?inline'
+// import TriIcon from '~/assets/icons/Tri.svg?inline'
+// import SmartfrenIcon from '~/assets/icons/Smartfren.svg?inline'
+// import XLIcon from '~/assets/icons/XL.svg?inline'
+// import IndosatIcon from '~/assets/icons/Indosat.svg?inline'
 
 export default {
   components: {
     // ChevronRight,
     XIcon,
-    QrisIcon,
-    CCIcon,
-    BCAIcon,
-    TelkomselIcon,
-    TriIcon,
-    SmartfrenIcon,
-    XLIcon,
-    IndosatIcon
+    // QrisIcon,
+    // CCIcon,
+    // BCAIcon,
+    // TelkomselIcon,
+    // TriIcon,
+    // SmartfrenIcon,
+    // XLIcon,
+    // IndosatIcon
+  },
+  props: {
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
   data() {
     return {
@@ -151,15 +163,6 @@ export default {
     // for mobile layout full-screen height
     // needs div parent with fixed or 100vh height
     @apply h-full flex flex-col;
-  }
-}
-</style>
-
-<style lang="scss">
-.hover\:payment-item:hover {
-  @apply text-blue-4;
-  .radio {
-    @apply bg-opacity-100;
   }
 }
 </style>

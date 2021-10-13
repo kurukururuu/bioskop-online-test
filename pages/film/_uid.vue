@@ -18,8 +18,8 @@
       height="auto"
       scrollable>
       <PaymentStepOne v-if="paymentStep === 1" @cancel="cancelPayment" @next="paymentStep = 2" />
-      <PaymentStepTwo v-if="paymentStep === 2" @cancel="cancelPayment" @next="paymentStep = 3" />
-      <PaymentStepThree v-if="paymentStep === 3" @cancel="cancelPayment" @next="paymentStep = 4" @prev="paymentStep = 2" />
+      <PaymentStepTwo v-if="paymentStep === 2" :list="listPaymentMethod" @cancel="cancelPayment" @next="paymentStep = 3" />
+      <PaymentStepThree v-if="paymentStep === 3" :list="listPaymentMethod" @cancel="cancelPayment" @next="paymentStep = 4" @prev="paymentStep = 2" />
       <PaymentStepFour v-if="paymentStep === 4" @cancel="$modal.hide('payment-modal')" @abort="abortPayment" @error="errorPayment" />
     </Modal>
 
@@ -52,6 +52,8 @@
 
 <script>
 import Film from '~/assets/js/models/Film'
+import PaymentMethod from '~/assets/js/models/PaymentMethod'
+
 
 export default {
   data() {
@@ -71,6 +73,10 @@ export default {
         films.push(film.createDummy())
       }
       return films
+    },
+    listPaymentMethod() {
+      const paymentMethod = new PaymentMethod()
+      return paymentMethod.createDummyList()
     }
   },
   mounted() {

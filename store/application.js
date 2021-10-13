@@ -1,6 +1,6 @@
-
 export const state = () => ({
   payment: {},
+  paymentMethod: []
 })
 
 
@@ -10,5 +10,8 @@ export const mutations = {
   },
   RESET_PAYMENT (state, payload) {
     state.payment = {}
+  },
+  SET_PAYMENT_METHOD (state, payload) {
+    state.paymentMethod = payload
   },
 }
