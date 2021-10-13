@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs font-bold opacity-50 mb-3 uppercase">{{big}}{{ data.title }}</div>
+    <div class="text-xs font-bold opacity-50 mb-3 uppercase">{{ data.title }}</div>
     <div :class="big ? 'flex items-center' : 'grid grid-cols-2 gap-5'">
       <label v-for="(method,i) in data.methods" :key="i"
         :for="`method-${method.code}`"
@@ -8,7 +8,7 @@
         @click="$emit('choose', method.code)">
         <div class="flex items-center">
           <img :src="method.icon" alt="data.title" class="w-6 mr-3">
-          <div class="text-sm font-bold uppercase hover:text-blue-4">{{ method.code }}</div>
+          <div class="text-sm font-bold uppercase hover:text-blue-4 mobile:text-xs">{{ method.code }}</div>
         </div>
         <BaseInput :id="`method-${method.code}`" v-model="form.method" radio required label="" :name="`method-${method.code}`" class="w-5 flex items-center" />
       </label>
