@@ -1,37 +1,43 @@
 <template>
-  <div class="text-white layout-login-wrapper">
-    <div class="flex justify-between items-center mb-4 mobile:justify-start">
-      <ChevronRight :width="28" :height="28" class="mr-4 transform rotate-180 bg-white bg-opacity-40 rounded-full p-2 cursor-pointer desktop:hidden" @click="$emit('cancel')" />
-      <div class="text-xl font-bold mobile:text-lg">Verifikasi Kode OTP</div>
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$emit('cancel')" />
+  <div class="text-white layout-verify-wrapper">
+    <div class="flex justify-end items-center mb-4 mobile:justify-start">
+      <!-- <ChevronRight :width="28" :height="28" class="mr-4 transform rotate-180 bg-white bg-opacity-40 rounded-full p-2 cursor-pointer desktop:hidden" @click="$emit('cancel')" />
+      <div class="text-xl font-bold mobile:text-lg">Verifikasi Kode OTP</div> -->
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer" @click="$emit('cancel')" />
     </div>
 
-    <div class="text-xs mb-2">Masukkan kode otp yang sudah dikirim ke nomor ponsel kamu</div>
-    <div class="text-sm font-bold mb-6">0821115080005</div>
-
-    <form ref="form" class="mb-6" @submit.prevent="actionSubmit">
-      <div class="border border-opacity-50 rounded-full px-7 py-3 mb-8">
-        <input v-model="form.otp" required maxlength="6" type="text" class="bg-transparent w-full text-sm tracking-widest font-bold text-center focus:outline-none" @keydown="validateOTP">
+    <div v-if="verify" class="flex flex-col items-center text-center">
+      <div class="font-bold mb-3">Menunggu verifikasi email</div>
+      <div class="text-xs">Verifikasi dikirm ke email :</div>
+      <div class="bg-blue-2 bg-opacity-20 p-2 flex justify-center font-bold rounded-full mb-3">
+        mantis.ch@gmail.com
       </div>
-
-      <div class="text-center mb-6">Belum dapat kode? Kirim ulang dalam
+      <div class="text-xs mb-6">Cek notifikasi email kamu kemudian <br>lakukan verifikasi</div>
+      <div class="text-xs mb-5">Belum menerima email verifikasi? 
         <span v-if="countdown" class="text-blue-4 font-bold">
           {{ minutes | two_digits }} : {{ seconds | two_digits }}
         </span>
         <button v-else class="text-blue-4 font-bold" @click="setEndTime(new Date())">KIRIM ULANG</button>
       </div>
 
-      <!-- <div class="text-center mb-6">Belum dapat kode? Kirim ulang dalam <span class="text-blue-4 font-bold">{{ minutes | two_digits }} : {{ seconds | two_digits }}</span></div> -->
-      
-    </form>
-    <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="actionClick">Verifikasi</BaseButton>
+      <div class="text-xs mb-5">Pakai nomor ponsel? <button @click="$emit('action', 'otp')"><span class="text-blue-4 font-bold">OTP</span></button></div>
+    </div>
+    <div v-else class="flex flex-col items-center">
+      <div class="text-sm mb-3">Email Kamu belum terverifikasi</div>
+      <div class="p-2 text-red-secondary bg-red-secondary bg-opacity-20 border border-red-secondary border-opacity-50 rounded-full flex justify-center mb-16">
+        <ErrorIcon width="20" height="20" class="mr-1" />
+        <span class="font-bold">mantis.ch@gmail.com</span>
+      </div>
+    <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="verify = true">Verifikasi</BaseButton>
+    </div>
   </div>
 </template>
 
 <script>
-import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
+// import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
 import validateOTP from '~/assets/js/helper/validateOTP'
+import ErrorIcon from '~/assets/icons/ErrorWarning.svg?inline'
 
 export default {
   filters: {
@@ -46,15 +52,16 @@ export default {
     }
   },
   components: {
-    ChevronRight,
+    // ChevronRight,
+    ErrorIcon,
     XIcon,
   },
   data() {
     return {
       validateOTP,
       disabled: false,
-      two_digits: 0,
       form: {},
+      two_digits: 0,
       endTime: new Date(),
       verify: false,
       countdown: true,
@@ -65,17 +72,21 @@ export default {
     // endTime() {
     //   // dummy
     //   const today = new Date();
-    //   today.setMinutes(today.getMinutes() + 5);
+    //   // today.setMinutes(today.getMinutes() + 5);
+    //   today.setSeconds(today.getSeconds() + 10);
 
     //   return today.toString()
     // },
     dateInMilliseconds() {
+      // console.log('endtime milisecond', Math.trunc(Date.parse(this.endTime) / 1000))
       return Math.trunc(Date.parse(this.endTime) / 1000)
     },
     seconds() {
+      // console.log('second', (this.dateInMilliseconds - this.now) % 60)
       return (this.dateInMilliseconds - this.now) % 60;
     },
     minutes() {
+      // console.log('minutes', Math.trunc((this.dateInMilliseconds - this.now) / 60) % 60)
       return Math.trunc((this.dateInMilliseconds - this.now) / 60) % 60;
     },
   },
@@ -114,9 +125,6 @@ export default {
       // console.log('set end', this.endTime, this.now)
       this.init()
     },
-    actionClick() {
-      this.$refs.form.requestSubmit()
-    },
     actionSubmit() {
 
     }
@@ -126,14 +134,14 @@ export default {
 
 <style lang="scss" scoped>
 @media (min-width: 768px) {
-  .layout-login-wrapper {
+  .layout-verify-wrapper {
     // width: 500px;
-    width: fit-content;
+    width: 400px;
     @apply bg-blue-1 p-8 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
-  .layout-login-wrapper {
+  .layout-verify-wrapper {
     @apply w-full bg-blue-1 p-4;
     // for mobile layout full-screen height
     // needs div parent with fixed or 100vh height

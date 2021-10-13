@@ -4,7 +4,7 @@
       <div class="text-xs">Untuk nonton lebih nyaman<br> gunakan aplikasi</div>
       <BaseButton size="small">Buka App</BaseButton>
     </div>
-    <BaseNavbar ref="navbar" class="z-40" :sticky-header="isStickyHeader" />
+    <BaseNavbar ref="navbar" class="z-40" :sticky-header="isStickyHeader" @action="handleAction" />
 
     <!-- <div id="myHeader" ref="navbar" class="bg-white p-10 w-full"
     :class="isStickyHeader ? 'fixed top-0' : ''">
@@ -16,6 +16,39 @@
       <Nuxt />
     </div>
     <BaseFooter class="mobile:hidden" />
+
+    <!-- Modals -->
+    <Modal name="signup-modal"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutSignUp @cancel="$modal.hide('signup-modal')" @finish-register="$modal.show('verify-otp')" />
+    </Modal>
+
+    <Modal name="signin-modal"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutSignIn @cancel="$modal.hide('signin-modal')" @action="handleAction" @finish-login="$modal.show('verify-email')" />
+    </Modal>
+
+    <Modal name="verify-otp"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutVerifyOTP @cancel="$modal.hide('verify-otp')" />
+    </Modal>
+
+    <Modal name="verify-email"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutVerifyEmail @cancel="$modal.hide('verify-email')" @action="handleAction" />
+    </Modal>
   </LayoutFullPageHeight>
 </template>
 
@@ -50,6 +83,21 @@ export default {
         this.isStickyHeader = true
       } else {
         this.isStickyHeader = false
+      }
+    },
+    handleAction(action) {
+      switch (action) {
+        case 'sign-up':
+          this.$modal.hide('signin-modal')
+          this.$modal.show('signup-modal')
+          break
+        case 'sign-in':
+          this.$modal.hide('signup-modal')
+          this.$modal.show('signin-modal')
+          break
+        case 'otp':
+          this.$modal.hide('verify-email')
+          this.$modal.show('verify-otp')
       }
     }
   }

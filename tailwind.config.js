@@ -16,7 +16,8 @@ module.exports = {
         'red-secondary': '#EB5757',
       },
       fontSize: {
-        xxs: '9px',
+        xxs: '10px',
+        '2xxs': '8px',
         'button': ['16px', { fontWeight: 600 }],
         'button-small': ['14px', { fontWeight: 600 }],
       },

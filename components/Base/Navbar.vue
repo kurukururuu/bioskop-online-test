@@ -12,9 +12,15 @@
             <span>Cari</span>
             <SearchIcon :width="16" :height="16" stroke="white" class="cursor-pointer ml-4" />
           </button>
-          <TicketIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
-          <NotificationIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
-          <nuxt-link to="/my-account" class="bg-blue-4 p-2 rounded-full mobile:hidden"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></nuxt-link>
+          <template v-if="isLoggedIn">
+            <TicketIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
+            <NotificationIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
+            <nuxt-link to="/my-account" class="bg-blue-4 p-2 rounded-full mobile:hidden"><UserIcon :width="16" :height="16" fill="black" stroke="black" class="cursor-pointer" /></nuxt-link>
+          </template>
+          <template v-else>
+            <BaseButton dark size="small" class="border border-blue-4 mr-4" @click="$emit('action', 'sign-up')">Daftar</BaseButton>
+            <BaseButton size="small" @click="$emit('action', 'sign-in')">Masuk</BaseButton>
+          </template>
         </div>
       </div>
     </div>
@@ -42,6 +48,11 @@ export default {
       default() {
         return false
       }
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return false
     }
   },
   mounted() {

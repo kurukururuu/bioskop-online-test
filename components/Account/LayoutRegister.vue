@@ -12,18 +12,18 @@
       <div class="grid grid-cols-2 gap-8 mobile:gap-3 mobile:px-5">
         <div class="col-span-1 mobile:col-span-2">
           <div class="font-bold mb-4 text-white">Akun</div>
-            <BaseInput v-model="form.name" required label="Nama Lengkap" name="name" />
-            <BaseInput v-model="form.phone" required label="Nomor Telepon" name="phone" type="number" />
-            <BaseInput v-model="form.email" required label="Alamat Email" name="email" type="email" />
-            <BaseInput v-model="form.password" password required label="Buat Password" name="password" type="password" helper-text="*Password harus terdiri dari huruf kecil dan besar serta angka" />
+          <BaseInput v-model="form.name" required label="Nama Lengkap" name="name" />
+          <BaseInput v-model="form.phone" required label="Nomor Telepon" name="phone" type="number" />
+          <BaseInput v-model="form.email" required label="Alamat Email" name="email" type="email" />
+          <BaseInput v-model="form.password" password required label="Buat Password" name="password" type="password" helper-text="*Password harus terdiri dari huruf kecil dan besar serta angka" />
         </div>
         <div class="col-span-1 mobile:col-span-2">
           <div class="font-bold mb-4 text-white">Biodata</div>
-            <BaseSelect v-model="form.gender" :options="['Laki-laki', 'Perempuan']" required label="Jenis Kelamin" class="w-full" type="select" />
-            <BaseInput v-model="form.dob" required label="Tanggal Lahir" name="dob" type="date" />
-            <BaseInput v-model="form.location" required label="Lokasi" name="location" @focus="openLocationPopup">
-              <MarkerIcon slot="post-icon" :width="18" :height="18" fill="transparent" />
-            </BaseInput>
+          <BaseSelect v-model="form.gender" :options="['Laki-laki', 'Perempuan']" required label="Jenis Kelamin" class="w-full" type="select" />
+          <BaseInput v-model="form.dob" required label="Tanggal Lahir" name="dob" type="date" />
+          <BaseInput v-model="form.location" required label="Lokasi" name="location" @focus="openLocationPopup">
+            <MarkerIcon slot="post-icon" :width="18" :height="18" fill="transparent" />
+          </BaseInput>
         </div>
       </div>
       
