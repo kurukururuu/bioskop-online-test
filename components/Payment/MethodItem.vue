@@ -47,6 +47,7 @@ export default {
 <style lang="scss">
 .hover\:payment-item:hover {
   @apply text-blue-4;
+  
   .radio {
     @apply bg-opacity-100;
   }

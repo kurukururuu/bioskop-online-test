@@ -140,6 +140,7 @@ input[type='number'] {
   input {
     &:checked ~ .radio {
       @apply bg-blue-4;
+
       &::after {
         @apply block;
       }
@@ -163,6 +164,7 @@ input[type='number'] {
   input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: white;
+    
     &.error {
       -webkit-text-fill-color: #EB5757;
       @apply text-red-secondary border-red-secondary;

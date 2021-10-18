@@ -64,7 +64,8 @@ export default {
   height: 450px;
 
   @media (max-width: 768px) {
-    height: 225px;
+    // height: 225px;
+    height: calc(1 / 2 * 100vh);
   }
 }
 
@@ -115,6 +116,7 @@ export default {
       li {
         button::before {
           color: #E4E4E4;
+          font-size: 0.5rem;
         }
 
         &.slick-active {

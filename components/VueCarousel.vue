@@ -79,6 +79,7 @@ export default {
     &.VueCarousel-navigation-prev {
       @apply ml-2;
     }
+    
     &.VueCarousel-navigation-next {
       @apply mr-2;
     }

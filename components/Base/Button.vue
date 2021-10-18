@@ -77,10 +77,12 @@ export default {
     border-radius: 50px;
     // width: 150px;
     height: 46px;
+    
     &.small {
       width: 92px;
       height: 36px;
     }
+
     &.long {
       width: 340px;
     }

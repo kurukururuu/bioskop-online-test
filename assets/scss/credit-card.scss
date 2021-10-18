@@ -6,12 +6,15 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
 }
+
 * {
   box-sizing: border-box;
+  
   &:focus {
     outline: none;
   }
 }
+
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -146,6 +149,7 @@ body {
     width: 100%;
     border-radius: 15px;
     overflow: hidden;
+
     &::after {
       content: "";
       position: absolute;
@@ -189,6 +193,7 @@ body {
         transform: perspective(1000px) rotateY(180deg) rotateX(0deg)
           rotateZ(0deg);
       }
+
       &.-back {
         transform: perspective(1000px) rotateY(0) rotateX(0deg) rotateZ(0deg);
       }
@@ -226,6 +231,7 @@ body {
       opacity: 1;
     }
   }
+
   &__bg {
     max-width: 100%;
     display: block;
@@ -334,6 +340,7 @@ body {
       font-size: 16px;
     }
   }
+
   &__nameItem {
     display: inline-block;
     min-width: 8px;
@@ -366,6 +373,7 @@ body {
   &__numberItem {
     width: 16px;
     display: inline-block;
+
     &.-active {
       width: 30px;
     }
@@ -411,6 +419,7 @@ body {
 
   &__dateItem {
     position: relative;
+
     span {
       width: 22px;
       display: inline-block;
@@ -428,6 +437,7 @@ body {
       padding-bottom: 5px;
     }
   }
+
   &__band {
     background: rgba(0, 0, 19, 0.8);
     width: 100%;
@@ -449,6 +459,7 @@ body {
     position: relative;
     z-index: 2;
     padding: 15px;
+    
     .card-item__type {
       opacity: 0.7;
     }
@@ -457,6 +468,7 @@ body {
       padding: 10px 15px;
     }
   }
+
   &__cvvTitle {
     padding-right: 10px;
     font-size: 15px;
@@ -464,6 +476,7 @@ body {
     color: #fff;
     margin-bottom: 5px;
   }
+
   &__cvvBand {
     height: 45px;
     background: #fff;
@@ -499,6 +512,7 @@ body {
 
 .card-input {
   margin-bottom: 20px;
+
   &__label {
     font-size: 14px;
     margin-bottom: 5px;
@@ -508,6 +522,7 @@ body {
     display: block;
     user-select: none;
   }
+
   &__input {
     width: 100%;
     // height: 50px;
@@ -536,6 +551,7 @@ body {
     &:focus {
       // box-shadow: 0 10px 20px -13px rgba(32, 56, 117, 0.35);
     }
+
     &.-select {
       -webkit-appearance: none;
       // background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAeCAYAAABuUU38AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUxJREFUeNrM1sEJwkAQBdCsngXPHsQO9O5FS7AAMVYgdqAd2IGCDWgFnryLFQiCZ8EGnJUNimiyM/tnk4HNEAg/8y6ZmMRVqz9eUJvRaSbvutCZ347bXVJy/ZnvTmdJ862Me+hAbZCTs6GHpyUi1tTSvPnqTpoWZPUa7W7ncT3vK4h4zVejy8QzM3WhVUO8ykI6jOxoGA4ig3BLHcNFSCGqGAkig2yqgpEiMsjSfY9LxYQg7L6r0X6wS29YJiYQYecemY+wHrXD1+bklGhpAhBDeu/JfIVGxaAQ9sb8CI+CQSJ+QmJg0Ii/EE2MBiIXooHRQhRCkBhNhBcEhLkwf05ZCG8ICCOpk0MULmvDSY2M8UawIRExLIQIEgHDRoghihgRIgiigBEjgiFATBACAgFgghEwSAAGgoBCBBgYAg5hYKAIFYgHBo6w9RRgAFfy160QuV8NAAAAAElFTkSuQmCC');
@@ -553,15 +569,18 @@ body {
   transition-delay: 0.1s;
   position: relative;
 }
+
 .slide-fade-up-leave-active {
   transition: all 0.25s ease-in-out;
   position: absolute;
 }
+
 .slide-fade-up-enter {
   opacity: 0;
   transform: translateY(15px);
   pointer-events: none;
 }
+
 .slide-fade-up-leave-to {
   opacity: 0;
   transform: translateY(-15px);
@@ -573,15 +592,18 @@ body {
   transition-delay: 0.1s;
   position: relative;
 }
+
 .slide-fade-right-leave-active {
   transition: all 0.25s ease-in-out;
   position: absolute;
 }
+
 .slide-fade-right-enter {
   opacity: 0;
   transform: translateX(10px) rotate(45deg);
   pointer-events: none;
 }
+
 .slide-fade-right-leave-to {
   opacity: 0;
   transform: translateX(-10px) rotate(45deg);

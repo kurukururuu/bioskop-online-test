@@ -36,6 +36,9 @@ module.exports = {
         lg: { min: '1025px', max: '1439px' },
         xl: { min: '1440px' }
       },
+      fontFamily: {
+        montserrat: ['Montserrat']
+      }
     },
     // container: {
     //   screens: {

@@ -69,9 +69,15 @@ export default {
 <style lang="scss">
 .swiper-button-prev,
 .swiper-button-next {
-  @apply bg-white bg-opacity-40 w-10 h-10 rounded-full;
+  @apply bg-white bg-opacity-40 rounded-full;
+  
+  width: 40px !important;
+  height: 40px !important;
+  
   &::after {
-    @apply text-xl text-white;
+    @apply text-white;
+
+    font-size: 16px !important;
   }
 }
 </style>

@@ -45,6 +45,7 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/dotenv',
+    '@nuxtjs/google-fonts'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -128,4 +129,10 @@ export default {
       },
     },
   },
+
+  googleFonts: {
+    families: {
+      Montserrat: true,
+    }
+  }
 }

@@ -318,6 +318,7 @@ export default {
     input {
       @apply text-white;
     }
+
     &__label {
       @apply text-gray-500;
     }
@@ -330,6 +331,7 @@ export default {
       *::after {
         color: white;
       }
+      
       option {
         @apply text-black;
       }
