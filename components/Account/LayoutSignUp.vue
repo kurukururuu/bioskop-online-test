@@ -2,7 +2,7 @@
   <div class="flex flex-col rounded-2xl desktop:w-fit-content bg-blue-1 p-8">
     <div class="flex items-center justify-between mb-10">
       <div class="text-xl font-bold">Daftar dengan</div>
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer ml-auto mobile:hidden" @click="$emit('cancel')" />
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer ml-auto" @click="$emit('cancel')" />
     </div>
 
     <div class="grid grid-cols-2 gap-2">
