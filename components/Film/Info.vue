@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex mb-8">
-      <img :src="data.cover" class="mobile:hidden film-cover object-cover rounded-lg">
+      <img :src="$device.isMobile ? data.cover.potrait : data.cover.landscape" class="mobile:hidden film-cover object-cover rounded-lg">
       <div class="flex flex-col w-full desktop:justify-end desktop:ml-8">
         <div class="flex justify-between items-center">
           <div>
@@ -108,7 +108,9 @@ export default {
     data: {
       type: Object,
       default() {
-        return {}
+        return {
+          cover: {}
+        }
       }
     }
   },

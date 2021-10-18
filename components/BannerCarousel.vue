@@ -1,9 +1,9 @@
 <template>
-  <VueSlickCarousel ref="carousel" autoplay :arrows="false" focus-on-select center-mode center-padding="10%" dots
+  <VueSlickCarousel ref="carousel" :arrows="false" focus-on-select center-mode center-padding="10%" dots
     class="banner-carousel">
     <div v-for="(item, i) in data" :key="i">
       <div v-touch:tap="e => clickActiveOnly(e, item)" class="relative">
-        <img :src="item.cover" alt="film"
+        <img :src="$device.isMobile ? item.cover.potrait : item.cover.landscape" alt="film"
           class="rounded-lg mobile:px-1 mx-auto w-full film-cover object-cover cursor-pointer">
 
         <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center p-8 mobile:hidden">
@@ -61,12 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .film-cover {
-  height: 450px;
-
-  @media (max-width: 768px) {
-    // height: 225px;
-    height: calc(1 / 2 * 100vh);
-  }
+  object-fit: cover;
 }
 
 .overlay {
@@ -84,7 +79,7 @@ export default {
 <style lang="scss">
 .banner-carousel {
   .slick-slide:not(.slick-active) {
-    @apply transform scale-90 opacity-50;
+    @apply transform scale-95 opacity-50;
 
     .details {
       @apply hidden;

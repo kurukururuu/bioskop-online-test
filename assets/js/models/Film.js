@@ -17,7 +17,7 @@ export class Film {
     duration = '',
     description = '',
     price = 0,
-    cover = '/dummy/film-1.jpg',
+    cover = {},
     director = '',
     writer = '',
     studio = '',
@@ -60,7 +60,10 @@ export class Film {
       duration: '1 H 40 Menit',
       description: faker.lorem.paragraph(),
       price: faker.finance.amount(),
-      cover: faker.random.image(),
+      cover: {
+        landscape: faker.image.abstract(1175,450,true),
+        potrait: faker.image.abstract(276,357,true)
+      },
       director: [faker.name.findName(),faker.name.findName()],
       writer: [faker.name.findName(),faker.name.findName()],
       studio: faker.company.companyName(),

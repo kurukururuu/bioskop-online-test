@@ -2,7 +2,7 @@
   <swiper class="swiper" :options="swiperOption">
     <SwiperSlide v-for="(item, i) in data" :key="i"
       @click="$emit('item-clicked', item)">
-      <img :src="item.cover" alt="film"
+      <img :src="$device.isMobile ? item.cover.potrait : item.cover.landscape" alt="film"
         class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
         @click="$emit('item-clicked', item)">
     </SwiperSlide>
