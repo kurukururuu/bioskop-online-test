@@ -1,8 +1,38 @@
 <template>
-  <swiper class="swiper" :options="swiperOption">
+  <swiper class="swiper" :options="options">
+    <!-- <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide>
+    <swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide>
+    <swiper-slide>Slide 9</swiper-slide>
+    <swiper-slide>Slide 10</swiper-slide>
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide>
+    <swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide>
+    <swiper-slide>Slide 9</swiper-slide>
+    <swiper-slide>Slide 10</swiper-slide>
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide>
+    <swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide>
+    <swiper-slide>Slide 9</swiper-slide>
+    <swiper-slide>Slide 10</swiper-slide> -->
     <SwiperSlide v-for="(item, i) in data" :key="i"
       @click="$emit('item-clicked', item)">
-      <img :src="$device.isMobile ? item.cover.potrait : item.cover.landscape" alt="film"
+      <img :src="itemPotrait ? item.cover.potrait : item.cover.landscape" alt="film"
         class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
         @click="$emit('item-clicked', item)">
     </SwiperSlide>
@@ -24,33 +54,57 @@ export default {
       type: Object,
       default() {
         return {
-          ...this.swiperOption,
-          loop: true,
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+          ...this.defaultSwiperOption
+        }
+      }
+    },
+    itemPotrait: {
+      type: Boolean,
+      default() {
+        return true
+      }
+    },
+  },
+  data() {
+    return {
+      defaultSwiperOption: {
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        slidesPerView: 7,
+        breakpoints: {
+          1024: {
+            slidesPerView: 7,
+            spaceBetween: 10
           },
-          breakpoints: {
-            1024: {
-              slidesPerView: 7,
-              spaceBetween: 10
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 10
-            },
-            640: {
-              slidesPerView: 3,
-              spaceBetween: 10
-            },
-            320: {
-              slidesPerView: 3,
-              spaceBetween: 10
-            }
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10
+          },
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 10
+          },
+          320: {
+            slidesPerView: 3,
+            spaceBetween: 10
           }
         }
       }
     }
+  },
+  computed: {
+    options() {
+      return {
+        ...this.defaultSwiperOption,
+        ...this.swiperOption
+      }
+    }
+  },
+  mounted() {
+    window.swiper = this
   }
 }
 </script>

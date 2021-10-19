@@ -2,8 +2,8 @@
   <div class="fixed left-0 bottom-8 w-full">
     <div class="flex items-center bg-blue-2 bg-opacity-80 rounded-full opacity-50 hover:opacity-100 mx-auto w-fit-content px-8 py-4">
       <!-- <div class="text-white"> -->
-        <HomeIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" />
-        <SearchIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" />
+        <nuxt-link to="/"><HomeIcon :width="20" :height="20" fill="white" class="cursor-pointer mr-8" /></nuxt-link>
+        <nuxt-link to="/search"><SearchIcon :width="20" :height="20" stroke="white" class="cursor-pointer mr-8" /></nuxt-link>
         <PathCircle :width="26" :height="26" fill="transparent" stroke="white" class="cursor-pointer mr-8" />
         <nuxt-link to="/my-account"><UserIcon :width="20" :height="20" stroke="white" class="cursor-pointer" /></nuxt-link>
       <!-- </div> -->
