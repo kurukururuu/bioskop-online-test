@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center w-screen h-screen">
+  <div class="flex items-center justify-center w-screen flex-1">
     Logging in...
   </div>
 </template>

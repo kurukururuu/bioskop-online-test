@@ -7,13 +7,15 @@
 
     <div class="grid grid-cols-2 gap-2">
       <!-- <BaseButton dark class="mobile:col-span-1 mobile:w-full px-2"> -->
-        <button class="flex items-center px-3 py-2 hover:bg-blue-2">
+        <button class="flex items-center px-3 py-2 hover:bg-blue-2"
+          @click="$auth.loginWith('google', { params: { prompt: 'select_account' } })">
           <GoogleIcon width="24" height="24" class="mr-4" />
           <div class="mr-auto text-white">Google</div>
         </button>
       <!-- </BaseButton> -->
       <!-- <BaseButton dark class="mobile:col-span-1 mobile:w-full px-2"> -->
-        <button class="flex items-center px-3 py-2 hover:bg-blue-2">
+        <button class="flex items-center px-3 py-2 hover:bg-blue-2"
+          @click="$auth.loginWith('facebook')">
           <FacebookIcon width="24" height="24" class="mr-4" />
           <div class="mr-auto text-white">Facebook</div>
         </button>
