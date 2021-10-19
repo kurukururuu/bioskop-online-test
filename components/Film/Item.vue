@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-3 gap-4">
-    <img :src="data.cover" alt="film" class="rounded-lg">
+    <img :src="$device.isMobile ? data.cover.potrait : data.cover.landscape" alt="film" class="rounded-lg">
     <div class="col-span-2">
       <div class="font-bold">{{ data.title }}</div>
       <div class="flex text-white items-center mb-4">
@@ -22,7 +22,9 @@ export default {
     data: {
       type: Object,
       default() {
-        return {}
+        return {
+          cover: {}
+        }
       }
     }
   }

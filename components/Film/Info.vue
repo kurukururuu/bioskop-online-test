@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="flex mb-8">
-      <img :src="data.cover" class="mobile:hidden film-cover object-cover rounded-lg">
+      <img :src="$device.isMobile ? data.cover.potrait : data.cover.landscape" class="mobile:hidden film-cover object-cover rounded-lg">
       <div class="flex flex-col w-full desktop:justify-end desktop:ml-8">
         <div class="flex justify-between items-center">
           <div>
             <div class="text-2xl text-white font-bold">{{data.title}}</div>
             <div class="flex text-white items-center mb-4">
-              <div class="opacity-50 text-sm mr-2">{{data.genre.join(', ')}}</div>
+              <div class="opacity-50 text-sm mr-2">{{genre.join(', ')}}</div>
               <div class="opacity-50 text-sm mr-2 border rounded-sm px-1">{{data.rating}}</div>
               <div class="opacity-50 text-sm">{{data.duration}}</div>
             </div>
@@ -30,7 +30,8 @@
         </div>
 
         <div class="flex mobile:grid mobile:grid-cols-3 mobile:gap-3">
-          <BaseButton v-if="data.status !== 3" v-bind="$props" class="w-40 mobile:col-span-3 mobile:w-full">
+          <BaseButton v-if="data.status !== 3" v-bind="$props" class="w-40 mobile:col-span-3 mobile:w-full"
+            @click="$emit('action', 'buy-ticket')">
             Beli Tiket
           </BaseButton>
           <BaseButton dark v-bind="$props"
@@ -72,11 +73,11 @@
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Sutradara</div>
-        <div>{{data.director.join(', ')}}</div>
+        <div>{{director.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Penulis</div>
-        <div>{{data.writer.join(', ')}}</div>
+        <div>{{writer.join(', ')}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Perusahaan Produksi</div>
@@ -107,13 +108,26 @@ export default {
     data: {
       type: Object,
       default() {
-        return {}
+        return {
+          cover: {}
+        }
       }
     }
   },
   data() {
     return {
       formatter, dateConverter
+    }
+  },
+  computed: {
+    genre() {
+      return this.data.genre || []
+    },
+    director() {
+      return this.data.director || []
+    },
+    writer() {
+      return this.data.writer || []
     }
   }
 }

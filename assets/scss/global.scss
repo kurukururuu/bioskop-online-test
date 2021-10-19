@@ -4,6 +4,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
 .clipped{
 	overflow: hidden;
 	display: block;
@@ -30,18 +31,22 @@
 		-webkit-line-clamp: 1;
 		max-height : calc(1em * 1.5 * 1);
 	}
+	
 	&.clip-2 {
 		-webkit-line-clamp: 2;
 		max-height : calc(1em * 1.5 * 2);
 	}
+
 	&.clip-3 {
 		-webkit-line-clamp: 3;
 		max-height: calc(1em * 1.5 * 3);
 	}
+
 	&.clip-4 {
 		-webkit-line-clamp: 4;
 		max-height: calc(1em * 1.5 * 4);
 	}
+
 	&.clip-5 {
 		-webkit-line-clamp: 5;
 		max-height: calc(1em * 1.5 * 5);
@@ -57,36 +62,76 @@
 	display: none;
 }
 
-/* width */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
 	margin-left: 4px;
 }
 
-/* Track */
 .custom-scrollbar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
 }
  
-/* Handle */
 .custom-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 10px;
   @apply bg-gray-600;
 }
 
-/* Handle on hover */
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-blue-4;
 }
 
-// @media (min-width: 1220px) and (max-width: 1439px) {
-// 	.container {
-// 		max-width: 90%;
-// 	}
-// }
-// @media (min-width: 768px) and (max-width: 1219px) {
-// 	.container {
-// 		max-width: 95%;
-// 	}
-// }
+@media (min-width: 1220px) and (max-width: 1439px) {
+	.container {
+		max-width: 90%;
+	}
+}
+@media (min-width: 768px) and (max-width: 1219px) {
+	.container {
+		max-width: 90%;
+	}
+}
+@media (max-width: 768px) {
+	.container {
+		max-width: 90%;
+	}
+}
+
+@media (max-width: 768px) {
+	.vm--container {
+		@apply flex items-end;
+	}
+}
+
+.vm--container {
+	.vm--overlay {
+		background: #011C3CCC !important;
+	}
+}
+
+.modal-classes {
+	background: transparent !important;
+	width: fit-content !important;
+	max-height: 100vh;
+	overflow: auto !important;
+
+	&.m-auto {
+		margin: auto;
+		left: 0 !important;
+	}
+
+	@media (max-width: 768px) {
+		left: 0 !important;
+		top: 0 !important;
+		width: 100% !important;
+
+		&.full-height {
+			height: 100vh !important;
+			@apply overflow-auto;
+		}
+
+		&.unset-height {
+			height: unset !important;
+		}
+	}
+}

@@ -5,7 +5,7 @@
       <div v-if="(paymentMethod !== 'qris' && qrisStep === 1) || (paymentMethod === 'qris' && qrisStep === 3)"
         class="text-xl font-bold mobile:text-sm">Menunggu Pembayaran</div>
       <div v-else class="text-xl font-bold mobile:text-sm">QRIS</div>
-      <div class="text-sm text-red-primary cursor-pointer">BATALKAN</div>
+      <div class="text-sm text-red-primary cursor-pointer" @click="$emit('abort')">BATALKAN</div>
     </div>
     
     <template v-if="paymentMethod === 'cc'">
@@ -24,14 +24,14 @@
           <BCAIcon :width="24" :height="24" class="mr-3" />
           <div ref="vaNumber" class="font-bold">{{ paymentDetails.vaNumber }}</div>
         </div>
-        <div v-tooltip="{
+        <button v-tooltip="{
             content: 'copied',
             show: copySuccess,
             trigger: 'manual',
             placement: 'bottom',
           }" class="text-blue-4 text-xs font-bold cursor-pointer"
           @click="actionCopyVANumber"
-          >SALIN</div>
+          >SALIN</button>
       </div>
       <div class="px-4 py-3 mb-10">
         <div class="text-xs font-bold mb-5">STORY OF KALE</div>
@@ -42,10 +42,10 @@
       </div>
 
       <div class="px-4 py-3 mb-8 mobile:p-0">
-        <div class="flex justify-between items-center cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
+        <button class="flex justify-between items-center cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
           <div class="text-sm font-bold">Cara Pembayaran</div>
           <ChevronRight :width="32" :height="32" class="transform rounded-full p-2 transition-all duration-300 ease-in-out mobile:hidden" :class="howToPayOpened ? '-rotate-90' : 'rotate-90'" />
-        </div>
+        </button>
         <div class="transition-all duration-1000 ease-in-out overflow-hidden" :class="howToPayOpened ? 'max-h-screen' : 'max-h-0 mobile:max-h-screen'">
           <div class="text-xs mb-2">Pembayaran via BCA Virtual Account</div>
           <ol class="list-decimal list-inside text-xs">
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4">Saya sudah membayar</BaseButton>
+      <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4" @click="confirmPayment">Saya sudah membayar</BaseButton>
     </template>
 
     <template v-else-if="paymentMethod === 'qris'">
@@ -144,7 +144,7 @@
               <QrisIcon :width="24" :height="24" class="mr-3" />
               <div class="text-xs">QRIS</div>
             </div>
-            <div class="text-xs border border-blue-4 rounded-full px-3 py-1 text-blue-4 cursor-pointer" @click="qrisStep = 2">Kode QR</div>
+            <button class="text-xs border border-blue-4 rounded-full px-3 py-1 text-blue-4 cursor-pointer" @click="qrisStep = 2">Kode QR</button>
           </div>
           <div class="px-4 py-3 mb-4">
             <div class="text-xs font-bold mb-5">STORY OF KALE</div>
@@ -165,7 +165,7 @@
             <li>Transaksi berhasil</li>
             <li>Buka Aplikasi Bioskop Online dan cek kembali transaksi kamu</li>
           </ol>
-          <BaseButton class="text-lg mobile:w-full" @click="qrisStep = 1 && submitPayment()">Tutup</BaseButton>
+          <BaseButton class="text-lg mobile:w-full" @click="closeQrisModal">Tutup</BaseButton>
         </template>
       </div>
     </template>
@@ -209,7 +209,7 @@ export default {
     },
     paymentMethod() {
       // dummy, change this from store when ready
-      return 'bca'
+      return this.$store.state.application.payment.method
     }
   },
   methods: {
@@ -235,6 +235,15 @@ export default {
     },
     submitPayment() {
       console.log('pay')
+    },
+    confirmPayment() {
+      // dummy case of error payment
+      this.$emit('error')
+    },
+    closeQrisModal() {
+      // this.qrisStep = 1
+      this.submitPayment()
+      this.$emit('cancel')
     }
   }
 }
@@ -244,12 +253,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     min-width: 500px;
-    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl w-fit-content;
+    @apply bg-blue-1 p-9 border border-opacity-20 rounded-2xl w-fit-content;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full bg-blue-1 p-4;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>

@@ -6,8 +6,8 @@
       <BaseSelect v-model="form.gender" :options="['Laki-laki', 'Perempuan']" required label="Jenis Kelamin" class="mb-12 w-full" type="select" />
       
       <BaseButton :disabled="loading" class="desktop:w-full mobile:w-full mb-4">Simpan Perubahan</BaseButton>
-      <BaseButton dark class="desktop:w-full mobile:w-full border border-blue-4">Batalkan Perubahan</BaseButton>
     </form>
+    <BaseButton dark class="desktop:w-full mobile:w-full border border-blue-4" @click="$emit('cancel')">Batalkan Perubahan</BaseButton>
   </div>
 </template>
 

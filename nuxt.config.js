@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -11,6 +13,12 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  // for local server mobile testing purpose, enable this
+  // server: {
+  //   host: '0.0.0.0',
+  //   port: 8000
+  // },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/scss/global.scss'
@@ -19,7 +27,10 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/modal',
-    '~/plugins/tooltip'
+    '~/plugins/tooltip',
+    '~/plugins/touch',
+    { src: '~/plugins/swiper', ssr: false },
+    { src: '~/plugins/vue-carousel', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,6 +44,9 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/device'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,8 +55,55 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
+    '@nuxtjs/auth-next'
   ],
+  
+  auth: {
+    // Options
+    strategies: {
+      facebook: {
+        endpoints: {
+          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
+        },
+        clientId: process.env.FACEBOOK_CLIENT_ID,
+        scope: ['public_profile', 'email'],
+        responseType: 'code',
+      },
+      google: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        scope: ['profile', 'email'],
+        codeChallengeMethod: '',
+        responseType: 'code',
+      },
+      local: {
+        token: {
+          property: 'data.token',
+          maxAge: 3600
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'data'
+        },
+        endpoints: {
+          login: { url: '/api/v1/login', method: 'post' },
+          user: { url: '/api/v1/auth/me', method: 'get' },
+          refresh: { url: '/api/v1/refresh', method: 'post' },
+          logout: false
+        }
+      },
+    },
+    redirect: {
+      login: '',
+      logout: '/',
+      callback: '/auth/loginWithGoogle',
+      home: '/auth/loginWithGoogle'
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -69,4 +130,14 @@ export default {
       },
     },
   },
+
+  googleFonts: {
+    families: {
+      Montserrat: true,
+    }
+  },
+
+  device: {
+    refreshOnResize: true
+  }
 }

@@ -17,7 +17,7 @@ export class Film {
     duration = '',
     description = '',
     price = 0,
-    cover = '/dummy/film-1.jpg',
+    cover = {},
     director = '',
     writer = '',
     studio = '',
@@ -53,14 +53,17 @@ export class Film {
 
   createDummy(id = 1) {
     const data = {
-      id,
+      id: faker.datatype.uuid(),
       title: faker.name.title(),
       genre: [faker.music.genre(), faker.music.genre()],
       rating: '17+',
       duration: '1 H 40 Menit',
       description: faker.lorem.paragraph(),
       price: faker.finance.amount(),
-      cover: faker.random.image(),
+      cover: {
+        landscape: faker.image.abstract(1175,450,true),
+        potrait: faker.image.abstract(276,357,true)
+      },
       director: [faker.name.findName(),faker.name.findName()],
       writer: [faker.name.findName(),faker.name.findName()],
       studio: faker.company.companyName(),
@@ -77,7 +80,7 @@ export class Film {
     const arr = []
     for (let i = 0; i < v; i++) {
       const data = {
-        id: i+1,
+        id: faker.datatype.uuid(),
         title: faker.name.title(),
         genre: [faker.music.genre(), faker.music.genre()],
         rating: '17+',

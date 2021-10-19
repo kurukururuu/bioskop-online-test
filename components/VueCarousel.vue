@@ -7,13 +7,15 @@
       </div>
     </VueSlickCarousel> -->
 
-    <Carousel ref="carousel" loop :per-page-custom="[[320, 3.5], [769, 7]]" navigation-enabled :pagination-enabled="false" class="default-carousel">
-      <Slide v-for="(item, i) in data" :key="i">
-        <img :src="item.cover" alt="film"
-        class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
-        @click="$emit('item-clicked', item)">
-      </Slide>
-    </Carousel>
+    <client-only>
+      <Carousel ref="carousel" loop :per-page-custom="[[320, 3.5], [769, 7]]" navigation-enabled :pagination-enabled="false" class="default-carousel">
+        <Slide v-for="(item, i) in data" :key="i">
+          <img :src="$device.isMobile ? item.cover.potrait : item.cover.landscape" alt="film"
+          class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
+          @click="$emit('item-clicked', item)">
+        </Slide>
+      </Carousel>
+    </client-only>
   </div>
 </template>
 
@@ -22,12 +24,12 @@
 // import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import { Carousel, Slide } from 'vue-carousel';
+// import { Carousel, Slide } from 'vue-carousel';
 export default {
   components: {
     // VueSlickCarousel,
-    Carousel,
-    Slide
+    // Carousel,
+    // Slide
   },
   props: {
     data: {
@@ -39,14 +41,16 @@ export default {
   },
   // disable dragging function
   mounted(){
-  const { carousel } = this.$refs;
+    const { carousel } = this.$refs;
 
-  if("ontouchstart" in window){
-    carousel.$el.removeEventListener("touchstart", carousel.handleMousedown);
-  } else {
-    carousel.$el.removeEventListener("mousedown", carousel.handleMousedown);
-  }
-},
+    if (carousel) {
+      if("ontouchstart" in window){
+        carousel.$el.removeEventListener("touchstart", carousel.handleMousedown);
+      } else {
+        carousel.$el.removeEventListener("mousedown", carousel.handleMousedown);
+      }
+    }
+  },
 }
 </script>
 
@@ -75,6 +79,7 @@ export default {
     &.VueCarousel-navigation-prev {
       @apply ml-2;
     }
+    
     &.VueCarousel-navigation-next {
       @apply mr-2;
     }

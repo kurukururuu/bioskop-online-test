@@ -8,21 +8,23 @@
             :value="$attrs.value"
             :type="hidePassword ? 'password' : 'text'"
             autocomplete="off"
-            class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500"
+            class="w-full border-b bg-transparent focus:outline-none  font-bold text-sm placeholder-gray-500"
+            :class="error ? 'text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
             @change="e => $emit('change', e)" />
-          <div class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
+          <button class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
             <EyeHideIcon v-if="hidePassword" :width="20" :height="20" />
             <EyeIcon v-else :width="20" :height="20" fill="white" />
-          </div>
+          </button>
         </div>
       </template>
-      <template v-if="radio">
+      <template v-else-if="radio">
         <div class="relative radio-container">
           <input
             type="radio"
             v-bind="$attrs"
-            class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500"
+            class="w-full border-b bg-transparent focus:outline-none font-bold text-sm placeholder-gray-500"
+            :class="error ? 'error text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
             @change="e => $emit('change', e)" />
           <span class="radio" />
@@ -33,7 +35,8 @@
           <input
             v-bind="$attrs"
             :type="$attrs.type"
-            class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500"
+            class="w-full border-b bg-transparent focus:outline-none font-bold text-sm placeholder-gray-500"
+            :class="error ? 'error text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
             @change="e => $emit('change', e)" />
           <div class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white">
@@ -41,7 +44,7 @@
           </div>
         </div>
       </template>
-      <div class="text-xxs opacity-50 text-white">{{ $props.helperText }}</div>
+      <div class="text-2xxs opacity-50 text-white">{{ $props.helperText }}</div>
     </label>
   </div>
 </template>
@@ -75,6 +78,12 @@ export default {
       }
     },
     radio: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    error: {
       type: Boolean,
       default() {
         return false
@@ -131,6 +140,7 @@ input[type='number'] {
   input {
     &:checked ~ .radio {
       @apply bg-blue-4;
+
       &::after {
         @apply block;
       }
@@ -152,8 +162,13 @@ input[type='number'] {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-      transition: background-color 5000s ease-in-out 0s;
-      -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+    
+    &.error {
+      -webkit-text-fill-color: #EB5757;
+      @apply text-red-secondary border-red-secondary;
+    }
   }
 }
 </style>

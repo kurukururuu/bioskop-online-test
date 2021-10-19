@@ -92,6 +92,7 @@ export default {
 .carousel-container {
   // width: fit-content;
   @apply flex overflow-auto;
+  
   &>div::-webkit-scrollbar {
     display: none;
   }

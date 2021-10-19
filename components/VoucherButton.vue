@@ -51,6 +51,6 @@ export default {
 
 <style lang="scss" scoped>
 button {
-  min-width: 378px;
+  // min-width: 378px;
 }
 </style>

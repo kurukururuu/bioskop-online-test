@@ -148,6 +148,24 @@ export const CreditCard = (args, { argTypes }) => ({
   },
 })
 
+export const BrightcovePlayer = (args, { argTypes }) => ({
+  data() {
+    return {
+      data: {
+        videos: {
+          bumper: 6213528295001,
+          realVid: 6213528295001
+        }
+      }
+    }
+  },
+  template: `
+  <div>
+    <BrightcovePlayer :data="data" />
+  </div>
+`
+})
+
 export const BaseFooter = (args, { argTypes }) => ({
   template: `
   <div>

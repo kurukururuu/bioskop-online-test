@@ -2,8 +2,8 @@
   <div class="text-white layout-payment-wrapper">
     <div class="flex justify-between items-center mb-8">
       <div class="text-xl font-bold mobile:text-sm">Konfirmasi Pembayaran</div>
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" />
-      <div class="text-lg cursor-pointer desktop:hidden">&#x2715;</div>
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$emit('cancel')" />
+      <button class="text-lg cursor-pointer desktop:hidden" @click="$emit('cancel')">&#x2715;</button>
     </div>
 
     <div class="mb-4">
@@ -15,8 +15,7 @@
       </div>
     </div>
 
-    <PaymentMethodButton method="telkomsel" />
-    
+    <PaymentMethodButton :method="paymentMethod" @change-payment="$emit('prev')" />
     <div class="px-5 py-2 mb-9">
       <div class="text-sm font-bold">Rincian</div>
       <div class="flex justify-between items-center text-xs">
@@ -37,7 +36,7 @@
       </div>
       <div class="flex justify-between items-center text-xs mb-4">
         <div>Metode Pembayaran</div>
-        <div class="font-semibold">Telkomsel</div>
+        <div class="font-semibold uppercase">{{ paymentMethod.code }}</div>
       </div>
       <div class="flex justify-between items-center text-sm">
         <div>Total</div>
@@ -45,7 +44,7 @@
       </div>
     </div>
 
-    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4 desktop:text-lg">Lanjut Pembayaran</BaseButton>
+    <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4 desktop:text-lg" @click="$emit('next')">Lanjut Pembayaran</BaseButton>
   </div>
 </template>
 
@@ -57,10 +56,32 @@ export default {
   components: {
     XIcon
   },
+  props: {
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       formatter,
       disabled: false,
+    }
+  },
+  computed: {
+    paymentMethod() {
+      const method = this.$store.state.application.payment.method
+      let found = null
+      for (let i = 0; i < this.list.length; i++) {
+        const item = this.list[i];
+        found = item.methods.find(v => v.code === method)
+        if (found) {
+          return found
+        }
+      }
+      return {}
     }
   }
 }
@@ -70,12 +91,15 @@ export default {
 @media (min-width: 768px) {
   .layout-payment-wrapper {
     width: 500px;
-    @apply bg-blue-2 p-9 border border-opacity-20 rounded-2xl;
+    @apply bg-blue-1 p-9 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
   .layout-payment-wrapper {
-    width: 100%;
+    @apply w-full bg-blue-1 p-4;
+    // for mobile layout full-screen height
+    // needs div parent with fixed or 100vh height
+    @apply h-full flex flex-col;
   }
 }
 </style>
