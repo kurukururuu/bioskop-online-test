@@ -54,7 +54,6 @@
 import Film from '~/assets/js/models/Film'
 import PaymentMethod from '~/assets/js/models/PaymentMethod'
 
-
 export default {
   data() {
     return {

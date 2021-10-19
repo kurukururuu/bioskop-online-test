@@ -135,3 +135,27 @@
 		}
 	}
 }
+
+
+.slide-left-enter-active {
+  transition: all .25s ease-in-out;
+  transition-delay: 0.1s;
+  position: relative;
+}
+
+.slide-left-leave-active {
+  transition: all .25s ease-in-out;
+  position: absolute;
+}
+
+.slide-left-enter {
+  opacity: 0;
+  transform: translateX(15px);
+  pointer-events: none;
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-15px);
+  pointer-events: none;
+}
