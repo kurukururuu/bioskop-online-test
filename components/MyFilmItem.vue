@@ -1,6 +1,6 @@
 <template>
-  <div class="flex">
-    <img :src="cover.landscape" alt="film" class="mr-5 film-cover">
+  <div class="flex mobile:flex-col">
+    <img :src="cover.landscape" alt="film" class="film-cover mr-5 mobile:mr-0">
     <div class="flex flex-col justify-between">
       <div>
         <div class="text-xl font-bold mb-2">{{ filmData.title }}</div>
@@ -71,9 +71,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .film-cover {
   width: 300px;
   height: 150px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+    margin-bottom: 8px;
+  }
 }
 </style>

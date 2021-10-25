@@ -45,7 +45,7 @@
       
       <BaseButton class="w-full mb-2 mt-11 mobile:w-full">Selesai</BaseButton>
     </form>
-    <BaseButton dark class="w-full border border-blue-4 mobile:w-full" @click="actionRegister">Lanjut lengkapi biodata</BaseButton>
+    <BaseButton dark class="w-full border border-blue-4 mobile:w-full mb-8" @click="actionCompleteProfile">Lanjut lengkapi biodata</BaseButton>
   </div>
 </template>
 
@@ -81,6 +81,12 @@ export default {
       // dummy action
       this.$emit('cancel')
       this.$emit('finish-register')
+    },
+    actionCompleteProfile() {
+      console.log('action complete profile')
+      // dummy action
+      this.$emit('cancel')
+      this.$emit('complete-profile')
     }
   }
 }

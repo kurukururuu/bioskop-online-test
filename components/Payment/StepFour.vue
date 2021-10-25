@@ -132,7 +132,7 @@
               <ClockIcon width="20" height="20" stroke="white" class="mr-3" />
               <PaymentTimer inline-mode :end-time="paymentDetails.endDate" class="overflow-hidden" />
             </div>
-            <div class="text-xs mb-8">Cara melakukan pembayaran? <a href="https://www.google.com" class="text-blue-4 underline">KLIK DISINI</a></div>
+            <div class="text-xs mb-8">Cara melakukan pembayaran? <a href="https://www.google.com" target="_blank" class="text-blue-4 underline">KLIK DISINI</a></div>
             <img src="/dummy/qr-dummy-full.png" alt="qrcode-full" class="rounded-lg w-11/12 mb-20">
             <BaseButton class="text-lg mobile:w-full" @click="qrisStep = 3">UNDUH QRIS</BaseButton>
           </div>

@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return false
+      return true
     }
   },
   mounted() {

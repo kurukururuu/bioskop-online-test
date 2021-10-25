@@ -9,7 +9,7 @@
     <div class="p-2 bg-blue-2 bg-opacity-20 flex justify-between items-center rounded-lg border border-blue-2 border-opacity-50 mb-6">
       <div class="text-xxs">
         <span class="opacity-75">Kode Transaksi</span>
-        <span>BO-192828</span>
+        <span>{{ paymentDetails.payment_id }}</span>
       </div>
       <div class="text-xxs">{{ dateConverter(new Date()) }} {{new Date().toLocaleTimeString()}}</div>
     </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="flex justify-between text-sm mobile:text-xs">
       <div class="opacity-50">Metode Pembayaran</div>
-      <div class="font-bold">{{ data.payment_method }}</div>
+      <div class="font-bold">{{ paymentDetails.payment_method }}</div>
     </div>
     <div class="flex justify-between text-sm mobile:text-xs">
       <div class="opacity-50">Status Pembayaran</div>
@@ -55,6 +55,9 @@ export default {
     }
   },
   computed: {
+    paymentDetails() {
+      return this.data.payment_details
+    },
     status() {
       return getHistoryStatus(this.data.status)
     }

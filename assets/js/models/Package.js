@@ -7,7 +7,7 @@ export class Package {
   constructor ({
     id = null,
     name = '',
-    cover = '/dummy/film-package-1.jpg',
+    cover = {},
     summary = '',
     price = 0,
     description = '',
@@ -41,7 +41,10 @@ export class Package {
     const data = {
       id,
       name: faker.name.title(),
-      cover: faker.random.image(),
+      cover: {
+        landscape: faker.image.abstract(1175,450,true),
+        potrait: faker.image.abstract(276,357,true)
+      },
       summary: faker.lorem.sentence(),
       price: faker.finance.amount(),
       description: faker.lorem.paragraph(),

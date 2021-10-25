@@ -1,17 +1,17 @@
 <template>
   <div class="grid grid-cols-5 gap-4">
     <div class="col-span-1">
-      <img :src="details.cover" alt="package" class="rounded">
+      <img :src="$device.isMobile ? cover.potrait : cover.landscape" alt="package" class="rounded">
     </div>
     <div class="col-span-4">
       <div class="font-bold">{{ details.title || details.name }}</div>
       <div class="flex justify-between text-xs">
         <div>Pembayaran</div>
-        <div class="font-bold">{{ formatter.format(data.totalPrice) }}</div>
+        <div class="font-bold mobile:text-xxs">{{ formatter.format(data.totalPrice) }}</div>
       </div>
       <div class="flex justify-between text-xs mb-6">
         <div>Status Pembayaran</div>
-        <div class="font-bold"
+        <div class="font-bold mobile:text-xxs"
           :class="status.class">{{ status.text }}</div>
       </div>
 
@@ -50,6 +50,9 @@ export default {
   computed: {
     details () {
       return this.data.details
+    },
+    cover() {
+      return this.details.cover
     },
     timestamp () {
       return this.data.timestamp
