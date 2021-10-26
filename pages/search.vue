@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between mb-7">
         <div class="bg-blue-2 rounded-full p-5 flex items-center w-96">
           <SearchIcon :width="20" :height="20" stroke="white" class="mr-3" />
-          <input v-model="keyword" type="text" placeholder="Cari berdasarkan judul, genre, pemain" class="bg-transparent text-white mobile:text-sm w-full">
+          <input v-model="keyword" type="text" placeholder="Cari berdasarkan judul, genre, pemain" class="bg-transparent text-white mobile:text-xs w-full">
         </div>
 
         <nuxt-link to="/"><XIcon :width="30" :height="30" fill="white" class="cursor-pointer ml-auto" /></nuxt-link>

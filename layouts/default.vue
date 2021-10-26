@@ -23,7 +23,15 @@
       classes="modal-classes"
       width="400px"
       height="auto">
-      <AccountLayoutSignUp @cancel="$modal.hide('signup-modal')" @finish-register="$modal.show('verify-otp')" />
+      <AccountLayoutSignUp @cancel="$modal.hide('signup-modal')" @finish-register="$modal.show('verify-otp')" @complete-profile="$modal.show('complete-profile')" />
+    </Modal>
+    
+    <Modal name="complete-profile"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutCompleteProfile @cancel="$modal.hide('complete-profile')" @finish-register="$modal.show('verify-otp')" />
     </Modal>
 
     <Modal name="signin-modal"

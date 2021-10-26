@@ -7,13 +7,15 @@
 
     <div class="grid grid-cols-2 gap-2">
       <!-- <BaseButton dark class="mobile:col-span-1 mobile:w-full px-2"> -->
-        <button class="flex items-center px-3 py-2 hover:bg-blue-2">
+        <button class="flex items-center px-3 py-2 hover:bg-blue-2"
+          @click="$auth.loginWith('google', { params: { prompt: 'select_account' } })">
           <GoogleIcon width="24" height="24" class="mr-4" />
           <div class="mr-auto text-white">Google</div>
         </button>
       <!-- </BaseButton> -->
       <!-- <BaseButton dark class="mobile:col-span-1 mobile:w-full px-2"> -->
-        <button class="flex items-center px-3 py-2 hover:bg-blue-2">
+        <button class="flex items-center px-3 py-2 hover:bg-blue-2"
+          @click="$auth.loginWith('facebook')">
           <FacebookIcon width="24" height="24" class="mr-4" />
           <div class="mr-auto text-white">Facebook</div>
         </button>
@@ -43,7 +45,7 @@
       
       <BaseButton class="w-full mb-2 mt-11 mobile:w-full">Selesai</BaseButton>
     </form>
-    <BaseButton dark class="w-full border border-blue-4 mobile:w-full" @click="actionRegister">Lanjut lengkapi biodata</BaseButton>
+    <BaseButton dark class="w-full border border-blue-4 mobile:w-full mb-8" @click="actionCompleteProfile">Lanjut lengkapi biodata</BaseButton>
   </div>
 </template>
 
@@ -79,6 +81,12 @@ export default {
       // dummy action
       this.$emit('cancel')
       this.$emit('finish-register')
+    },
+    actionCompleteProfile() {
+      console.log('action complete profile')
+      // dummy action
+      this.$emit('cancel')
+      this.$emit('complete-profile')
     }
   }
 }

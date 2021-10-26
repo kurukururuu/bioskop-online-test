@@ -9,7 +9,7 @@
           @item-clicked="v => $router.push(`/film/${v.id}`)" />
       </div>
     </div>
-    <MobileMenuBar class="desktop:hidden z-40" />
+    <MobileMenuBar v-if="isLoggedIn" class="desktop:hidden z-40" />
   </div>
 </template>
 
@@ -18,6 +18,9 @@ import Film from '~/assets/js/models/Film'
 
 export default {
   computed: {
+    isLoggedIn() {
+      return true
+    },
     categories() {
       // dummy
       const data = [

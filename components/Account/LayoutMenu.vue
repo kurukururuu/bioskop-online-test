@@ -112,6 +112,7 @@
     <Modal name="email-verification"
       :click-to-close="false"
       classes="modal-classes"
+      width="400px"
       height="auto">
       <AccountEmailVerification @cancel="$modal.hide('email-verification')" />
     </Modal>

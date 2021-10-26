@@ -125,7 +125,16 @@
         <div class="grid grid-cols-2 gap-4 mobile:grid-cols-3">
           <div class="card-input col-span-1 mobile:col-span-2">
             <label for="cardNumber" class="card-input__label">Card Number</label>
-            <input id="cardNumber" v-model="cardNumber" v-mask="generateCardNumberMask" required type="text" class="card-input__input" data-ref="cardNumber" autocomplete="off" @focus="focusInput" @blur="blurInput">
+            <input id="cardNumber"
+              v-mask="generateCardNumberMask"
+              :value="cardNumber"
+              required
+              type="text" class="card-input__input"
+              data-ref="cardNumber"
+              autocomplete="off"
+              @input="e => cardNumber = e.target.value"
+              @focus="focusInput"
+              @blur="blurInput">
           </div>
           <!-- <div class="card-input col-span-1">
             <label for="cardName" class="card-input__label">Card Holders</label>
@@ -134,14 +143,24 @@
           <div class="card-form__col -cvv col-span-1">
             <div class="card-input w-7 mobile:w-full">
               <label for="cardCvv" class="card-input__label">CVV2</label>
-              <input id="cardCvv" v-model="cardCvv" v-mask="'###'" required minlength="3" type="text" class="card-input__input" maxlength="4" autocomplete="off" @focus="flipCard(true)" @blur="flipCard(false)">
+              <input id="cardCvv" v-model="cardCvv" v-mask="'###'" required minlength="3" type="number" class="card-input__input" maxlength="4" autocomplete="off" @focus="flipCard(true)" @blur="flipCard(false)"
+                @input="actionLimit">
             </div>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4 mobile:grid-cols-3">
           <div class="card-input col-span-1 mobile:col-span-2">
             <label for="cardName" class="card-input__label">Name on card</label>
-            <input id="cardName" v-model="cardName" required type="text" class="card-input__input" data-ref="cardName" autocomplete="off" @focus="focusInput" @blur="blurInput">
+            <input
+              id="cardName"
+              :value="cardName"
+              required type="text"
+              class="card-input__input"
+              data-ref="cardName"
+              autocomplete="off"
+              @input="e => cardName = e.target.value.toUpperCase()"
+              @focus="focusInput"
+              @blur="blurInput">
           </div>
           <div class="card-input w-11 mobile:col-span-1 mobile:w-full">
             <label for="cardMonth" class="card-input__label">Valid(MM/YY)</label>
@@ -178,7 +197,7 @@
           Lanjutkan
         </button> -->
 
-        <BaseButton class="w-full mobile:w-full mt-10 mobile:mt-auto">
+        <BaseButton class="w-full mobile:w-full mt-10 mobile:mt-auto mb-8">
           Proses Pembayaran
         </BaseButton>
       </form>
@@ -270,6 +289,12 @@ export default {
     document.getElementById("cardNumber").focus();
   },
   methods: {
+    actionLimit (e) {
+      const number = /^\d+$/
+      if (number.test(e.target.value)) {
+        e.target.value = e.target.value.slice(0, e.target.maxLength)
+      }
+    },
     flipCard (status) {
       this.isCardFlipped = status;
     },
@@ -310,6 +335,18 @@ export default {
 </style>
 
 <style scoped lang="scss">
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .card-form__inner {
   // @apply bg-blue-2;
   @apply bg-transparent;

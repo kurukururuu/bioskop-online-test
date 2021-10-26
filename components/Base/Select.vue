@@ -2,7 +2,7 @@
   <div class="mb-4">
     <label>
       <div class="text-white text-xs opacity-50">{{ label }}</div>
-      <select v-bind="$attrs" :type="$attrs.type" class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500">
+      <select :value="$attrs.value" v-bind="$attrs" :type="$attrs.type" class="w-full border-b border-gray-400 bg-transparent focus:outline-none text-white font-bold text-sm placeholder-gray-500" @input="$emit('input', $event.target.value)">
         <option v-for="(item, i) in options" :key="i" :value="item" class="bg-blue-1 focus:outline-none text-white text-sm">{{ item }}</option>
       </select>
       <div class="text-xxs opacity-50 text-white">{{ $props.helperText }}</div>
@@ -37,3 +37,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+select {
+  box-sizing: content-box;
+  padding: 5px 0;
+}
+</style>

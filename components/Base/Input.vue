@@ -125,7 +125,8 @@ input[type='number'] {
     // background-color: #eee;
     border-radius: 50%;
     @apply cursor-pointer;
-    @apply bg-blue-4 bg-opacity-50;
+    // @apply bg-blue-4 bg-opacity-50;
+    @apply bg-transparent border border-white;
 
     &::after {
       top: 9px;

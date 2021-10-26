@@ -11,7 +11,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editPhone')">
       <div>
         <div class="text-sm mobile:text-xs">Nomor Handphone</div>
-        <div class="text-xs opacity-50 mobile:text-xxs">082111805008</div>
+        <div class="text-xs opacity-50 mobile:text-xxs">{{ data.phone }}</div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -21,7 +21,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editEmail')">
       <div>
         <div class="text-sm mobile:text-xs">Alamat Email</div>
-        <div class="text-xs"><span class="opacity-50">mantis.ch@gmail.com</span> <span class="text-green-600">(Terverifikasi)</span></div>
+        <div class="text-xs"><span class="opacity-50">{{ data.email }}</span> <span class="text-green-600">(Terverifikasi)</span></div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -43,7 +43,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editName')">
       <div>
         <div class="text-sm mobile:text-xs">Nama</div>
-        <div class="text-xs opacity-50 mobile:text-xxs">Mantis</div>
+        <div class="text-xs opacity-50 mobile:text-xxs">{{ data.name }}</div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -53,7 +53,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editGender')">
       <div>
         <div class="text-sm mobile:text-xs">Jenis Kelamin</div>
-        <div class="text-xs opacity-50 mobile:text-xxs">Laki-laki</div>
+        <div class="text-xs opacity-50 mobile:text-xxs">{{ data.gender }}</div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -63,7 +63,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editBirthDate')">
       <div>
         <div class="text-sm mobile:text-xs">Tanggal Lahir</div>
-        <div class="text-xs opacity-50 mobile:text-xxs">18 Agustus 1990</div>
+        <div class="text-xs opacity-50 mobile:text-xxs">{{ new Date(data.dob).toDateString() }}</div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -73,7 +73,7 @@
     <button class="flex items-center cursor-pointer w-full text-left" @click="$emit('open-menu', 'editLocation')">
       <div>
         <div class="text-sm mobile:text-xs">Lokasi</div>
-        <div class="text-xs opacity-50 mobile:text-xxs">Jl. Cilandak V No 18, Jakarta Selatan</div>
+        <div class="text-xs opacity-50 mobile:text-xxs">{{ data.location }}</div>
       </div>
       <ChevronRight :width="16" :height="16" class="ml-auto" />
     </button>
@@ -90,6 +90,14 @@ export default {
   components: {
     ChevronRight,
     XIcon
+  },
+  props: {
+    data: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
   }
 }
 </script>
