@@ -10,7 +10,7 @@
       <div class="text-xs mb-6">Verifikasi email anda disini. Jika terjadi kesalahan penulisan, silahkan ubah disini.</div>
       <form @submit.prevent="actionSubmit">
         <div class="border border-opacity-50 rounded-full px-7 py-3 mb-8 mobile:hidden">
-          <input v-model="form.email" required type="email" class="bg-transparent w-full text-sm focus:outline-none">
+          <input v-model="form.email" required type="email" class="bg-transparent w-full text-sm focus:outline-none" @invalid="handleInvalidForm">
         </div>
         <BaseInput v-model="form.email" required label="Email" name="email" type="email" class="desktop:hidden" />
         <BaseButton class="w-full desktop:text-lg mobile:w-full">Verifikasi</BaseButton>
@@ -36,6 +36,7 @@
 import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
 import MailIcon from '~/assets/icons/MailQuestion.svg?inline'
+import handleInvalidForm from '~/assets/js/helper/invalidFormHandler'
 
 export default {
   components: {
@@ -45,6 +46,7 @@ export default {
   },
   data() {
     return {
+      handleInvalidForm,
       form: {},
       verifyEmailSent: false
     }
@@ -53,7 +55,7 @@ export default {
     actionSubmit() {
       console.log('verification..')
       this.verifyEmailSent = true
-    }
+    },
   }
 }
 </script>
