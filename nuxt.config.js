@@ -20,9 +20,7 @@ export default {
   // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/scss/global.scss'
-  ],
+  css: ['~/assets/scss/global.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -31,7 +29,7 @@ export default {
     '~/plugins/touch',
     { src: '~/plugins/swiper', ssr: false },
     { src: '~/plugins/vue-carousel', ssr: false },
-    { src: '~/plugins/clever-tap', ssr: false}
+    { src: '~/plugins/clever-tap', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,7 +45,7 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/dotenv',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/device'
+    '@nuxtjs/device',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -57,15 +55,16 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/svg',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
   ],
-  
+
   auth: {
     // Options
     strategies: {
       facebook: {
         endpoints: {
-          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
+          userInfo:
+            'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
         },
         clientId: process.env.FACEBOOK_CLIENT_ID,
         scope: ['public_profile', 'email'],
@@ -80,30 +79,30 @@ export default {
       local: {
         token: {
           property: 'data.token',
-          maxAge: 3600
+          maxAge: 3600,
         },
         refreshToken: {
           property: 'refresh_token',
           data: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30
+          maxAge: 60 * 60 * 24 * 30,
         },
         user: {
-          property: 'data'
+          property: 'data',
         },
         endpoints: {
           login: { url: '/api/v1/login', method: 'post' },
           user: { url: '/api/v1/auth/me', method: 'get' },
           refresh: { url: '/api/v1/refresh', method: 'post' },
-          logout: false
-        }
+          logout: false,
+        },
       },
     },
     redirect: {
       login: '',
-      logout: '/',
+      logout: '/?logout=true',
       callback: '/auth/loginWithGoogle',
-      home: '/auth/loginWithGoogle'
-    }
+      home: '/auth/loginWithGoogle',
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -135,10 +134,10 @@ export default {
   googleFonts: {
     families: {
       Montserrat: true,
-    }
+    },
   },
 
   device: {
-    refreshOnResize: true
-  }
+    refreshOnResize: true,
+  },
 }
