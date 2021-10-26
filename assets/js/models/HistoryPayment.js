@@ -19,6 +19,7 @@ export class HistoryPayment {
     total_price = 0,
     item_type = '',
     payment_details = {},
+    duration = '',
     details = {},
     created_at = new Date(),
     updated_at = new Date()
@@ -27,6 +28,7 @@ export class HistoryPayment {
     this.title = title
     this.status = status
     this.payment_details = payment_details
+    this.duration = duration
     this.item_type = item_type
     this.totalPrice = total_price
     this.details = details
@@ -48,6 +50,7 @@ export class HistoryPayment {
       name: faker.name.title(),
       status: Math.floor(Math.random() * 5),
       total_price: faker.finance.amount(),
+      duration: '48 Jam',
       payment_details: {
         payment_id: `BO-${faker.datatype.number()}`,
         payment_method

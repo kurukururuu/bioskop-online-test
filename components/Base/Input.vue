@@ -21,6 +21,7 @@
       <template v-else-if="radio">
         <div class="relative radio-container">
           <input
+            :value="$attrs.value"
             type="radio"
             v-bind="$attrs"
             class="w-full border-b bg-transparent focus:outline-none font-bold text-sm placeholder-gray-500"
