@@ -51,6 +51,14 @@ export default {
   },
   methods: {
     clickActiveOnly(e, payload) {
+      // TO DO: clevertap event push
+      // const clevertap = window.clevertap
+      // clevertap.event.push("Banner Clicked", {
+      //   "Product name": "Casio Chronograph Watch",
+      //   "Category": "Mens Accessories",
+      //   "Price": 59.99,
+      //   "Date": new Date()
+      // });
       if (e.target.closest('.slick-active')) {
         this.$emit('active-click', payload)
       }

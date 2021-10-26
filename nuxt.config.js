@@ -30,7 +30,8 @@ export default {
     '~/plugins/tooltip',
     '~/plugins/touch',
     { src: '~/plugins/swiper', ssr: false },
-    { src: '~/plugins/vue-carousel', ssr: false }
+    { src: '~/plugins/vue-carousel', ssr: false },
+    { src: '~/plugins/clever-tap', ssr: false}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
