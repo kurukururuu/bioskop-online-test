@@ -81,18 +81,14 @@ export default {
           property: 'data.token',
           maxAge: 3600,
         },
-        refreshToken: {
-          property: 'refresh_token',
-          data: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30,
-        },
+        refreshToken: false,
         user: {
           property: 'data',
         },
         endpoints: {
-          login: { url: '/api/v1/login', method: 'post' },
-          user: { url: '/api/v1/auth/me', method: 'get' },
-          refresh: { url: '/api/v1/refresh', method: 'post' },
+          login: { url: '/auth/login', method: 'post' },
+          user: { url: '/user/profile', method: 'get' },
+          refresh: false,
           logout: false,
         },
       },

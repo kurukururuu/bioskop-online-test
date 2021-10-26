@@ -27,7 +27,6 @@ export const actions = {
         `${process.env.API_URL}/payment/payment-method`,
         {
           headers: {
-            Authorization: `Bearer ${this.$auth.user?.access_token}`,
             platform: this.$device.isMobileOrTablet ? 'web_mobile' : 'web',
           },
         }
