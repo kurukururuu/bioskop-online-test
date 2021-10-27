@@ -1,11 +1,17 @@
 <template>
-  <div class="bc-player">
+  <div class="bc-player relative overflow-hidden">
     <div ref="video" class="bp__inner"></div>
+    <transition name="watermark">
+      <div v-if="watermarkText" class="absolute z-10 cursor-default opacity-20 text-white font-bold"
+        :class="$device.isMobile ? 'text-sm' : $device.isTablet ? '' : 'text-2xl'"
+        :style="watermarkStyle">{{watermarkText}}</div>
+    </transition>
   </div>
 </template>
 
 <script>
 import bc from '@brightcove/player-loader'
+import faker from 'faker'
 
 export default {
   props: {
@@ -20,13 +26,28 @@ export default {
   },
   data() {
     return {
+      watermarkText: null,
+      interval: null,
+      watermarkStyle: 'top:0; left:0',
       options: {
         accountId: 6151045959001
       }
     }
   },
+  watch: {
+    watermarkText() {
+      if (process.browser) {
+        const top = Math.floor(Math.random() * document.body.clientHeight);
+        const left = Math.floor(Math.random() * document.body.clientWidth);
+        this.watermarkStyle = `top:${top}px;left:${left}px`
+      }
+    }
+  },
   mounted() {
     this.init()
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   },
   methods: {
     async init() {
@@ -45,6 +66,20 @@ export default {
       this.player && this.eventAttach()
       //
       this.isAutoPlay && this.autoPlay()
+
+      this.initWatermark()
+    },
+    initWatermark() {
+      const duration = 5000
+      
+      this.interval = setInterval(() => {
+        const randomString = faker.lorem.word() // random text
+        if (this.watermarkText) {
+          this.watermarkText = null
+        } else {
+          this.watermarkText = randomString
+        }
+      }, duration);
     },
     /**
      * destroy

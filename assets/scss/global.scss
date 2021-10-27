@@ -159,3 +159,24 @@
   transform: translateX(-15px);
   pointer-events: none;
 }
+
+.watermark-enter-active {
+  transition: all .25s ease-in-out;
+  transition-delay: 0.1s;
+  // position: relative;
+}
+
+.watermark-leave-active {
+  transition: all .25s ease-in-out;
+  // position: absolute;
+}
+
+.watermark-enter {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.watermark-leave-to {
+  opacity: 0;
+  pointer-events: none;
+}
