@@ -1,8 +1,8 @@
 <template>
   <swiper class="swiper" :options="options">
     <!-- <swiper-slide>Slide 1</swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide> -->
+    <!-- <swiper-slide>Slide 3</swiper-slide>
     <swiper-slide>Slide 4</swiper-slide>
     <swiper-slide>Slide 5</swiper-slide>
     <swiper-slide>Slide 6</swiper-slide>
@@ -67,8 +67,45 @@ export default {
   },
   data() {
     return {
-      defaultSwiperOption: {
-        loop: true,
+      // defaultSwiperOption: {
+      //   navigation: {
+      //     nextEl: '.swiper-button-next',
+      //     prevEl: '.swiper-button-prev'
+      //   },
+      //   breakpoints: {
+      //     1024: {
+      //       slidesPerView: 7,
+      //       spaceBetween: 10
+      //     },
+      //     768: {
+      //       slidesPerView: 4,
+      //       spaceBetween: 10
+      //     },
+      //     640: {
+      //       slidesPerView: 3,
+      //       spaceBetween: 10
+      //     },
+      //     320: {
+      //       slidesPerView: 3,
+      //       spaceBetween: 10
+      //     }
+      //   }
+      // }
+    }
+  },
+  computed: {
+    defaultSwiperOption() {
+      let loop = false
+      if (this.$device.isMobile) {
+        loop = this.data.length > 3
+      } else if (this.$device.isTablet) {
+        loop = this.data.length > 4
+      } else {
+        loop = this.data.length > 7
+      }
+
+      return {
+        loop,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
@@ -92,9 +129,7 @@ export default {
           }
         }
       }
-    }
-  },
-  computed: {
+    },
     options() {
       return {
         ...this.defaultSwiperOption,
@@ -104,13 +139,13 @@ export default {
   },
   mounted() {
     window.swiper = this
-    // if (this.$device.isMobile) {
-    //   this.defaultSwiperOption.loop = this.data.length > 3
-    // } else if (this.$device.isTablet) {
-    //   this.defaultSwiperOption.loop = this.data.length > 4
-    // } else {
-    //   this.defaultSwiperOption.loop = this.data.length > 7
-    // }
+    if (this.$device.isMobile) {
+      this.defaultSwiperOption.loop = this.data.length > 3
+    } else if (this.$device.isTablet) {
+      this.defaultSwiperOption.loop = this.data.length > 4
+    } else {
+      this.defaultSwiperOption.loop = this.data.length > 7
+    }
   }
 }
 </script>
