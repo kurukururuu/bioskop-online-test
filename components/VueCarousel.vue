@@ -10,7 +10,7 @@
     <client-only>
       <Carousel ref="carousel" loop :per-page-custom="[[320, 3.5], [769, 7]]" navigation-enabled :pagination-enabled="false" class="default-carousel">
         <Slide v-for="(item, i) in data" :key="i">
-          <img :src="$device.isMobile ? item.cover.potrait : item.cover.landscape" alt="film"
+          <img :src="$device.isMobile ? item.cover.portrait : item.cover.landscape" alt="film"
           class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
           @click="$emit('item-clicked', item)">
         </Slide>

@@ -32,7 +32,7 @@
     <swiper-slide>Slide 10</swiper-slide> -->
     <SwiperSlide v-for="(item, i) in data" :key="i"
       @click="$emit('item-clicked', item)">
-      <img :src="itemPotrait ? item.cover.potrait : item.cover.landscape" alt="film"
+      <img :src="itemPortrait ? item.cover.portrait : item.cover.landscape" alt="film"
         class="rounded-lg mobile:px-1 mx-auto film-cover object-cover cursor-pointer"
         @click="$emit('item-clicked', item)">
     </SwiperSlide>
@@ -58,7 +58,7 @@ export default {
         }
       }
     },
-    itemPotrait: {
+    itemPortrait: {
       type: Boolean,
       default() {
         return true
@@ -73,7 +73,6 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         },
-        slidesPerView: 7,
         breakpoints: {
           1024: {
             slidesPerView: 7,
@@ -105,6 +104,13 @@ export default {
   },
   mounted() {
     window.swiper = this
+    // if (this.$device.isMobile) {
+    //   this.defaultSwiperOption.loop = this.data.length > 3
+    // } else if (this.$device.isTablet) {
+    //   this.defaultSwiperOption.loop = this.data.length > 4
+    // } else {
+    //   this.defaultSwiperOption.loop = this.data.length > 7
+    // }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen film-page">
     <div class="header-cover"
-    :style="`background-image:url(${$device.isMobile ? data.cover.potrait : data.cover.landscape})`">
+    :style="`background-image:url(${$device.isMobile ? data.cover.portrait : data.cover.landscape})`">
       <div class="overlay" />
     </div>
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import faker from 'faker'
+import { title } from 'faker/lib/locales/id_ID'
 
 // status
 // 0: Currently available
@@ -10,13 +11,14 @@ import faker from 'faker'
 
 export class Film {
   constructor ({
+    // dummy
     id = null,
-    title = '',
+    // title = '',
     genre = [],
-    rating = '',
+    // rating = '',
     duration = '',
-    description = '',
-    price = 0,
+    // description = '',
+    // price = 0,
     cover = {},
     director = '',
     writer = '',
@@ -25,16 +27,63 @@ export class Film {
     statusText = '',
     release_date = new Date(),
     created_at = new Date(),
-    updated_at = new Date()
+    updated_at = new Date(),
+
+    // API
+    // article = null,
+    // currentDateTime = new Date(),
+    // hashed_id = null,
+    // series = null,
+    // title = {},
+    // type = {},
+
+    available_end = new Date(),
+    available_start = new Date(),
+    description = '',
+    due_date = null,
+    genres = [],
+    hashed_id = null,
+    images = {},
+    label = '',
+    layout = '',
+    limit = 0,
+    name = '',
+    paid = false,
+    price = {},
+    rating = {},
+    wishlist = false,
   } = {}) {
-    this.id = id
-    this.title = title
-    this.genre = genre
-    this.rating = rating
+    // this.id = id
+    // this.title = title
+    // this.genre = genre
+    // this.rating = rating
+    // this.duration = duration
+    // this.description = description
+    // this.price = price
+    // this.cover = cover
+    // this.director = director
+    // this.writer = writer
+    // this.studio = studio
+    // this.status = status
+    // this.statusText = statusText
+    // this.releaseDate = release_date
+    // this.timestamp = {
+    //   created: created_at,
+    //   updated: updated_at
+    // }
+
+    this.id = hashed_id
+    this.title = name
+    this.genre = genres
+    this.rating = rating.text || '-'
     this.duration = duration
     this.description = description
     this.price = price
-    this.cover = cover
+
+    this.cover = images
+    this.cover.portrait = images.portrait
+    this.cover.landscape = images.spotlight
+
     this.director = director
     this.writer = writer
     this.studio = studio
@@ -42,8 +91,9 @@ export class Film {
     this.statusText = statusText
     this.releaseDate = release_date
     this.timestamp = {
-      created: created_at,
-      updated: updated_at
+      // updated_at: currentDateTime,
+      start_date: available_start,
+      end_date: available_end,
     }
   }
 
@@ -62,7 +112,7 @@ export class Film {
       price: faker.finance.amount(),
       cover: {
         landscape: faker.image.abstract(1175,450,true),
-        potrait: faker.image.abstract(276,357,true)
+        portrait: faker.image.abstract(276,357,true)
       },
       director: [faker.name.findName(),faker.name.findName()],
       writer: [faker.name.findName(),faker.name.findName()],

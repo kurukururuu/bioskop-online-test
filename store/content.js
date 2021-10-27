@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import Film from '~/assets/js/models/Film'
+
 const INITIAL_STATE = {
   banners: [],
   listings: [],
@@ -17,10 +20,33 @@ export const mutations = {
 
 export const getters = {
   banners: (state) => {
-    return state.banners
+    const data = state.banners
+    const film = new Film()
+    const films = []
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      films.push(film.createItem(element.title))
+    }
+    return films
   },
   listings: (state) => {
-    return state.listings.filter((listing) => listing.items.length > 0)
+    const filtered = state.listings.filter((listing) => !!listing && listing.items.length > 0)
+    const film = new Film()
+    const list = []
+    for (let i = 0; i < filtered.length; i++) {
+      const element = filtered[i];
+      const obj = {}
+      if (!element) continue
+      obj.title = element.name
+      obj.type = element.type
+      obj.films = []
+      for (let j = 0; j < element.items.length; j++) {
+        const item = element.items[j];
+        obj.films.push(film.createItem(item))
+      }
+      list.push(obj)
+    }
+    return list
   },
 }
 

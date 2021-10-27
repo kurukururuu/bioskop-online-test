@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-5 gap-4">
     <div class="col-span-1">
-      <img :src="$device.isMobile ? cover.potrait : cover.landscape" alt="package" class="rounded">
+      <img :src="$device.isMobile ? cover.portrait : cover.landscape" alt="package" class="rounded">
     </div>
     <div class="col-span-4">
       <div class="font-bold">{{ details.title || details.name }}</div>

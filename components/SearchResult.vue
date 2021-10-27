@@ -1,7 +1,7 @@
 <template>
   <div>
     <SwiperComponent
-      item-potrait
+      item-portrait
       :swiper-option="swiperOption"
       :data="result"
       class="search-swiper"

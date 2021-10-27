@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex mb-8">
-      <img :src="$device.isMobile ? data.cover.potrait : data.cover.landscape" class="mobile:hidden film-cover object-cover rounded-lg">
+      <img :src="$device.isMobile ? data.cover.portrait : data.cover.landscape" class="mobile:hidden film-cover object-cover rounded-lg">
       <div class="flex flex-col w-full desktop:justify-end desktop:ml-8">
         <div class="flex justify-between items-center">
           <div>
@@ -12,7 +12,7 @@
               <div class="opacity-50 text-sm">{{data.duration}}</div>
             </div>
             <div v-if="data.status === 0" class="text-yellow-primary text-lg font-bold mb-4">
-              {{formatter.format(data.price)}}
+              {{formatter.format(price.normal)}}
             </div>
             <div v-else-if="data.status === 1" class="flex items-center mb-10">
               <ClockIcon width="20" height="20" stroke="white" class="mr-3" />
@@ -120,7 +120,11 @@ export default {
     }
   },
   computed: {
+    price() {
+      return this.data.price
+    },
     genre() {
+      console.log({data:this.data})
       return this.data.genre || []
     },
     director() {

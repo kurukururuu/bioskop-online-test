@@ -7,7 +7,7 @@
     </div>
 
     <div class="grid grid-cols-4 gap-3 mb-12">
-      <img src="/dummy/film-potrait.jpg" class="col-span-1">
+      <img src="/dummy/film-portrait.jpg" class="col-span-1">
       <div class="col-span-3 flex flex-col justify-between">
         <div>
           <div class="font-bold">STORY OF KALE</div>

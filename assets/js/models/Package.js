@@ -43,7 +43,7 @@ export class Package {
       name: faker.name.title(),
       cover: {
         landscape: faker.image.abstract(1175,450,true),
-        potrait: faker.image.abstract(276,357,true)
+        portrait: faker.image.abstract(276,357,true)
       },
       summary: faker.lorem.sentence(),
       price: faker.finance.amount(),

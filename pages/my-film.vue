@@ -19,7 +19,7 @@
         <div v-else key="2">
           <div class="grid grid-cols-4 gap-3">
             <nuxt-link v-for="(film, i) in films" :key="i" :to="`/film/${film.id}`" class="cursor-pointer">
-              <img :src="film.cover.potrait" alt="film" class="rounded-lg">
+              <img :src="film.cover.portrait" alt="film" class="rounded-lg">
             </nuxt-link>
           </div>
         </div>
