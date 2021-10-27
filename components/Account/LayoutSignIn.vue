@@ -77,17 +77,13 @@ export default {
   methods: {
     async actionLogin() {
       if (this.isAvailable) {
-        console.log('action login')
-        // dummy action
-        // TODO: later use $auth.loginWith method to login
-        // this.$emit('cancel')
-        // this.$emit('finish-login')
-
+        console.log('action login...')
         this.error = null
         this.disabled = true
         try {
           await this.$auth.loginWith('local', {data: this.form})
           this.$emit('cancel')
+          // this.setCleverTapUser() // minus identity from API, so disabled for now.
           if (this.$route.query.callbackAction) {
             this.$emit('finish-login', this.$route.query.callbackAction)
           }
@@ -101,10 +97,28 @@ export default {
           this.disabled = false
         }
       } else {
-        // dummy action
-        // TODO: later check username/phone from API
         this.isAvailable = true
       }
+    },
+    setCleverTapUser() {
+      // with the exception of one of Identity, Email, or FBID
+      // each of the following fields is optional
+      const user = this.$auth.user
+      window.clevertap.onUserLogin.push({
+      "Site": {
+        "Name": user.name,            // String
+        "Identity": 61026032,         // String or number
+        "Email": user.email,          // Email address of the user
+        "Phone": user.phone,          // Phone (with the country code)
+        "Gender": user.gender,        // Can be either M or F
+        "DOB": user.dob,              // Date of Birth. Date object
+        // optional fields. controls whether the user will be sent email, push etc.
+        "MSG-email": true,            // Disable email notifications
+        "MSG-push": true,             // Enable push notifications
+        "MSG-sms": true,              // Enable sms notifications
+        "MSG-whatsapp": true,         // Enable WhatsApp notifications
+      }
+      })
     }
   }
 }
