@@ -76,9 +76,9 @@ export default {
   },
   methods: {
     async actionLogin() {
+      this.error = null
       if (this.isAvailable) {
         console.log('action login...')
-        this.error = null
         this.disabled = true
         try {
           await this.$auth.loginWith('local', {data: this.form})
@@ -97,7 +97,18 @@ export default {
           this.disabled = false
         }
       } else {
-        this.isAvailable = true
+        const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.email)
+        const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.email)
+        if (isEmail) {
+          this.isAvailable = true
+        } else if (isMobile) {
+          this.$emit('cancel')
+          this.$emit('action', 'otp')
+        } else {
+          this.error = {
+            title: 'Silahkan isi hanya dengan email / nomor HP'
+          }
+        }
       }
     },
     setCleverTapUser() {
