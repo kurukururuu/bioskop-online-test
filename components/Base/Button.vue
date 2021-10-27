@@ -40,8 +40,10 @@ export default {
   computed: {
     classes() {
       const classes = []
-
-      if (this.dark) {
+      
+      if (this.disabled) {
+        classes.push('bg-white text-blue-1 opacity-50 cursor-not-allowed')
+      } else if (this.dark) {
         classes.push('bg-blue-2')
         classes.push('text-blue-4')
       } else {

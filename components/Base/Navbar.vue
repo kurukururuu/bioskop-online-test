@@ -7,7 +7,7 @@
         <Logo class="cursor-pointer" @click="$router.push('/')" />
         <div class="flex items-center text-white">
           <nuxt-link to="/" class="mr-8 mobile:hidden">Beranda</nuxt-link>
-          <nuxt-link to="/my-film" class="mr-8 mobile:hidden">Film Saya</nuxt-link>
+          <button class="mr-8 mobile:hidden" @click="handleMyFilm">Film Saya</button>
           <button class="px-4 py-2 bg-blue-2 bg-opacity-20 border border-opacity-20 rounded-full cursor-pointer flex items-center mr-8 mobile:hidden" @click="$router.push('/search')">
             <span>Cari</span>
             <SearchIcon :width="16" :height="16" stroke="white" class="cursor-pointer ml-4" />
@@ -52,11 +52,17 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return true
+      return this.$auth.loggedIn
     }
   },
   mounted() {
     window.navbar = this
+  },
+  methods: {
+    handleMyFilm() {
+      const event = new Event('login-myfilm');
+      this.$auth.loggedIn ? this.$router.push('/my-film') : window.dispatchEvent(event)
+    }
   }
 }
 </script>

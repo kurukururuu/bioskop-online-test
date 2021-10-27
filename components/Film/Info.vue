@@ -31,7 +31,7 @@
 
         <div class="flex mobile:grid mobile:grid-cols-3 mobile:gap-3">
           <BaseButton v-if="data.status !== 3" v-bind="$props" class="w-40 mobile:col-span-3 mobile:w-full"
-            @click="$emit('action', 'buy-ticket')">
+            @click="handleBuyTicket">
             Beli Tiket
           </BaseButton>
           <BaseButton dark v-bind="$props"
@@ -124,7 +124,6 @@ export default {
       return this.data.price
     },
     genre() {
-      console.log({data:this.data})
       return this.data.genre || []
     },
     director() {
@@ -132,6 +131,12 @@ export default {
     },
     writer() {
       return this.data.writer || []
+    }
+  },
+  methods: {
+    handleBuyTicket() {
+      const event = new Event('login-payment');
+      this.$auth.loggedIn ? this.$emit('action', 'buy-ticket') : window.dispatchEvent(event)
     }
   }
 }

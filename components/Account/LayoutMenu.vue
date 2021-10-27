@@ -104,7 +104,7 @@
         <!-- <div class="border border-opacity-20 w-full my-4"></div> -->
       </div>
 
-      <button class="text-sm font-bold text-red-secondary mt-4">
+      <button class="text-sm font-bold text-red-secondary mt-4" @click="$auth.logout()">
         KELUAR
       </button>
     </div>

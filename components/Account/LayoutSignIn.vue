@@ -29,9 +29,14 @@
       <span class="bg-blue-1 pt-0 px-3 text-xs" style="line-height: unset;">Atau</span>
     </div>
 
-    <form class="mb-6" @submit.prevent="actionLogin">
+    <FormErrorMessage :data="error" />
+
+    <form ref="form" class="mb-6" @submit.prevent="actionLogin">
       <div class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
-        <input v-model="form.username" required class="bg-transparent w-full text-sm focus:outline-none" placeholder="Nomor Ponsel / Email">
+        <input v-model="form.email" required class="input-signin" name="username" placeholder="Nomor Ponsel / Email">
+      </div>
+      <div v-if="isAvailable" class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
+        <BaseInput v-model="form.password" required password class="input-signin" name="password" placeholder="Password" label="" />
       </div>
       <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full">Masuk</BaseButton>
     </form>
@@ -58,15 +63,48 @@ export default {
   data() {
     return {
       disabled: false,
-      form: {}
+      form: {
+        email: 'krisna@ordent.co',
+        password: 'Test1234'
+      },
+      isAvailable: false,
+      error: null
     }
   },
+  mounted() {
+    window.signin = this
+  },
   methods: {
-    actionLogin() {
-      console.log('action login')
-      // dummy action
-      this.$emit('cancel')
-      this.$emit('finish-login')
+    async actionLogin() {
+      if (this.isAvailable) {
+        console.log('action login')
+        // dummy action
+        // TODO: later use $auth.loginWith method to login
+        // this.$emit('cancel')
+        // this.$emit('finish-login')
+
+        this.error = null
+        this.disabled = true
+        try {
+          await this.$auth.loginWith('local', {data: this.form})
+          this.$emit('cancel')
+          if (this.$route.query.callbackAction) {
+            this.$emit('finish-login', this.$route.query.callbackAction)
+          }
+        } catch (error) {
+          console.log({error})
+          const err = error.response
+          this.error = {
+            title: err.data.message
+          }
+        } finally {
+          this.disabled = false
+        }
+      } else {
+        // dummy action
+        // TODO: later check username/phone from API
+        this.isAvailable = true
+      }
     }
   }
 }
@@ -86,6 +124,18 @@ export default {
     // for mobile layout full-screen height
     // needs div parent with fixed or 100vh height
     @apply h-full flex flex-col;
+  }
+}
+</style>
+
+<style lang="scss">
+.input-signin {
+  @apply bg-transparent w-full text-sm focus:outline-none;
+
+  margin-bottom: 0 !important;
+
+  input {
+    border: none !important;
   }
 }
 </style>

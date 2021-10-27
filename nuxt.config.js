@@ -77,6 +77,7 @@ export default {
         responseType: 'code',
       },
       local: {
+        scheme: '~/schemes/customUser',
         token: {
           property: 'data.token',
           maxAge: 3600,
@@ -94,10 +95,10 @@ export default {
       },
     },
     redirect: {
-      login: '',
+      login: '/',
       logout: '/?logout=true',
       callback: '/auth/loginWithGoogle',
-      home: '/auth/loginWithGoogle',
+      home: false,
     },
   },
 

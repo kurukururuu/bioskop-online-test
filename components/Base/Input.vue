@@ -5,17 +5,18 @@
       <template v-if="password">
         <div class="relative">
           <input
-            :value="$attrs.value"
+            :required="$attrs.required"
             :type="hidePassword ? 'password' : 'text'"
             autocomplete="off"
             class="w-full border-b bg-transparent focus:outline-none  font-bold text-sm placeholder-gray-500"
             :class="error ? 'text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
-            @change="e => $emit('change', e)" />
-          <button class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
+            @change="$emit('change', $event)"
+            @input="$emit('input', $event.target.value)" />
+          <p class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white" @click="hidePassword = !hidePassword">
             <EyeHideIcon v-if="hidePassword" :width="20" :height="20" />
             <EyeIcon v-else :width="20" :height="20" fill="white" />
-          </button>
+          </p>
         </div>
       </template>
       <template v-else-if="radio">
@@ -27,7 +28,8 @@
             class="w-full border-b bg-transparent focus:outline-none font-bold text-sm placeholder-gray-500"
             :class="error ? 'error text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
-            @change="e => $emit('change', e)" />
+            @change="$emit('change', $event)"
+            @input="$emit('input', $event.target.value)" />
           <span class="radio" />
         </div>
       </template>
@@ -39,13 +41,14 @@
             class="w-full border-b bg-transparent focus:outline-none font-bold text-sm placeholder-gray-500"
             :class="error ? 'error text-red-secondary border-red-secondary' : 'text-white border-gray-400 border-opacity-20'"
             @focus="$emit('focus')"
-            @change="e => $emit('change', e)" />
+            @change="$emit('change', $event)"
+            @input="$emit('input', $event.target.value)" />
           <div class="absolute top-0 right-0 h-full flex items-center justify-center mr-1 text-white">
             <slot name="post-icon" />
           </div>
         </div>
       </template>
-      <div class="text-2xxs opacity-50 text-white">{{ $props.helperText }}</div>
+      <div v-if="helperText" class="text-2xxs opacity-50 text-white">{{ $props.helperText }}</div>
     </label>
   </div>
 </template>
@@ -95,6 +98,9 @@ export default {
     return {
       hidePassword: true
     }
+  },
+  mounted() {
+    window.input = this
   }
 }
 </script>
@@ -163,7 +169,7 @@ input[type='number'] {
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
+  input:-webkit-autofill:active, {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: white;
     

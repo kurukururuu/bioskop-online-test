@@ -29,13 +29,7 @@
       <span class="bg-blue-1 pt-0 px-3">Atau</span>
     </div>
     
-    <div class="flex items-center p-2 bg-red-secondary bg-opacity-20 border-red-secondary border-opacity-50 rounded-lg mb-6">
-      <ErrorIcon width="20" height="20" class="mr-1" />
-      <div v-if="error">
-        <div class="text-xxs font-bold">{{ error.title }}</div>
-        <div class="text-2xxs text-gray-400">{{ error.subtitle }}</div>
-      </div>
-    </div>
+    <FormErrorMessage :data="error" />
 
     <form @submit.prevent="actionRegister">
       <BaseInput v-model="form.name" required :error="error.type === 'name'" label="Nama Lengkap" name="name" />
@@ -51,7 +45,6 @@
 
 <script>
 // import ArrowCircleRight from '~/assets/icons/ArrowCircleRight.svg?inline'
-import ErrorIcon from '~/assets/icons/ErrorWarning.svg?inline'
 import FacebookIcon from '~/assets/icons/Facebook.svg?inline'
 import GoogleIcon from '~/assets/icons/Google.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
@@ -59,7 +52,6 @@ import XIcon from '~/assets/icons/XIcon.svg?inline'
 export default {
   components: {
     // ArrowCircleRight,
-    ErrorIcon,
     FacebookIcon,
     GoogleIcon,
     XIcon

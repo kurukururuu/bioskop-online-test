@@ -80,10 +80,15 @@ export default {
   },
   mounted() {
     window.slugFilm = this
+    window.addEventListener('action', this.handleAction)
+  },
+  beforeDestroy() {
+    window.removeEventListener('action', this.handleAction)
   },
   methods: {
     handleAction(v) {
-      switch (v) {
+      const act = v.detail || v
+      switch (act) {
         case 'buy-ticket':
           this.$modal.show('payment-modal')
       }

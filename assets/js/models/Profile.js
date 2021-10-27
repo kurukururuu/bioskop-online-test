@@ -4,23 +4,26 @@ import faker from 'faker/locale/id_ID'
 
 export class Profile {
   constructor ({
-    id = null,
-    name = '',
-    email = '',
+    first_name = '',
+    last_name = '',
+    email = {},
     gender = '',
-    phone = '',
+    phone = {},
     location = '',
-    dob = new Date(),
+    birthdate = new Date(),
     created_at = new Date(),
     updated_at = new Date()
   } = {}) {
-    this.id = id
-    this.name = name
-    this.email = email
+    this.name = `${first_name} ${last_name}`
+    this.email = email.mail
     this.gender = gender
-    this.phone = phone
+    this.phone = phone.number
     this.location = location
-    this.dob = dob
+    this.dob = birthdate
+    this.verifiedData = {
+      email: email.verified,
+      phone: phone.verified
+    }
     this.timestamp = {
       created: created_at,
       updated: updated_at

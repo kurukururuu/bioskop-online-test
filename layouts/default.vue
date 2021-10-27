@@ -39,7 +39,7 @@
       classes="modal-classes"
       width="400px"
       height="auto">
-      <AccountLayoutSignIn @cancel="$modal.hide('signin-modal')" @action="handleAction" @finish-login="$modal.show('verify-email')" />
+      <AccountLayoutSignIn @cancel="$modal.hide('signin-modal')" @action="handleAction" @finish-login="actionFinishLogin" />
     </Modal>
 
     <Modal name="verify-otp"
@@ -70,19 +70,35 @@ export default {
   },
   mounted() {
     window.layoutDefault = this
-    
-    if (process.browser) {
-      window.addEventListener('scroll', this.onScroll)
 
-      setTimeout(() => {
-        this.navbarOffset = this.$refs.navbar.$el.offsetTop
-      }, 300);
-    }
+    this.initEventListener()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('login-payment', () => {
+      this.$router.push({ path: this.$route.path, query: { callbackAction: 'open-payment' }})
+      this.handleAction('sign-in')
+    })
   },
   methods: {
+    initEventListener() {
+      if (process.browser) {
+        window.addEventListener('scroll', this.onScroll)
+        setTimeout(() => {
+          this.navbarOffset = this.$refs.navbar.$el.offsetTop
+        }, 300);
+
+        window.addEventListener('login-payment', () => {
+          this.$router.push({ path: this.$route.path, query: { callbackAction: 'open-payment' }})
+          this.handleAction('sign-in')
+        })
+
+        window.addEventListener('login-myfilm', () => {
+          this.$router.push({ path: this.$route.path, query: { callbackAction: 'open-myfilm' }})
+          this.handleAction('sign-in')
+        })
+      }
+    },
     onScroll (e) {
       const navbar = this.$refs.navbar
       const threshold = this.isStickyHeader ? this.navbarOffset : navbar.$el.offsetTop
@@ -106,6 +122,22 @@ export default {
         case 'otp':
           this.$modal.hide('verify-email')
           this.$modal.show('verify-otp')
+      }
+    },
+    actionFinishLogin(action) {
+      console.log('finish login, callback action:', action)
+      let event = null
+      switch (action) {
+        case 'verify-email':
+          this.$modal.show('verify-email')
+          break
+        case 'open-payment':
+          event = new CustomEvent('action', {detail: 'buy-ticket'})
+          window.dispatchEvent(event)
+          break
+        case 'open-myfilm':
+          this.$router.push('/my-film')
+          break
       }
     }
   }

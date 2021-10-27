@@ -19,7 +19,7 @@
 export default {
   computed: {
     isLoggedIn() {
-      return true
+      return this.$auth.loggedIn
     },
     categories() {
       // dummy
