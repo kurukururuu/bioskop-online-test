@@ -27,6 +27,7 @@
     "clevertap-web-sdk": "^1.0.0",
     "core-js": "^3.19.0",
     "faker": "^5.5.3",
+    "moment": "^2.29.1",
     "nuxt": "^2.15.7",
     "swiper": "5.x",
     "v-mask": "^2.2.4",
