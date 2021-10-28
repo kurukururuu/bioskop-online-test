@@ -11,18 +11,34 @@ export class PaymentMethod {
     img = '',
     methods = [],
     created_at = new Date(),
-    updated_at = new Date()
+    updated_at = new Date(),
+
+    // API
+    hashed_id = null,
+    category = '',
+    fee = 0,
+    fee_type = '',
+    image_url = '',
+    minimum_value = null,
+    name = ''
   } = {}) {
-    this.id = id
-    this.title = title
+    // this.id = id
+    // this.title = title
+    // this.url = url
+    // this.big = big
+    // this.img = img
+    // this.methods = methods
+    // this.timestamp = {
+    //   created: created_at,
+    //   updated: updated_at
+    // }
+    
+    this.id = hashed_id
+    this.title = category
     this.url = url
     this.big = big
     this.img = img
     this.methods = methods
-    this.timestamp = {
-      created: created_at,
-      updated: updated_at
-    }
   }
 
   createItem (data) {

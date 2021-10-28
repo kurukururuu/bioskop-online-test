@@ -20,7 +20,7 @@
       <PaymentStepOne v-if="paymentStep === 1" @cancel="cancelPayment" @next="paymentStep = 2" />
       <PaymentStepTwo v-if="paymentStep === 2" :list="listPaymentMethod" @cancel="cancelPayment" @next="paymentStep = 3" />
       <PaymentStepThree v-if="paymentStep === 3" :list="listPaymentMethod" @cancel="cancelPayment" @next="paymentStep = 4" @prev="paymentStep = 2" />
-      <PaymentStepFour v-if="paymentStep === 4" @cancel="$modal.hide('payment-modal')" @abort="abortPayment" @error="errorPayment" />
+      <PaymentStepFour v-if="paymentStep === 4" :list="listPaymentMethod" @cancel="$modal.hide('payment-modal')" @abort="abortPayment" @error="errorPayment" />
     </Modal>
 
     <Modal name="abort-payment"
@@ -52,7 +52,7 @@
 
 <script>
 import Film from '~/assets/js/models/Film'
-import PaymentMethod from '~/assets/js/models/PaymentMethod'
+// import PaymentMethod from '~/assets/js/models/PaymentMethod'
 
 export default {
   data() {
@@ -74,8 +74,11 @@ export default {
       return films
     },
     listPaymentMethod() {
-      const paymentMethod = new PaymentMethod()
-      return paymentMethod.createDummyList()
+      // dummy
+      // const paymentMethod = new PaymentMethod()
+      // return paymentMethod.createDummyList()
+
+      return this.$store.getters['payment/validPaymentMethods']
     }
   },
   mounted() {
@@ -90,8 +93,12 @@ export default {
       const act = v.detail || v
       switch (act) {
         case 'buy-ticket':
+          this.fetchPaymentMethods()
           this.$modal.show('payment-modal')
       }
+    },
+    fetchPaymentMethods() {
+      this.$store.dispatch('payment/fetchPaymentMethods')
     },
     cancelPayment() {
       this.$modal.hide('payment-modal')

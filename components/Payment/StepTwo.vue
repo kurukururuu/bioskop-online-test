@@ -143,7 +143,8 @@ export default {
   },
   methods: {
     actionChooseMethod(method) {
-      this.$store.commit('application/SET_PAYMENT', {method})
+      // this.$store.commit('transaction/SET_PAYMENT', method)
+      this.$store.dispatch('payment/selectPaymentMethod', method)
       this.$emit('next', method)
     }
   }

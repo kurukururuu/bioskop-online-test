@@ -36,7 +36,7 @@
       </div>
       <div class="flex justify-between items-center text-xs mb-4">
         <div>Metode Pembayaran</div>
-        <div class="font-semibold uppercase">{{ paymentMethod.code }}</div>
+        <div class="font-semibold uppercase">{{ paymentMethod.title }}</div>
       </div>
       <div class="flex justify-between items-center text-sm">
         <div>Total</div>
@@ -72,7 +72,8 @@ export default {
   },
   computed: {
     paymentMethod() {
-      const method = this.$store.state.application.payment.method
+      // const method = this.$store.state.transaction.paymentMethod
+      const method = this.$store.state.payment.selectedPaymentMethod
       let found = null
       for (let i = 0; i < this.list.length; i++) {
         const item = this.list[i];
@@ -82,7 +83,8 @@ export default {
         }
       }
       return {}
-    }
+      // return method
+    },
   }
 }
 </script>

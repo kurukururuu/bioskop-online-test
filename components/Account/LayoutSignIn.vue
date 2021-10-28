@@ -100,6 +100,7 @@ export default {
         const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.email)
         const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.email)
         if (isEmail) {
+          // TODO: check to API, verified or no
           this.isAvailable = true
         } else if (isMobile) {
           this.$emit('cancel')

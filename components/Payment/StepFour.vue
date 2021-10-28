@@ -1,14 +1,14 @@
 <template>
   <div class="text-white layout-payment-wrapper">
     <div class="flex justify-between items-center mb-8"
-      :class="paymentMethod === 'qris' && qrisStep === 1 ? 'hidden' : ''">
-      <div v-if="(paymentMethod !== 'qris' && qrisStep === 1) || (paymentMethod === 'qris' && qrisStep === 3)"
+      :class="paymentMethod.code === 'mdt-qris' && qrisStep === 1 ? 'hidden' : ''">
+      <div v-if="(paymentMethod.code !== 'mdt-qris' && qrisStep === 1) || (paymentMethod.code === 'mdt-qris' && qrisStep === 3)"
         class="text-xl font-bold mobile:text-sm">Menunggu Pembayaran</div>
       <div v-else class="text-xl font-bold mobile:text-sm">QRIS</div>
       <div class="text-sm text-red-primary cursor-pointer" @click="$emit('abort')">BATALKAN</div>
     </div>
     
-    <template v-if="paymentMethod === 'cc'">
+    <template v-if="paymentMethod.code === 'mdt-cc'">
       <div class="p-4 mb-8 flex justify-between">
         <div class="text-sm">Total Pembayaran</div>
         <div class="font-semibold">{{formatter.format(10000)}}</div>
@@ -16,23 +16,43 @@
 
       <CreditCard />
     </template>
-    <template v-else-if="paymentMethod === 'bca' || paymentMethod === 'telkomsel'">
+    <template v-else-if="paymentMethod.code === 'mdt-bca_va' || isUnipin">
       <PaymentTimer :end-time="paymentDetails.endDate" class="mb-7" />
-      <div class="text-sm font-semibold mb-3">Transfer ke nomor Virtual Account :</div>
-      <div class="px-3 py-2 flex justify-between items-center mb-7">
-        <div class="flex items-center">
-          <BCAIcon :width="24" :height="24" class="mr-3" />
-          <div ref="vaNumber" class="font-bold">{{ paymentDetails.vaNumber }}</div>
+      <template v-if="paymentMethod.code === 'mdt-bca_va'">
+        <div class="text-sm font-semibold mb-3">Transfer ke nomor Virtual Account :</div>
+        <div class="px-3 py-2 flex justify-between items-center mb-7">
+          <div class="flex items-center">
+            <BCAIcon :width="24" :height="24" class="mr-3" />
+            <div ref="vaNumber" class="font-bold">{{ paymentDetails.vaNumber }}</div>
+          </div>
+          <button v-tooltip="{
+              content: 'copied',
+              show: copySuccess,
+              trigger: 'manual',
+              placement: 'bottom',
+            }" class="text-blue-4 text-xs font-bold cursor-pointer"
+            @click="actionCopyVANumber"
+            >SALIN</button>
         </div>
-        <button v-tooltip="{
-            content: 'copied',
-            show: copySuccess,
-            trigger: 'manual',
-            placement: 'bottom',
-          }" class="text-blue-4 text-xs font-bold cursor-pointer"
-          @click="actionCopyVANumber"
-          >SALIN</button>
-      </div>
+      </template>
+      <template v-else-if="isUnipin">
+        <div class="text-sm font-semibold mb-3">Transfer ke nomor unipin :</div>
+        <div class="px-3 py-2 flex justify-between items-center mb-7">
+          <div class="flex items-center">
+            <img :src="paymentMethod.icon" alt="icon" class="w-6 h-6 mr-3">
+            <div ref="vaNumber" class="font-bold">{{ paymentDetails.vaNumber }}</div>
+          </div>
+          <button v-tooltip="{
+              content: 'copied',
+              show: copySuccess,
+              trigger: 'manual',
+              placement: 'bottom',
+            }" class="text-blue-4 text-xs font-bold cursor-pointer"
+            @click="actionCopyVANumber"
+            >SALIN</button>
+        </div>
+      </template>
+
       <div class="px-4 py-3 mb-10">
         <div class="text-xs font-bold mb-5">STORY OF KALE</div>
         <div class="flex justify-between text-sm">
@@ -42,13 +62,13 @@
       </div>
 
       <div class="px-4 py-3 mb-8 mobile:p-0">
-        <button class="flex justify-between items-center cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
+        <button class="flex justify-between items-center w-full cursor-pointer mb-4 mobile:cursor-default" @click="howToPayOpened = !howToPayOpened">
           <div class="text-sm font-bold">Cara Pembayaran</div>
           <ChevronRight :width="32" :height="32" class="transform rounded-full p-2 transition-all duration-300 ease-in-out mobile:hidden" :class="howToPayOpened ? '-rotate-90' : 'rotate-90'" />
         </button>
         <div class="transition-all duration-1000 ease-in-out overflow-hidden" :class="howToPayOpened ? 'max-h-screen' : 'max-h-0 mobile:max-h-screen'">
-          <div class="text-xs mb-2">Pembayaran via BCA Virtual Account</div>
-          <ol class="list-decimal list-inside text-xs">
+          <div class="text-xs mb-2">Pembayaran via {{ paymentMethod.title }}</div>
+          <ol v-if="paymentMethod.code === 'mdt-bca_va'" class="list-decimal list-inside text-xs">
             <li>Salin nomor Virtual account</li>
             <li>Buka aplikasi BCA mobila</li>
             <li>Masukan nomor Virtual Account</li>
@@ -57,15 +77,26 @@
             <li>Transaksi berhasil</li>
             <li>Buka Aplikasi Bioskop Online dan cek kembali transaksi kamu</li>
           </ol>
+          <ol v-else-if="isUnipin" class="list-decimal list-inside text-xs">
+            <li>Buka halaman UniPin</li>
+            <li>Periksa kembali detail pembayaran kamu</li>
+            <li>Isi data yang diperlukan</li>
+            <li>Jika sudah sesuai konfirmasi dan bayar</li>
+            <li>Transaksi berhasil</li>
+          </ol>
         </div>
       </div>
 
       <BaseButton :disabled="disabled" class="desktop:w-full mobile:w-full mb-4" @click="confirmPayment">Saya sudah membayar</BaseButton>
     </template>
 
-    <template v-else-if="paymentMethod === 'qris'">
-      <!-- mobile -->
+    <template v-else-if="paymentMethod.code === 'mdt-qris'">
+      <!-- desktop -->
       <div class="mobile:hidden">
+        <div class="flex justify-between items-center mb-9">
+          <div class="text-xl font-bold">Menunggu Pembayaran</div>
+          <div class="text-sm text-red-primary cursor-pointer" @click="$emit('abort')">BATALKAN</div>
+        </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="col-span-1">
             <div class="flex items-center mb-8">
@@ -110,9 +141,9 @@
           class="w-full h-96"></iframe>
       </div>
 
-      <!-- desktop -->
+      <!-- mobile -->
       <div class="desktop:hidden">
-        <template v-if="paymentMethod === 'qris' && qrisStep === 1">
+        <template v-if="paymentMethod.code === 'mdt-qris' && qrisStep === 1">
           <div class="font-semibold mb-5">Cara Pembayaran</div>
           <div class="text-xs mb-4">Pembayaran via QRIS</div>
           <ol class="list-decimal list-inside text-xs mb-14">
@@ -126,7 +157,7 @@
           </ol>
           <BaseButton class="text-lg mobile:w-full" @click="qrisStep = 2">Mengerti</BaseButton>
         </template>
-        <template v-else-if="paymentMethod === 'qris' && qrisStep === 2">
+        <template v-else-if="paymentMethod.code === 'mdt-qris' && qrisStep === 2">
           <div class="flex flex-col items-center">
             <div class="flex items-center mb-5">
               <ClockIcon width="20" height="20" stroke="white" class="mr-3" />
@@ -186,6 +217,14 @@ export default {
     ClockIcon,
     QrisIcon
   },
+  props: {
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data () {
     return {
       formatter,
@@ -197,6 +236,12 @@ export default {
     }
   },
   computed: {
+    isUnipin() {
+      // const list = ['uni-tsel', 'uni-idst', 'uni-xl', 'uni-tri']
+      const listPulsa = this.$store.getters['payment/validPaymentMethods'].find(v => v.title === 'Pulsa')
+      console.log('check',{listPulsa}, this.paymentMethod)
+      return !!listPulsa.methods.find(v => v.code === this.paymentMethod.code)
+    },
     paymentDetails() {
       // dummy
       const today = new Date();
@@ -208,9 +253,28 @@ export default {
       }
     },
     paymentMethod() {
-      // dummy, change this from store when ready
-      return this.$store.state.application.payment.method
-    }
+      // const method = this.$store.state.transaction.paymentMethod
+      const method = this.$store.state.payment.selectedPaymentMethod
+      let found = null
+      for (let i = 0; i < this.list.length; i++) {
+        const item = this.list[i];
+        found = item.methods.find(v => v.code === method)
+        if (found) {
+          return found
+        }
+      }
+      return {}
+      // return method
+    },
+    // paymentMethod() {
+    //   // dummy, change this from store when ready
+    //   // const method = this.$store.state.transaction.paymentMethod || {}
+    //   // return method
+    //   return this.$store.state.payment.selectedPaymentMethod
+    // }
+  },
+  mounted() {
+    window.asd = this
   },
   methods: {
     actionCopyVANumber() {

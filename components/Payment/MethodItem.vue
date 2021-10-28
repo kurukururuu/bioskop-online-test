@@ -5,12 +5,12 @@
       <label v-for="(method,i) in data.methods" :key="i"
         for="payment-method"
         :class="big ? 'flex justify-between w-full mb-2 hover:payment-item cursor-pointer' : 'col-span-1 flex justify-between hover:payment-item cursor-pointer'"
-        @click="$emit('choose', method.code)">
+        @click="$emit('choose', method)">
         <div class="flex items-center">
           <img :src="method.icon" alt="data.title" class="w-6 mr-3">
-          <div class="text-sm font-bold uppercase hover:text-blue-4 mobile:text-xs">{{ method.code }}</div>
+          <div class="text-sm font-bold uppercase hover:text-blue-4 mobile:text-xs">{{ method.title }}</div>
         </div>
-        <BaseInput :id="`method-${method.code}`" radio required label="" name="payment-method" class="w-5 flex items-center" :checked="isSelected(method.code)" />
+        <BaseInput :id="`method-${method}`" radio required label="" name="payment-method" class="w-5 flex items-center" :checked="isSelected(method)" />
       </label>
     </div>
       
@@ -47,7 +47,8 @@ export default {
   },
   methods: {
     isSelected(method) {
-      return this.$store.state.application.payment.method === method
+      // return this.$store.state.transaction.paymentMethod === method
+      return this.$store.state.payment.selectedPaymentMethod === method.code 
     }
   }
 }
