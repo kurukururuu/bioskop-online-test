@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="text-xs font-bold opacity-50 mb-3 uppercase">{{ data.title }}</div>
+    <!-- {{data}} -->
     <div :class="big ? 'flex items-center' : 'grid grid-cols-2 gap-5'">
       <label v-for="(method,i) in data.methods" :key="i"
         for="payment-method"
         :class="big ? 'flex justify-between w-full mb-2 hover:payment-item cursor-pointer' : 'col-span-1 flex justify-between hover:payment-item cursor-pointer'"
+        class="'col-span-1 flex justify-between hover:payment-item cursor-pointer'"
         @click="$emit('choose', method)">
         <div class="flex items-center">
           <img :src="method.icon" alt="data.title" class="w-6 mr-3">
@@ -13,8 +15,8 @@
         <BaseInput :id="`method-${method}`" radio required label="" name="payment-method" class="w-5 flex items-center" :checked="isSelected(method)" />
       </label>
     </div>
-      
-    <div v-if="big" class="flex justify-center w-full">
+
+    <div v-if="big || data.title === 'E-Wallet'" class="flex justify-center w-full mt-2">
       <img :src="data.img" alt="e-wallet">
     </div>
   </div>
@@ -29,15 +31,16 @@ export default {
         return {}
       }
     },
-    big: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    }
+    // big: {
+    //   type: Boolean,
+    //   default() {
+    //     return false
+    //   }
+    // }
   },
   data (){
     return {
+      big: false,
       form: {},
       sel: null
     }

@@ -31,13 +31,13 @@
 
     <FormErrorMessage :data="error" />
 
-    <form ref="form" class="mb-6" @submit.prevent="actionLogin">
+    <form class="mb-6" @submit.prevent="actionCheckUsername">
       <div class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
-        <input v-model="form.email" required class="input-signin" name="username" placeholder="Nomor Ponsel / Email">
+        <input v-model="form.emailOrPhone" required class="input-signin" name="username" placeholder="Nomor Ponsel / Email">
       </div>
-      <div v-if="isAvailable" class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
+      <!-- <div v-if="isAvailable" class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
         <BaseInput v-model="form.password" required password class="input-signin" name="password" placeholder="Password" label="" />
-      </div>
+      </div> -->
       <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full">Masuk</BaseButton>
     </form>
 
@@ -64,8 +64,8 @@ export default {
     return {
       disabled: false,
       form: {
-        email: 'krisna@ordent.co',
-        password: 'Test1234'
+        emailOrPhone: 'kurukururuu@gmail.com',
+        // password: 'Test1234'
       },
       isAvailable: false,
       error: null
@@ -75,41 +75,71 @@ export default {
     window.signin = this
   },
   methods: {
-    async actionLogin() {
+    async actionCheckUsername() {
       this.error = null
-      if (this.isAvailable) {
-        console.log('action login...')
-        this.disabled = true
-        try {
-          await this.$auth.loginWith('local', {data: this.form})
-          this.$emit('cancel')
-          // this.setCleverTapUser() // minus identity from API, so disabled for now.
-          if (this.$route.query.callbackAction) {
-            this.$emit('finish-login', this.$route.query.callbackAction)
-          }
-        } catch (error) {
-          console.log({error})
-          const err = error.response
-          this.error = {
-            title: err.data.message
-          }
-        } finally {
-          this.disabled = false
-        }
-      } else {
-        const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.email)
-        const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.email)
+      // if (this.isAvailable) {
+      //   console.log('action login...')
+      //   this.disabled = true
+      //   try {
+      //     await this.$auth.loginWith('local', {data: this.form})
+      //     this.$emit('cancel')
+      //     // this.setCleverTapUser() // minus identity from API, so disabled for now.
+      //     if (this.$route.query.callbackAction) {
+      //       this.$emit('finish-login', this.$route.query.callbackAction)
+      //     }
+      //   } catch (error) {
+      //     console.log({error})
+      //     const err = error.response
+      //     this.error = {
+      //       title: err.data.message
+      //     }
+      //   } finally {
+      //     this.disabled = false
+      //   }
+      // } else {
+      //   const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.email)
+      //   const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.email)
+      //   if (isEmail) {
+      //     // TODO: check to API, verified or no
+      //     this.isAvailable = true
+      //   } else if (isMobile) {
+      //     this.$emit('cancel')
+      //     this.$emit('action', 'otp')
+      //   } else {
+      //     this.error = {
+      //       title: 'Silahkan isi hanya dengan email / nomor HP'
+      //     }
+      //   }
+      // }
+      
+      try {
+        const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.emailOrPhone)
+        const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.emailOrPhone)
+        let verified = false
+        let form = {}
         if (isEmail) {
-          // TODO: check to API, verified or no
-          this.isAvailable = true
+          form = {email: this.form.emailOrPhone}
+          verified = await this.$store.dispatch('user/checkEmailVerified', {email: this.form.emailOrPhone})
         } else if (isMobile) {
-          this.$emit('cancel')
-          this.$emit('action', 'otp')
+          form = {phone: this.form.emailOrPhone}
+          verified = await this.$store.dispatch('user/checkPhoneVerified', {phone: this.form.emailOrPhone})
+        }
+        this.$store.commit('user/SET_FORM_LOGIN', form)
+
+        if (verified) {
+          this.$emit('action', 'input-password')
         } else {
-          this.error = {
-            title: 'Silahkan isi hanya dengan email / nomor HP'
+          const action = isEmail ? 'verify-email' : isMobile ? 'otp' : null
+          if (action) {
+            this.$emit('action', action)
+          } else {
+            this.error = {
+              title: 'Silahkan isi hanya dengan email / nomor HP'
+            }
           }
         }
+      } catch (error) {
+        
       }
     },
     setCleverTapUser() {

@@ -39,12 +39,12 @@
       classes="modal-classes"
       width="400px"
       height="auto">
-      <AccountLayoutSignIn @cancel="$modal.hide('signin-modal')" @action="handleAction" @finish-login="actionFinishLogin" />
+      <AccountLayoutSignIn @cancel="$modal.hide('signin-modal')" @action="handleAction" />
     </Modal>
 
     <Modal name="verify-otp"
       :click-to-close="false"
-      classes="modal-classes"
+      classes="modal-classes m-auto"
       width="400px"
       height="auto">
       <AccountLayoutVerifyOTP @cancel="$modal.hide('verify-otp')" />
@@ -56,6 +56,21 @@
       width="400px"
       height="auto">
       <AccountLayoutVerifyEmail @cancel="$modal.hide('verify-email')" @action="handleAction" />
+    </Modal>
+
+    <Modal name="input-password"
+      :click-to-close="false"
+      classes="modal-classes"
+      height="auto">
+      <AccountLayoutInputPassword @cancel="$modal.hide('input-password')" @action="handleAction" @finish-login="actionFinishLogin" />
+    </Modal>
+
+    <Modal name="forgot-password"
+      :click-to-close="false"
+      classes="modal-classes"
+      width="400px"
+      height="auto">
+      <AccountLayoutForgotPassword @cancel="$modal.hide('forgot-password')" @action="handleAction" />
     </Modal>
   </LayoutFullPageHeight>
 </template>
@@ -110,6 +125,7 @@ export default {
       }
     },
     handleAction(action) {
+      console.log('action', action)
       switch (action) {
         case 'sign-up':
           this.$modal.hide('signin-modal')
@@ -122,6 +138,19 @@ export default {
         case 'otp':
           this.$modal.hide('verify-email')
           this.$modal.show('verify-otp')
+          break
+        case 'verify-email':
+          this.$modal.hide('verify-otp')
+          this.$modal.show('verify-email')
+          break
+        case 'input-password':
+          this.$modal.hide('verify-otp')
+          this.$modal.hide('verify-email')
+          this.$modal.hide('signin-modal')
+          this.$modal.show('input-password')
+          break
+        case 'forgot-password':
+          this.$modal.show('forgot-password')
       }
     },
     actionFinishLogin(action) {

@@ -1,9 +1,9 @@
 <template>
-  <div class="text-white layout-verify-wrapper">
-    <div class="flex justify-end items-center mb-4 mobile:justify-start">
-      <!-- <ChevronRight :width="28" :height="28" class="mr-4 transform rotate-180 bg-white bg-opacity-40 rounded-full p-2 cursor-pointer desktop:hidden" @click="$emit('cancel')" />
-      <div class="text-xl font-bold mobile:text-lg">Verifikasi Kode OTP</div> -->
-      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer" @click="$emit('cancel')" />
+  <div class="text-white layout-login-wrapper">
+    <div class="flex justify-between items-center mb-4 mobile:justify-start">
+      <ChevronRight :width="28" :height="28" class="mr-4 transform rotate-180 bg-white bg-opacity-40 rounded-full p-2 cursor-pointer desktop:hidden" @click="$emit('cancel')" />
+      <div class="text-xl font-bold mobile:text-lg">Lupa Password</div>
+      <XIcon :width="20" :height="20" fill="white" class="cursor-pointer mobile:hidden" @click="$emit('cancel')" />
     </div>
 
     <div v-if="verify" class="flex flex-col items-center text-center">
@@ -17,27 +17,31 @@
         <span v-if="countdown" class="text-blue-4 font-bold">
           {{ minutes | two_digits }} : {{ seconds | two_digits }}
         </span>
-        <button v-else class="text-blue-4 font-bold" @click="setEndTime(new Date())">KIRIM ULANG</button>
+        <button v-else class="text-blue-4 font-bold" @click="actionForgotPass() && setEndTime(new Date())">KIRIM ULANG</button>
       </div>
 
       <div class="text-xs mb-5">Pakai nomor ponsel? <button @click="actionUseOTP"><span class="text-blue-4 font-bold">OTP</span></button></div>
     </div>
-    <div v-else class="flex flex-col items-center">
-      <div class="text-sm mb-3">Email Kamu belum terverifikasi</div>
-      <div class="p-2 text-red-secondary bg-red-secondary bg-opacity-20 border border-red-secondary border-opacity-50 rounded-full flex justify-center mb-16">
-        <ErrorIcon width="20" height="20" class="mr-1" />
-        <span class="font-bold">{{ $store.state.user.formLogin.email }}</span>
-      </div>
-    <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="verify = true">Verifikasi</BaseButton>
-    </div>
+
+    <template v-else>
+      <div class="text-xs mb-9">Masukan email atau nomor ponsel untuk membuat <br>password baru</div>
+
+      <FormErrorMessage :data="error" />
+
+      <form class="mb-6" @submit.prevent="actionForgotPass">
+        <div class="border border-opacity-50 rounded-full px-7 py-3 mb-4">
+          <input v-model="form.emailOrPhone" required class="input-signin" name="username" placeholder="Nomor Ponsel / Email">
+        </div>
+
+        <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full">Kirim</BaseButton>
+      </form>
+    </template>
   </div>
 </template>
 
 <script>
-// import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
+import ChevronRight from '~/assets/icons/ChevronRight.svg?inline'
 import XIcon from '~/assets/icons/XIcon.svg?inline'
-import validateOTP from '~/assets/js/helper/validateOTP'
-import ErrorIcon from '~/assets/icons/ErrorWarning.svg?inline'
 
 export default {
   filters: {
@@ -52,31 +56,23 @@ export default {
     }
   },
   components: {
-    // ChevronRight,
-    ErrorIcon,
+    ChevronRight,
     XIcon,
   },
   data() {
     return {
-      validateOTP,
       disabled: false,
-      form: {},
-      two_digits: 0,
-      endTime: new Date(),
       verify: false,
+      form: {
+        emailOrPhone: '',
+      },
+      error: null,
       countdown: true,
+      endTime: new Date(),
       now: Math.trunc((new Date()).getTime() / 1000),
     }
   },
   computed: {
-    // endTime() {
-    //   // dummy
-    //   const today = new Date();
-    //   // today.setMinutes(today.getMinutes() + 5);
-    //   today.setSeconds(today.getSeconds() + 10);
-
-    //   return today.toString()
-    // },
     dateInMilliseconds() {
       return Math.trunc(Date.parse(this.endTime) / 1000)
     },
@@ -94,16 +90,15 @@ export default {
         clearInterval(this.interval)
       }
     },
-  },
-  mounted() {
-    this.setEndTime(new Date())
-    this.init()
-  },
-  beforeDestroy() {
-    clearInterval(this.interval)
+    verify(newVal) {
+      if (newVal) {
+        this.setEndTime(new Date())
+        this.initCountdown()
+      }
+    }
   },
   methods: {
-    init() {
+    initCountdown() {
       if (setInterval) {
         this.interval = setInterval(() => {
           this.now = Math.trunc((new Date()).getTime() / 1000);
@@ -113,20 +108,36 @@ export default {
     },
     setEndTime(date) {
       // dummy
-      // const today = new Date();
       date.setMinutes(date.getMinutes() + 1);
-      // date.setSeconds(date.getSeconds() + 5);
 
       this.endTime = date.toString()
-      // console.log('set end', this.endTime, this.now)
-      this.init()
+      this.initCountdown()
     },
     actionUseOTP() {
       this.$emit('cancel')
       // this.$emit('action', 'sign-in')
     },
-    actionSubmit() {
-
+    async actionForgotPass() {
+      this.disabled = true
+      this.error = null
+      try {
+        const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.emailOrPhone)
+        const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.emailOrPhone)
+        let form = {}
+        if (isEmail) {
+          form = {email: this.form.emailOrPhone}
+        } else if (isMobile) {
+          form = {phone: this.form.emailOrPhone}
+        }
+        await this.$store.dispatch('user/actionForgotPass', form)
+        this.verify = true
+      } catch (error) {
+        this.error = {
+          title: error.message
+        }
+      } finally {
+        this.disabled = false
+      }
     }
   }
 }
@@ -134,30 +145,30 @@ export default {
 
 <style lang="scss" scoped>
 @media (min-width: 768px) {
-  .layout-verify-wrapper {
-    // width: 500px;
-    width: 400px;
+  .layout-login-wrapper {
+    width: 500px;
+    // width: fit-content;
     @apply bg-blue-1 p-8 border border-opacity-20 rounded-2xl;
   }
 }
 @media (max-width: 767px) {
-  .layout-verify-wrapper {
+  .layout-login-wrapper {
     @apply w-full bg-blue-1 p-4;
     // for mobile layout full-screen height
     // needs div parent with fixed or 100vh height
     @apply h-full flex flex-col;
   }
 }
+</style>
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+<style lang="scss">
+.input-signin {
+  @apply bg-transparent w-full text-sm focus:outline-none;
 
-/* Firefox */
-input[type='number'] {
-  -moz-appearance: textfield;
+  margin-bottom: 0 !important;
+
+  input {
+    border: none !important;
+  }
 }
 </style>

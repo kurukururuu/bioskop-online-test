@@ -8,6 +8,8 @@
 
     <div class="text-xs mb-2">Masukkan kode otp yang sudah dikirim ke nomor ponsel kamu</div>
     <div class="text-sm font-bold mb-6">0821115080005</div>
+    
+    <FormErrorMessage :data="error" />
 
     <form ref="form" class="mb-6" @submit.prevent="actionSubmit">
       <div class="border border-opacity-50 rounded-full px-7 py-3 mb-8">
@@ -59,9 +61,20 @@ export default {
       verify: false,
       countdown: true,
       now: Math.trunc((new Date()).getTime() / 1000),
+      // error: null,
+      OTPCode: null
     }
   },
   computed: {
+    error() {
+      if (!this.$store.state.user.errorMessage) {
+        return null
+      }
+      
+      return {
+        title: this.$store.state.user.errorMessage
+      }
+    },
     // endTime() {
     //   // dummy
     //   const today = new Date();
@@ -86,17 +99,31 @@ export default {
         clearInterval(this.interval)
       }
     },
+    // 'form.otp'(newVal) {
+    //   if (newVal.length === 6) {
+    //     this.actionSubmit()
+    //   }
+    // }
   },
   mounted() {
-    this.setEndTime(new Date())
-    this.init()
+    // this.setEndTime(new Date())
+    // this.initCountdown()
+    this.getOTP()
   },
   beforeDestroy() {
     clearInterval(this.interval)
   },
   methods: {
-    init() {
-      // this.now = Math.trunc((new Date()).getTime() / 1000)
+    async getOTP() {
+      const response = await this.$store.dispatch('user/getOTP', {phone: this.$store.state.user.formLogin.phone})
+      console.log(!!response, {response})
+      if (response) {
+        this.OTPCode = response.data
+      } else {
+        alert(response.data.message)
+      }
+    },
+    initCountdown() {
       if (setInterval) {
         this.interval = setInterval(() => {
           this.now = Math.trunc((new Date()).getTime() / 1000);
@@ -117,8 +144,19 @@ export default {
     actionClick() {
       this.$refs.form.requestSubmit()
     },
-    actionSubmit() {
+    async actionSubmit() {
+      // if (this.form.otp === this.OTPCode) {
+      const response = await this.$store.dispatch('user/verifyOTP', {phone: this.$store.state.user.formLogin.phone, code: this.form.otp})
+      console.log('res', response)
+      // if (response.success) {
 
+      // }
+      // } else {
+      //   this.error = {
+      //     title: 'Kode OTP yang kamu masukkan salah',
+      //     subtitle: 'Pastikan kode OTP yang kamu masukkan sudah benar'
+      //   }
+      // }
     }
   }
 }
