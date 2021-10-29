@@ -7,7 +7,7 @@
     </div>
 
     <div class="text-xs mb-2">Masukkan kode otp yang sudah dikirim ke nomor ponsel kamu</div>
-    <div class="text-sm font-bold mb-6">0821115080005</div>
+    <div class="text-sm font-bold mb-6">{{ $store.state.user.verifyData.phone }}</div>
     
     <FormErrorMessage :data="error" />
 
@@ -20,7 +20,7 @@
         <span v-if="countdown" class="text-blue-4 font-bold">
           {{ minutes | two_digits }} : {{ seconds | two_digits }}
         </span>
-        <button v-else class="text-blue-4 font-bold" @click="setEndTime(new Date())">KIRIM ULANG</button>
+        <button v-else class="text-blue-4 font-bold" @click="resendOTP">KIRIM ULANG</button>
       </div>
 
       <!-- <div class="text-center mb-6">Belum dapat kode? Kirim ulang dalam <span class="text-blue-4 font-bold">{{ minutes | two_digits }} : {{ seconds | two_digits }}</span></div> -->
@@ -106,8 +106,7 @@ export default {
     // }
   },
   mounted() {
-    // this.setEndTime(new Date())
-    // this.initCountdown()
+    window.otp = this
     this.getOTP()
   },
   beforeDestroy() {
@@ -115,13 +114,18 @@ export default {
   },
   methods: {
     async getOTP() {
-      const response = await this.$store.dispatch('user/getOTP', {phone: this.$store.state.user.formLogin.phone})
+      const response = await this.$store.dispatch('user/getOTP', {phone: this.$store.state.user.verifyData.phone})
       console.log(!!response, {response})
       if (response) {
         this.OTPCode = response.data
+        this.setEndTime(new Date())
+        this.initCountdown()
       } else {
         alert(response.data.message)
       }
+    },
+    resendOTP() {
+      this.getOTP()
     },
     initCountdown() {
       if (setInterval) {
@@ -139,7 +143,7 @@ export default {
 
       this.endTime = date.toString()
       // console.log('set end', this.endTime, this.now)
-      this.init()
+      this.initCountdown()
     },
     actionClick() {
       this.$refs.form.requestSubmit()

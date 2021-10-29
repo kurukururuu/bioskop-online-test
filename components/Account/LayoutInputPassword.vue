@@ -7,7 +7,7 @@
     </div>
     
     <div class="text-xs mb-3">Masukan password kamu, jika kamu lupa <br>password silahkan klik tombol lupa password</div>
-    <div class="text-sm font-bold mb-7">{{ $store.state.user.formLogin.email }}</div>
+    <div class="text-sm font-bold mb-7">{{ $store.state.user.verifyData.email }}</div>
 
     <FormErrorMessage :data="error" />
 
@@ -51,9 +51,12 @@ export default {
         
         if (response.status >= 200 && response.status < 300) {
           if (response.data.message === 'Akun belum terverifikasi.') {
-            this.error = {
-              title: response.data.message
-            }
+            this.$store.dispatch('SET_VERIFY_DATA', {...this.form, ...this.$store.state.user.formLogin})
+            this.$emit('cancel')
+            this.$emit('action', 'verify-email')
+            // this.error = {
+            //   title: response.data.message
+            // }
           } else {
             this.$emit('cancel')
             // this.setCleverTapUser() // minus identity from API, so disabled for now.

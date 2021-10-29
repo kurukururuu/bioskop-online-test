@@ -20,10 +20,10 @@
     <!-- Modals -->
     <Modal name="signup-modal"
       :click-to-close="false"
-      classes="modal-classes"
+      classes="modal-classes m-auto"
       width="400px"
       height="auto">
-      <AccountLayoutSignUp @cancel="$modal.hide('signup-modal')" @finish-register="$modal.show('verify-otp')" @complete-profile="$modal.show('complete-profile')" />
+      <AccountLayoutSignUp @cancel="$modal.hide('signup-modal')" @finish-register="$modal.show('verify-email')" @complete-profile="$modal.show('complete-profile')" />
     </Modal>
     
     <Modal name="complete-profile"
@@ -31,7 +31,7 @@
       classes="modal-classes"
       width="400px"
       height="auto">
-      <AccountLayoutCompleteProfile @cancel="$modal.hide('complete-profile')" @finish-register="$modal.show('verify-otp')" />
+      <AccountLayoutCompleteProfile @cancel="$modal.hide('complete-profile')" @finish-register="actionFinishRegister" />
     </Modal>
 
     <Modal name="signin-modal"
@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       isStickyHeader: false,
-      navbarOffset: 0
+      navbarOffset: 0,
     }
   },
   mounted() {
@@ -152,6 +152,10 @@ export default {
         case 'forgot-password':
           this.$modal.show('forgot-password')
       }
+    },
+    actionFinishRegister() {
+      this.$modal.hide('signup-modal')
+      this.$modal.show('verify-email')
     },
     actionFinishLogin(action) {
       console.log('finish login, callback action:', action)

@@ -16,7 +16,7 @@ export const mutations = {
     state.selectedPaymentMethod = payload
   },
   SET_CALCULATION: (state, payload) => {
-    state.paymentMethods = payload
+    state.calculation = payload
   },
 }
 

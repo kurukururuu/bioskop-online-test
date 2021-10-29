@@ -125,6 +125,7 @@ export default {
           verified = await this.$store.dispatch('user/checkPhoneVerified', {phone: this.form.emailOrPhone})
         }
         this.$store.commit('user/SET_FORM_LOGIN', form)
+        this.$store.commit('user/SET_VERIFY_DATA', form)
 
         if (verified) {
           this.$emit('action', 'input-password')

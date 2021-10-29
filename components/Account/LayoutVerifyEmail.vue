@@ -10,7 +10,7 @@
       <div class="font-bold mb-3">Menunggu verifikasi email</div>
       <div class="text-xs">Verifikasi dikirm ke email :</div>
       <div class="bg-blue-2 bg-opacity-20 p-2 flex justify-center font-bold rounded-full mb-3">
-        {{ $store.state.user.formLogin.email }}
+        {{ $store.state.user.verifyData.email }}
       </div>
       <div class="text-xs mb-6">Cek notifikasi email kamu kemudian <br>lakukan verifikasi</div>
       <div class="text-xs mb-5">Belum menerima email verifikasi? 
@@ -26,7 +26,7 @@
       <div class="text-sm mb-3">Email Kamu belum terverifikasi</div>
       <div class="p-2 text-red-secondary bg-red-secondary bg-opacity-20 border border-red-secondary border-opacity-50 rounded-full flex justify-center mb-16">
         <ErrorIcon width="20" height="20" class="mr-1" />
-        <span class="font-bold">{{ $store.state.user.formLogin.email }}</span>
+        <span class="font-bold">{{ $store.state.user.verifyData.email }}</span>
       </div>
     <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="verify = true">Verifikasi</BaseButton>
     </div>
@@ -55,6 +55,14 @@ export default {
     // ChevronRight,
     ErrorIcon,
     XIcon,
+  },
+  props: {
+    email: {
+      type: String,
+      default() {
+        return ''
+      }
+    }
   },
   data() {
     return {
@@ -123,7 +131,7 @@ export default {
     },
     actionUseOTP() {
       this.$emit('cancel')
-      // this.$emit('action', 'sign-in')
+      this.$emit('action', 'otp')
     },
     actionSubmit() {
 

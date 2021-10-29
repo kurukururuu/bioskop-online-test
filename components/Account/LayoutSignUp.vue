@@ -31,11 +31,11 @@
     
     <FormErrorMessage :data="error" />
 
-    <form @submit.prevent="actionRegister">
-      <BaseInput v-model="form.name" required :error="error.type === 'name'" label="Nama Lengkap" name="name" />
-      <BaseInput v-model="form.phone" required :error="error.type === 'phone'" label="Nomor Telepon" name="phone" type="number" />
-      <BaseInput v-model="form.email" required :error="error.type === 'email'" label="Alamat Email" name="email" type="email" />
-      <BaseInput v-model="form.password" password required :error="error.type === 'password'" label="Buat Password" name="password" type="password" helper-text="Min. 7 karakter berupa kombinasi angka, huruf besar dan huruf kecil" />
+    <form ref="form" @submit.prevent="actionRegister">
+      <BaseInput v-model="form.first_name" required :error="error ? error.type === 'name' : false" label="Nama Lengkap" name="name" />
+      <BaseInput v-model="form.phone" required :error="error ? error.type === 'phone' : false" label="Nomor Telepon" name="phone" type="text" />
+      <BaseInput v-model="form.email" required :error="error ? error.type === 'email' : false" label="Alamat Email" name="email" type="email" />
+      <BaseInput v-model="form.password" password required :error="error ? error.type === 'password' : false" label="Buat Password" name="password" type="password" helper-text="Min. 7 karakter berupa kombinasi angka, huruf besar dan huruf kecil" />
       
       <BaseButton class="w-full mb-2 mt-11 mobile:w-full">Selesai</BaseButton>
     </form>
@@ -59,26 +59,44 @@ export default {
   data () {
     return {
       form: {},
-      error: {
-        // dummy
-        title: 'Email yang kamu masukkan sudah terdaftar',
-        subtitle: 'Pastikan email yang di masukkan belum terdaftar',
-        type: 'email'
-      }
+      error: null
     }
   },
+  mounted() {
+    this.$store.commit('user/RESET_FORM_REGISTER')
+  },
   methods: {
-    actionRegister() {
+    async actionRegister() {
       console.log('action register')
       // dummy action
-      this.$emit('cancel')
-      this.$emit('finish-register')
+      // this.$emit('cancel')
+      // this.$emit('finish-register')
+
+      try {
+        await this.$store.dispatch('user/actionRegister', this.form)
+        this.$store.commit('user/SET_VERIFY_DATA', this.form)
+        this.$emit('cancel')
+        this.$emit('finish-register')
+      } catch (error) {
+        console.log({error})
+        this.error = {
+          title: error.message
+        }
+      }
     },
     actionCompleteProfile() {
       console.log('action complete profile')
       // dummy action
-      this.$emit('cancel')
-      this.$emit('complete-profile')
+      // this.$emit('cancel')
+
+      // this.$refs.form.requestSubmit()
+      const valid = this.$refs.form.checkValidity()
+      if (valid) {
+        this.$store.commit('user/SET_FORM_REGISTER', this.form)
+        this.$emit('complete-profile')
+      } else {
+        this.$refs.form.requestSubmit()
+      }
     }
   }
 }

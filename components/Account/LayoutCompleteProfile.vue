@@ -4,17 +4,19 @@
       <div class="text-xl font-bold">Lengkapi Biodata</div>
       <XIcon :width="20" :height="20" fill="white" class="cursor-pointer ml-auto" @click="$emit('cancel')" />
     </div>
+    
+    <FormErrorMessage :data="error" />
 
     <form @submit.prevent="actionCompleteProfile">
       <div class="text-xs mb-1">Jenis Kelamin</div>
       <div class="grid grid-cols-2 gap-4 mb-6">
         <label class="col-span-1 p-3 flex justify-between items-center border border-white border-opacity-20 rounded-lg cursor-pointer">
           <span>Laki - laki</span>
-          <BaseInput v-model="form.gender" radio required label="" name="gender" class="ml-2 w-5 flex items-center" />
+          <BaseInput v-model="form.gender" :checked="form.gender === 'M'" data-value="M" radio required label="" name="gender" class="ml-2 w-5 flex items-center" />
         </label>
         <label class="col-span-1 p-3 flex justify-between items-center border border-white border-opacity-20 rounded-lg cursor-pointer">
           <span>Perempuan</span>
-          <BaseInput v-model="form.gender" radio required label="" name="gender" class="ml-2 w-5 flex items-center" />
+          <BaseInput v-model="form.gender" :checked="form.gender === 'F'" data-value="F" radio required label="" name="gender" class="ml-2 w-5 flex items-center" />
         </label>
       </div>
       <BaseInput v-model="form.dob" required label="Tanggal Lahir" name="dob" type="date" class="mb-6" />
@@ -46,8 +48,12 @@ export default {
   data () {
     return {
       form: {},
-      modalContent: null
+      modalContent: null,
+      error: null
     }
+  },
+  mounted() {
+    this.form = Object.assign({}, this.$store.state.user.formRegister)
   },
   methods: {
     openLocationPopup() {
@@ -63,8 +69,21 @@ export default {
       this.modalContent = null
       this.$modal.hide('edit-modal')
     },
-    actionCompleteProfile() {
+    async actionCompleteProfile() {
       console.log('action complete profile', this.form)
+      this.$store.commit('user/SET_FORM_REGISTER', this.form)
+      try {
+        await console.log({...this.form, ...this.$store.state.user.formRegister})
+        await this.$store.dispatch('user/actionRegister', {...this.form, ...this.$store.state.user.formRegister})
+        this.$store.commit('user/SET_VERIFY_DATA', {...this.form, ...this.$store.state.user.formRegister})
+        this.$emit('cancel')
+        this.$emit('finish-register')
+      } catch (error) {
+        console.log({error})
+        this.error = {
+          title: error.message
+        }
+      }
     }
   }
 }

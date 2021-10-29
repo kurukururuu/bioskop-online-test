@@ -80,7 +80,7 @@ export default {
         scheme: '~/schemes/customUser',
         token: {
           property: 'data.token',
-          maxAge: 3600,
+          maxAge: 0,
         },
         refreshToken: false,
         user: {

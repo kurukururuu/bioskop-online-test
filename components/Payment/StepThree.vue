@@ -20,19 +20,19 @@
       <div class="text-sm font-bold">Rincian</div>
       <div class="flex justify-between items-center text-xs">
         <div>Harga Film</div>
-        <div class="font-semibold">{{formatter.format(10000)}}</div>
+        <div class="font-semibold">{{formatter.format(pricing.price)}}</div>
       </div>
       <div class="flex justify-between items-center text-xs">
         <div>Voucher</div>
-        <div class="font-semibold">-</div>
+        <div class="font-semibold">{{formatter.format(pricing.voucher)}}</div>
       </div>
       <div class="flex justify-between items-center text-xs">
         <div>Biaya Admin</div>
-        <div class="font-semibold">{{formatter.format(100)}}</div>
+        <div class="font-semibold">{{formatter.format(pricing.admin_fee)}}</div>
       </div>
       <div class="flex justify-between items-center text-xs">
         <div>Pajak</div>
-        <div class="font-semibold">{{formatter.format(500)}}</div>
+        <div class="font-semibold">{{formatter.format(pricing.gross_tax)}}</div>
       </div>
       <div class="flex justify-between items-center text-xs mb-4">
         <div>Metode Pembayaran</div>
@@ -40,7 +40,7 @@
       </div>
       <div class="flex justify-between items-center text-sm">
         <div>Total</div>
-        <div class="font-semibold">{{formatter.format(10600)}}</div>
+        <div class="font-semibold">{{formatter.format(pricing.gross_amount)}}</div>
       </div>
     </div>
 
@@ -85,6 +85,23 @@ export default {
       return {}
       // return method
     },
+    pricing() {
+      return this.$store.state.payment.calculation || {}
+    }
+  },
+  mounted() {
+    this.calculatePrice()
+  },
+  methods: {
+    calculatePrice() {
+      this.$store.dispatch('payment/calculatePrice',
+      { code: this.$store.state.payment.selectedPaymentMethod,
+        idTitle: this.$route.params.uid,
+        idSeries: null,
+        idPackage: null,
+        voucherCode: null
+      })
+    }
   }
 }
 </script>

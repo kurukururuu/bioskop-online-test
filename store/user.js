@@ -2,7 +2,9 @@ import moment from 'moment'
 
 const INITIAL_STATE = {
   errorMessage: null,
-  formLogin: {}
+  formLogin: {},
+  formRegister: {},
+  verifyData: {}
 }
 
 export const state = () => INITIAL_STATE
@@ -16,6 +18,15 @@ export const mutations = {
   },
   RESET_FORM_LOGIN: (state, payload) => {
     state.formLogin = {}
+  },
+  SET_FORM_REGISTER: (state, payload) => {
+    state.formRegister = {...state.formRegister, ...payload}
+  },
+  RESET_FORM_REGISTER: (state, payload) => {
+    state.formRegister = {}
+  },
+  SET_VERIFY_DATA: (state, payload) => {
+    state.verifyData = payload
   }
 }
 
@@ -160,4 +171,21 @@ export const actions = {
       return Promise.reject(new Error(err.response.data.message))
     }
   },
+  async actionRegister({commit}, payload) {
+    try {
+      const response = await this.$axios.post(
+        `/auth/register`, payload
+      )
+      console.log({response})
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(true)
+      } else {
+        commit('SET_ERROR_MESSAGE', response.data.message)
+        return Promise.reject(new Error(response.data.message))
+      }
+    } catch (err) {
+      console.error({err})
+      return Promise.reject(new Error(err.response.data.message))
+    }
+  }
 }

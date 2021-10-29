@@ -10,7 +10,7 @@
       <div class="font-bold mb-3">Menunggu verifikasi email</div>
       <div class="text-xs">Verifikasi dikirm ke email :</div>
       <div class="bg-blue-2 bg-opacity-20 p-2 flex justify-center font-bold rounded-full mb-3">
-        {{ $store.state.user.formLogin.email }}
+        {{ $store.state.user.verifyData.email }}
       </div>
       <div class="text-xs mb-6">Cek notifikasi email kamu kemudian <br>lakukan verifikasi</div>
       <div class="text-xs mb-5">Belum menerima email verifikasi? 
