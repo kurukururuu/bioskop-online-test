@@ -1,6 +1,6 @@
 <template>
   <div class="w-full bg-blue-1 text-white">
-    <div class="border border-opacity-20 w-full my-4" />
+    <!-- <div class="border border-opacity-20 w-full my-4" /> -->
 
     <div class="container mx-auto py-16 pt-4">
       <div class="flex justify-between">
