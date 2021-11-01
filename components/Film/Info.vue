@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex mb-8">
-      <img :src="$device.isMobile ? data.cover.portrait : data.cover.landscape" class="mobile:hidden film-cover object-cover rounded-lg">
+      <img :src="cover.portrait" class="mobile:hidden film-cover object-cover rounded-lg">
       <div class="flex flex-col w-full desktop:justify-end desktop:ml-8">
         <div class="flex justify-between items-center">
           <div>
@@ -73,15 +73,15 @@
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Sutradara</div>
-        <div>{{director.join(', ')}}</div>
+        <div>{{director.length > 0 ? director.join(', ') : '-'}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Penulis</div>
-        <div>{{writer.join(', ')}}</div>
+        <div>{{writer.length > 0 ? writer.join(', ') : '-'}}</div>
       </div>
       <div class="mb-1 text-sm mobile:text-xxs">
         <div class="opacity-50">Perusahaan Produksi</div>
-        <div>{{data.studio}}</div>
+        <div>{{data.studio || '-'}}</div>
       </div>
     </div>
   </div>
@@ -120,6 +120,9 @@ export default {
     }
   },
   computed: {
+    cover() {
+      return this.data.cover || {}
+    },
     price() {
       return this.data.price
     },
