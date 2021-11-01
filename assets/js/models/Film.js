@@ -12,9 +12,9 @@ import { title } from 'faker/lib/locales/id_ID'
 export class Film {
   constructor ({
     // dummy
-    id = null,
+    // id = null,
     // title = '',
-    genre = [],
+    // genre = [],
     // rating = '',
     duration = '',
     // description = '',
@@ -74,7 +74,9 @@ export class Film {
 
     this.id = hashed_id
     this.title = name
-    this.genre = genres
+
+    const genreList = genres.map(v => v.name) || []
+    this.genre = genreList
     this.rating = rating.text || '-'
     this.duration = duration
     this.description = description
@@ -90,6 +92,7 @@ export class Film {
     this.status = status
     this.statusText = statusText
     this.releaseDate = release_date
+    this.wishlist = wishlist
     this.timestamp = {
       // updated_at: currentDateTime,
       start_date: available_start,

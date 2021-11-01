@@ -51,7 +51,7 @@ export default {
         
         if (response.status >= 200 && response.status < 300) {
           if (response.data.message === 'Akun belum terverifikasi.') {
-            this.$store.dispatch('SET_VERIFY_DATA', {...this.form, ...this.$store.state.user.formLogin})
+            this.$store.commit('user/SET_VERIFY_DATA', {...this.form, ...this.$store.state.user.formLogin})
             this.$emit('cancel')
             this.$emit('action', 'verify-email')
             // this.error = {

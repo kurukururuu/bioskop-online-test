@@ -10,6 +10,7 @@ export const CONTENT_TYPE = {
 const INITIAL_STATE = {
   banners: [],
   listings: [],
+  otherList: [],
   detail: null,
 }
 
@@ -21,6 +22,9 @@ export const mutations = {
   },
   SET_LISTINGS: (state, payload) => {
     state.listings = payload
+  },
+  SET_OTHER_LIST: (state, payload) => {
+    state.otherList = payload
   },
   SET_DETAIL: (state, payload) => {
     state.detail = payload
@@ -59,6 +63,20 @@ export const getters = {
     }
     return list
   },
+  detail: (state) => {
+    const film = new Film()
+    return film.createItem(state.detail)
+  },
+  otherList: (state) => {
+    const data = state.otherList
+    const film = new Film()
+    const list = []
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      list.push(film.createItem(element))
+    }
+    return list
+  }
 }
 
 export const actions = {
@@ -94,16 +112,33 @@ export const actions = {
       console.error({ err })
     }
   },
-  async fetchDetail({ commit }, { type, hashedId }) {
+  async fetchOtherList({ commit }, payload) {
+    try {
+      const response = await this.$axios.$get(
+        `${process.env.API_URL}/video/genre/detail?limit=6&hashed_id=${payload.hashed_id}`
+      )
+      commit(
+        'SET_OTHER_LIST',
+        response.data
+      )
+    } catch (err) {
+      console.error({ err })
+    }
+  },
+  async fetchDetail({commit}, { type, hashedId }) {
     const handler = {
       [CONTENT_TYPE.FILM]: async (hashedId) => {
         const response = await this.$axios.$get(
           `${process.env.API_URL}/video/title?hashed_id=${hashedId}`
         )
-        const wishlistResponse = await this.$axios.get(
-          `${process.env.API_URL}/history/wishlist/${hashedId}`,
-          { validateStatus: () => true }
-        )
+        let wishlistResponse = {}
+        if (this.$auth.loggedIn) {
+          wishlistResponse = await this.$axios.get(
+            `${process.env.API_URL}/history/wishlist/${hashedId}`,
+            { validateStatus: () => true }
+          )
+        }
+        
         commit('SET_DETAIL', {
           ...response.data,
           type: CONTENT_TYPE.FILM,
@@ -123,9 +158,7 @@ export const actions = {
           response.data.seasons[response.data.seasons.length - 1].hashed_id // Always use latest season
         const episodesResponse = await this.$axios.get(
           `${process.env.SERIES_API_URL}/series-hashed/${hashedId}/seasons/${defaultSeasonId}/episodes`,
-          {
-            validateStatus: () => true,
-          }
+          { validateStatus: () => true }
         )
         let episodes = []
         if (episodesResponse.status >= 200 && episodesResponse.status < 300) {

@@ -1,16 +1,18 @@
 <template>
   <div class="min-h-screen film-page">
     <div class="header-cover"
-    :style="`background-image:url(${$device.isMobile ? data.cover.portrait : data.cover.landscape})`">
+    :style="`background-image:url(${cover.landscape})`">
       <div class="overlay" />
     </div>
 
     <div class="container mx-auto">
       <FilmInfo :data="data" class="relative -top-52 mb-7 z-10 mobile:top-0" @action="handleAction" />
 
-      <div class="text-lg font-bold mb-7 mobile:mb-4">Akan Datang</div>
-      <SwiperComponent :data="films"
-        class="mb-32" @item-clicked="v => $router.push(`/film/${v.id}`)" />
+      <template v-if="films.length > 0">
+        <div class="text-lg font-bold mb-7 mobile:mb-4">Akan Datang</div>
+        <SwiperComponent :data="films"
+          class="mb-32" @item-clicked="v => $router.push(`/film/${v.id}`)" />
+      </template>
     </div>
 
     <Modal name="payment-modal"
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-import Film from '~/assets/js/models/Film'
+// import Film from '~/assets/js/models/Film'
 // import PaymentMethod from '~/assets/js/models/PaymentMethod'
 
 export default {
@@ -60,18 +62,41 @@ export default {
       paymentStep: 1,
     }
   },
+  async fetch({store, params}) {
+    console.log('fetching details')
+    await store.dispatch('content/fetchDetail', {type: 'film', hashedId: params.uid})
+
+    const genres = store.state.content.detail.genres
+    for (let i = 0; i < genres.length; i++) {
+      const genre = genres[i];
+      console.log('genre', genre)
+      await store.dispatch('content/fetchOtherList', {hashed_id: genre.hashed_id})
+      // if (store.state.content)
+    }
+    
+  },
   computed: {
     data() {
-      const film = new Film()
-      return film.createDummy()
+      // const film = new Film()
+      // return film.createDummy()
+      return this.$store.getters['content/detail']
     },
     films() {
-      const films = []
-      const film = new Film()
-      for (let i = 0; i < 15; i++) {
-        films.push(film.createDummy())
+      // const films = []
+      // const film = new Film()
+      // for (let i = 0; i < 15; i++) {
+      //   films.push(film.createDummy())
+      // }
+      // return films
+      const data = this.$store.getters['content/otherList']
+      const list = []
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        if (element.id !== this.$route.params.uid) {
+          list.push(element)
+        }
       }
-      return films
+      return list
     },
     listPaymentMethod() {
       // dummy
@@ -79,6 +104,9 @@ export default {
       // return paymentMethod.createDummyList()
 
       return this.$store.getters['payment/validPaymentMethods']
+    },
+    cover() {
+      return this.data.cover || {}
     }
   },
   mounted() {
