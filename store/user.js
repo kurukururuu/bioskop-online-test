@@ -75,7 +75,7 @@ export const actions = {
       )
       console.log({response})
       if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(true)
+        return Promise.resolve(response.data)
       } else {
         commit('SET_ERROR_MESSAGE', response.data.message)
         return Promise.reject(new Error(response.data.message))
@@ -91,7 +91,7 @@ export const actions = {
         `/user/phone/${payload.phone}/password-ready`
       )
       if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(true)
+        return Promise.resolve(response.data)
       } else {
         commit('SET_ERROR_MESSAGE', response.data.message)
         return Promise.reject(new Error(response.data.message))
@@ -139,9 +139,10 @@ export const actions = {
     }
   },
   async actionForgotPass({commit}, payload) {
+    const url = payload.email ? `/auth/password/reset` : `/auth/password/phone-reset`
     try {
       const response = await this.$axios.post(
-        `/auth/password/reset`, payload
+        url, payload
       )
       if (response.status >= 200 && response.status < 300) {
         return Promise.resolve(true)
@@ -175,6 +176,23 @@ export const actions = {
     try {
       const response = await this.$axios.post(
         `/auth/register`, payload
+      )
+      console.log({response})
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(true)
+      } else {
+        commit('SET_ERROR_MESSAGE', response.data.message)
+        return Promise.reject(new Error(response.data.message))
+      }
+    } catch (err) {
+      console.error({err})
+      return Promise.reject(new Error(err.response.data.message))
+    }
+  },
+  async resendEmailVerification({commit}, payload) {
+    try {
+      const response = await this.$axios.post(
+        `/user/email/resend`, payload
       )
       console.log({response})
       if (response.status >= 200 && response.status < 300) {

@@ -63,13 +63,11 @@ export default {
     }
   },
   async fetch({store, params}) {
-    console.log('fetching details')
     await store.dispatch('content/fetchDetail', {type: 'film', hashedId: params.uid})
 
     const genres = store.state.content.detail.genres
     for (let i = 0; i < genres.length; i++) {
       const genre = genres[i];
-      console.log('genre', genre)
       await store.dispatch('content/fetchOtherList', {hashed_id: genre.hashed_id})
       // if (store.state.content)
     }

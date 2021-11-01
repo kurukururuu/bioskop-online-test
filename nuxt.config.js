@@ -74,7 +74,8 @@ export default {
         clientId: process.env.GOOGLE_CLIENT_ID,
         scope: ['profile', 'email'],
         codeChallengeMethod: '',
-        responseType: 'code',
+        responseType: 'id_token code',
+        user: false,
       },
       local: {
         scheme: '~/schemes/customUser',
@@ -100,6 +101,7 @@ export default {
       callback: '/auth/loginWithGoogle',
       home: false,
     },
+    plugins: [ '~/plugins/auth.js']
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

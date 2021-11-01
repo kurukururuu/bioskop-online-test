@@ -60,14 +60,14 @@
 
     <Modal name="input-password"
       :click-to-close="false"
-      classes="modal-classes"
+      classes="modal-classes m-auto"
       height="auto">
       <AccountLayoutInputPassword @cancel="$modal.hide('input-password')" @action="handleAction" @finish-login="actionFinishLogin" />
     </Modal>
 
     <Modal name="forgot-password"
       :click-to-close="false"
-      classes="modal-classes"
+      classes="modal-classes m-auto"
       width="400px"
       height="auto">
       <AccountLayoutForgotPassword @cancel="$modal.hide('forgot-password')" @action="handleAction" />

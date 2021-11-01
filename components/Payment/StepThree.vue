@@ -17,20 +17,20 @@
 
     <PaymentMethodButton :method="paymentMethod" @change-payment="$emit('prev')" />
     <div class="px-5 py-2 mb-9">
-      <div class="text-sm font-bold">Rincian</div>
-      <div class="flex justify-between items-center text-xs">
+      <div class="text-sm font-bold mb-1">Rincian</div>
+      <div class="flex justify-between items-center text-xs mb-1">
         <div>Harga Film</div>
         <div class="font-semibold">{{formatter.format(pricing.price)}}</div>
       </div>
-      <div class="flex justify-between items-center text-xs">
+      <div class="flex justify-between items-center text-xs mb-1">
         <div>Voucher</div>
         <div class="font-semibold">{{formatter.format(pricing.voucher)}}</div>
       </div>
-      <div class="flex justify-between items-center text-xs">
+      <div class="flex justify-between items-center text-xs mb-1">
         <div>Biaya Admin</div>
         <div class="font-semibold">{{formatter.format(pricing.admin_fee)}}</div>
       </div>
-      <div class="flex justify-between items-center text-xs">
+      <div class="flex justify-between items-center text-xs mb-1">
         <div>Pajak</div>
         <div class="font-semibold">{{formatter.format(pricing.gross_tax)}}</div>
       </div>

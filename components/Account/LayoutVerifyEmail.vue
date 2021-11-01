@@ -17,7 +17,7 @@
         <span v-if="countdown" class="text-blue-4 font-bold">
           {{ minutes | two_digits }} : {{ seconds | two_digits }}
         </span>
-        <button v-else class="text-blue-4 font-bold" @click="setEndTime(new Date())">KIRIM ULANG</button>
+        <button v-else class="text-blue-4 font-bold" @click="actionResendEmail() && setEndTime(new Date())">KIRIM ULANG</button>
       </div>
 
       <div class="text-xs mb-5">Pakai nomor ponsel? <button @click="actionUseOTP"><span class="text-blue-4 font-bold">OTP</span></button></div>
@@ -28,7 +28,7 @@
         <ErrorIcon width="20" height="20" class="mr-1" />
         <span class="font-bold">{{ $store.state.user.verifyData.email }}</span>
       </div>
-    <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="verify = true">Verifikasi</BaseButton>
+    <BaseButton :disabled="disabled" class="w-full desktop:text-lg mobile:w-full mobile:mt-auto" @click="actionVerify">Verifikasi</BaseButton>
     </div>
   </div>
 </template>
@@ -131,10 +131,14 @@ export default {
     },
     actionUseOTP() {
       this.$emit('cancel')
-      this.$emit('action', 'otp')
+      this.$emit('action', 'sign-in')
     },
-    actionSubmit() {
-
+    async actionResendEmail() {
+      await this.$store.dispatch('user/resendEmailVerification', {email: this.$store.state.user.verifyData.email})
+    },
+    async actionVerify() {
+      await this.actionResendEmail()
+      this.verify = true
     }
   }
 }

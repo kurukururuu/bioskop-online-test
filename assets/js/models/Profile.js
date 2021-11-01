@@ -14,7 +14,7 @@ export class Profile {
     created_at = new Date(),
     updated_at = new Date()
   } = {}) {
-    this.name = `${first_name} ${last_name}`
+    this.name = first_name
     this.email = email.mail
     this.gender = gender
     this.phone = phone.number

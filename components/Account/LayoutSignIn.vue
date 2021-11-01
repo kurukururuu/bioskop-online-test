@@ -115,22 +115,24 @@ export default {
       try {
         const isEmail = (/^[a-zA-Z0-9.!#$%&‘*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test(this.form.emailOrPhone)
         const isMobile = (/^(^\+62|^08)\d{8,12}$/).test(this.form.emailOrPhone)
-        let verified = false
+        let response = false
         let form = {}
         if (isEmail) {
           form = {email: this.form.emailOrPhone}
-          verified = await this.$store.dispatch('user/checkEmailVerified', {email: this.form.emailOrPhone})
+          response = await this.$store.dispatch('user/checkEmailVerified', {email: this.form.emailOrPhone})
         } else if (isMobile) {
           form = {phone: this.form.emailOrPhone}
-          verified = await this.$store.dispatch('user/checkPhoneVerified', {phone: this.form.emailOrPhone})
+          response = await this.$store.dispatch('user/checkPhoneVerified', {phone: this.form.emailOrPhone})
         }
         this.$store.commit('user/SET_FORM_LOGIN', form)
         this.$store.commit('user/SET_VERIFY_DATA', form)
 
-        if (verified) {
+        console.log({response})
+        if (response.data.password && response.data.verified) {
           this.$emit('action', 'input-password')
         } else {
           const action = isEmail ? 'verify-email' : isMobile ? 'otp' : null
+          console.log('act', action)
           if (action) {
             this.$emit('action', action)
           } else {

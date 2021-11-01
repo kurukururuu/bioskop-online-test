@@ -115,6 +115,7 @@ export default {
     },
     actionUseOTP() {
       this.$emit('cancel')
+      this.verify = false
       // this.$emit('action', 'sign-in')
     },
     async actionForgotPass() {
