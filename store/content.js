@@ -94,7 +94,7 @@ export const actions = {
       console.error({ err })
     }
   },
-  async fetchDetail({ commit }, { type, hashedId }) {
+  async fetchDetail({ commit }, { type, hashedId } = {}) {
     const handler = {
       [CONTENT_TYPE.FILM]: async (hashedId) => {
         const response = await this.$axios.$get(

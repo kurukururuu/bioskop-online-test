@@ -3,6 +3,7 @@ import PaymentMethod from "~/assets/js/models/PaymentMethod"
 const INITIAL_STATE = {
   paymentMethods: [],
   selectedPaymentMethod: null,
+  invoice: null,
   calculation: {},
 }
 
@@ -91,12 +92,13 @@ export const actions = {
       console.error({ err })
     }
   },
-  selectPaymentMethod({ commit }, { code }) {
+  selectPaymentMethod({ commit }, { code } = {}) {
     commit('SET_SELECTED_PAYMENT_METHOD', code)
+    // perlukah manggil calculate price disini?
   },
   async calculatePrice(
     { commit },
-    { code, idTitle, idSeries, idPackage, voucherCode }
+    { code, idTitle, idSeries, idPackage, voucherCode } = {}
   ) {
     commit('SET_CALCULATION', null)
     try {
@@ -115,6 +117,14 @@ export const actions = {
       commit('SET_CALCULATION', response.data)
     } catch (err) {
       console.error({ err })
+    }
+  },
+  issuePayment(
+    { commit, state },
+    { code, idTitle, idSeries, idPackage, voucherCode, phone, email } = {}
+  ) {
+    if (state.calculation) {
+      console.log({ calculation: state.calculation })
     }
   },
 }

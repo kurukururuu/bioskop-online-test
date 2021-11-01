@@ -35,7 +35,7 @@ export const getters = {}
 export const actions = {
   async register(
     { commit },
-    { name, email, phone, password, gender, birthdate }
+    { name, email, phone, password, gender, birthdate } = {}
   ) {
     commit('SET_ERROR_MESSAGE', null)
     const formData = {
