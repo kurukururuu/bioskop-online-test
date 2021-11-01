@@ -1,6 +1,6 @@
 <template>
   <div class="py-8">
-    <div class="container mx-auto max-w-3xl">
+    <div class="container w-3/5 mx-auto">
       <div class="text-2xl font-bold mb-9">Film Saya</div>
 
       <div class="flex border-b border-white border-opacity-20 w-full mb-12">
@@ -12,25 +12,25 @@
           @click="activeTabs = 'list'">Daftarku</div>
       </div>
 
-      <transition name="slide-left">
+      <!-- <transition name="slide-left"> -->
         <div v-if="activeTabs === 'watch'" key="1">
           <MyFilmItem v-for="(collection, i) in collections" :key="i" :data="collection" class="mb-10" />
         </div>
         <div v-else key="2">
           <div class="grid grid-cols-4 gap-3">
-            <nuxt-link v-for="(film, i) in films" :key="i" :to="`/film/${film.id}`" class="cursor-pointer">
-              <img :src="film.cover.portrait" alt="film" class="rounded-lg">
+            <nuxt-link v-for="(film, i) in films" :key="i" :to="`/film/${film.hashed_id}`" class="cursor-pointer">
+              <img :src="film.images.thumbnail_portrait" alt="film" class="rounded-lg">
             </nuxt-link>
           </div>
         </div>
-      </transition>
+      <!-- </transition> -->
     </div>
   </div>
 </template>
 
 <script>
-import MyFilm from '~/assets/js/models/MyFilm'
-import Film from '~/assets/js/models/Film'
+// import MyFilm from '~/assets/js/models/MyFilm'
+// import Film from '~/assets/js/models/Film'
 
 export default {
   data() {
@@ -40,21 +40,27 @@ export default {
   },
   computed: {
     collections() {
-      const collections = []
-      const collection = new MyFilm()
-      for (let i = 0; i < 15; i++) {
-        collections.push(collection.createDummy())
-      }
-      return collections
+      // const collections = []
+      // const collection = new MyFilm()
+      // for (let i = 0; i < 15; i++) {
+      //   collections.push(collection.createDummy())
+      // }
+      // return collections
+      return this.$store.getters['history/rents']
     },
     films() {
-      const films = []
-      const film = new Film()
-      for (let i = 0; i < 15; i++) {
-        films.push(film.createDummy())
-      }
-      return films
+      // const films = []
+      // const film = new Film()
+      // for (let i = 0; i < 15; i++) {
+      //   films.push(film.createDummy())
+      // }
+      return this.$store.getters['history/wishlist']
     }
-  }
+  },
+  async mounted() {
+    window.my = this
+    await this.$store.dispatch('history/fetchRents')
+    await this.$store.dispatch('history/fetchWish')
+  },
 }
 </script>

@@ -7,12 +7,21 @@ export class MyFilm {
   constructor ({
     id = null,
     film = {},
+    items = {},
+    available_start = new Date(),
+    currentDateTime = new Date(),
+    expired_at = new Date(),
     duration = new Date(),
     created_at = new Date(),
     updated_at = new Date()
   } = {}) {
+  
+    const filmModel = new Film()
+    this.available = available_start
+    this.current = currentDateTime
+    this.expired = expired_at
     this.id = id
-    this.film = film
+    this.film = filmModel.createItem(items)
     this.timestamp = {
       created: created_at,
       updated: updated_at,

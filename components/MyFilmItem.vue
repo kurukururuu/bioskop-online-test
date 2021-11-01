@@ -5,7 +5,8 @@
       <div>
         <div class="text-xl font-bold mb-2">{{ filmData.title }}</div>
         <div class="text-sm font-normal mb-2">{{ modifiedDescription }}</div>
-        <div class="text-xs text opacity-50">Berlaku sampai {{new Date(timestamp.duration).toLocaleString()}}</div>
+        <!-- <div class="text-xs text opacity-50">Berlaku sampai {{new Date(timestamp.duration).toLocaleString()}}</div> -->
+        <div class="text-xs text opacity-50">Berlaku sampai {{expired(data.expired)}} WIB</div>
       </div>
       <div class="flex items-center" :class="filmData.duration ? 'justify-between' : 'justify-end'">
         <div v-if="filmData.duration" class="bg-blue-2 bg-opacity-50 p-2 flex items-center rounded-full mr-4">
@@ -25,6 +26,8 @@
 
 <script>
 import PathIcon from '~/assets/icons/Path.svg?inline'
+// eslint-disable-next-line import/order
+import moment from 'moment'
 
 export default {
   components: {
@@ -67,6 +70,15 @@ export default {
     timestamp() {
       return this.data.timestamp
     },
+  },
+  mounted() {
+    window.mine = this
+  },
+  methods: {
+    expired(e) {
+      const date = moment(e).format('DD MMM YYYY h:mm')
+      return date
+    }
   }
 }
 </script>
