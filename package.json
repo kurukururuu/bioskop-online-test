@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
-    "@commitlint/cli": "^12.1.4",
+    "@commitlint/cli": "^16.0.1",
     "@commitlint/config-conventional": "^12.1.4",
     "@nuxtjs/device": "^2.1.0",
     "@nuxtjs/dotenv": "^1.4.1",
