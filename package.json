@@ -39,7 +39,7 @@
     "vue2-touch-events": "^3.2.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/eslint-parser": "^7.19.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@nuxtjs/device": "^2.1.0",
